@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="da6bda82e0f34918bb812e3b1e93dc94" Name="Diagram1" ZoomLevel="92">
+        <EntityTypeShape EntityType="LIVEModel.sUser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIVEModel.sMenu" Width="1.5" PointX="3.75" PointY="4.625" />
+        <EntityTypeShape EntityType="LIVEModel.sPlant" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="LIVEModel.sRole" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LIVEModel.sUserPage" Width="1.5" PointX="9" PointY="4" />
+        <AssociationConnector Association="LIVEModel.fk_MenuID" />
+        <AssociationConnector Association="LIVEModel.fk_RoleID" />
+        <EntityTypeShape EntityType="LIVEModel.FrdMachine" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdParameter" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="LIVEModel.sDocument" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdSupplier" Width="1.5" PointX="9.375" PointY="8.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdStockMaster" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdItem" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdRequestDetail" Width="1.5" PointX="11.375" PointY="9.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdRequestMaster" Width="1.5" PointX="3.375" PointY="12.75" />
+        <EntityTypeShape EntityType="LIVEModel.sBenificiary" Width="1.5" PointX="11.375" PointY="12.75" />
+        <EntityTypeShape EntityType="LIVEModel.sDesignation" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="LIVEModel.sUnit" Width="1.5" PointX="13.375" PointY="3.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdApproval" Width="1.5" PointX="5.375" PointY="13.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdReceiveDetail" Width="1.5" PointX="13.375" PointY="6.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdReceiveMaster" Width="1.5" PointX="7.375" PointY="13.75" />
+        <EntityTypeShape EntityType="LIVEModel.sPageName" Width="1.5" PointX="6" PointY="4.375" />
+        <AssociationConnector Association="LIVEModel.fk_Menu" />
+        <EntityTypeShape EntityType="LIVEModel.sDept" Width="1.5" PointX="13.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

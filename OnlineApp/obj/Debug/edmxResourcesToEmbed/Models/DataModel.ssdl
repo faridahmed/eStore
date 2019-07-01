@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LIVEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="FrdApproval">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="AppID" />
+    </Key>
+    <Property Name="PlantID" Type="int" Nullable="false" />
+    <Property Name="RefNo" Type="int" />
+    <Property Name="AppID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstApp" Type="varchar" MaxLength="50" />
+    <Property Name="SecondApp" Type="varchar" MaxLength="50" />
+    <Property Name="FirstStatus" Type="varchar" MaxLength="1" />
+    <Property Name="SecondStatus" Type="varchar" MaxLength="1" />
+    <Property Name="FirstDate" Type="date" />
+    <Property Name="SecondDate" Type="date" />
+    <Property Name="FirstRemarks" Type="varchar" MaxLength="500" />
+    <Property Name="SecondRemarks" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="FrdItem">
+    <Key>
+      <PropertyRef Name="ItemNo" />
+      <PropertyRef Name="ItemCode" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemNo" Type="int" Nullable="false" />
+    <Property Name="ItemCode" Type="int" Nullable="false" />
+    <Property Name="ItemName" Type="varchar" MaxLength="300" />
+    <Property Name="ItemDescription" Type="varchar" MaxLength="500" />
+    <Property Name="ItemType" Type="int" />
+    <Property Name="ItemTypeCode" Type="int" />
+    <Property Name="ItemUnitCode" Type="int" />
+    <Property Name="PlantCode" Type="int" Nullable="false" />
+    <Property Name="ItemMachineCode" Type="int" />
+    <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TaxFlag" Type="varchar" MaxLength="1" />
+    <Property Name="ConvertValue" Type="int" Nullable="false" />
+    <Property Name="UseFor" Type="varchar" MaxLength="500" />
+    <Property Name="Show" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="CreateBy" Type="varchar" MaxLength="30" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FrdMachine">
+    <Key>
+      <PropertyRef Name="MachineID" />
+      <PropertyRef Name="PlantName" />
+    </Key>
+    <Property Name="MachineID" Type="int" Nullable="false" />
+    <Property Name="MachineCode" Type="varchar" MaxLength="300" />
+    <Property Name="MachineName" Type="varchar" MaxLength="300" />
+    <Property Name="PlantName" Type="int" Nullable="false" />
+    <Property Name="MachineType" Type="int" />
+    <Property Name="Flag" Type="varchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="FrdParameter">
+    <Key>
+      <PropertyRef Name="Code" />
+      <PropertyRef Name="ParamCode" />
+      <PropertyRef Name="ParentCode" />
+    </Key>
+    <Property Name="Code" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="200" />
+    <Property Name="ParamCode" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="ParentCode" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="ParamValue" Type="int" />
+    <Property Name="SubValue" Type="int" />
+    <Property Name="SubCode" Type="varchar" MaxLength="3" />
+    <Property Name="Status" Type="varchar" MaxLength="1" />
+    <Property Name="CreateBy" Type="varchar" MaxLength="30" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FrdReceiveDetail">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReqRecID" />
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="PlantID" Type="int" Nullable="false" />
+    <Property Name="ReqRecID" Type="int" Nullable="false" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="TotalAmt" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="FrdReceiveMaster">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReqRecID" />
+    </Key>
+    <Property Name="PlantID" Type="int" Nullable="false" />
+    <Property Name="ReqRecID" Type="int" Nullable="false" />
+    <Property Name="SupplierID" Type="int" />
+    <Property Name="ReqID" Type="int" />
+    <Property Name="RecDate" Type="date" />
+    <Property Name="AppBy" Type="varchar" MaxLength="50" />
+    <Property Name="AppDate" Type="date" />
+    <Property Name="AppFlag" Type="varchar" MaxLength="1" />
+    <Property Name="AppRemarks" Type="varchar" MaxLength="500" />
+    <Property Name="AppBy2" Type="varchar" MaxLength="50" />
+    <Property Name="AppDate2" Type="date" />
+    <Property Name="AppFlag2" Type="varchar" MaxLength="1" />
+    <Property Name="AppRemarks2" Type="varchar" MaxLength="500" />
+    <Property Name="CreateBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FrdRequestDetail">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReqID" />
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="PlantID" Type="int" Nullable="false" />
+    <Property Name="ReqID" Type="int" Nullable="false" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="TotalAmt" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="FrdRequestMaster">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReqID" />
+    </Key>
+    <Property Name="PlantID" Type="int" Nullable="false" />
+    <Property Name="ReqID" Type="int" Nullable="false" />
+    <Property Name="ReqDate" Type="date" />
+    <Property Name="RefNo" Type="varchar" MaxLength="100" />
+    <Property Name="Remarks" Type="varchar" MaxLength="500" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="DeptID" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="1" />
+    <Property Name="CreateBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FrdStockMaster">
+    <Key>
+      <PropertyRef Name="WarehouseID" />
+      <PropertyRef Name="ItemNo" />
+    </Key>
+    <Property Name="WarehouseID" Type="int" Nullable="false" />
+    <Property Name="ItemNo" Type="int" Nullable="false" />
+    <Property Name="StockQty" Type="int" />
+    <Property Name="StockQuantity" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="AdjustedQty" Type="int" />
+    <Property Name="AdjustedQuantity" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="StartingQty" Type="int" />
+    <Property Name="StartingQuantity" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="LastUnitPrice" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="LastPurchaseDate" Type="date" />
+    <Property Name="MovingFlag" Type="varchar" MaxLength="1" />
+    <Property Name="Active" Type="varchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="FrdSupplier">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="int" Nullable="false" />
+    <Property Name="SupplierCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SupplierName" Type="varchar" MaxLength="150" />
+    <Property Name="SupplierAddress" Type="varchar" MaxLength="500" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="30" />
+    <Property Name="MobileNumber" Type="varchar" MaxLength="30" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="varchar" MaxLength="3" />
+    <Property Name="ZoneCode" Type="int" />
+    <Property Name="BranchCode" Type="int" />
+    <Property Name="MultiFlag" Type="char" MaxLength="3" />
+    <Property Name="Remarks" Type="varchar" MaxLength="300" />
+    <Property Name="ContactPerson" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="sBenificiary">
+    <Key>
+      <PropertyRef Name="BenificiaryID" />
+    </Key>
+    <Property Name="BenificiaryID" Type="int" Nullable="false" />
+    <Property Name="BenificiaryName" Type="varchar" MaxLength="500" />
+    <Property Name="DesigID" Type="int" />
+    <Property Name="ContactNo" Type="varchar" MaxLength="50" />
+    <Property Name="DeptID" Type="int" />
+    <Property Name="PlantID" Type="int" />
+    <Property Name="PlantFlag" Type="int" />
+    <Property Name="Address" Type="varchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="sDept">
+    <Key>
+      <PropertyRef Name="DeptID" />
+    </Key>
+    <Property Name="DeptID" Type="int" Nullable="false" />
+    <Property Name="DeptName" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="sDesignation">
+    <Key>
+      <PropertyRef Name="DesigID" />
+    </Key>
+    <Property Name="DesigID" Type="int" Nullable="false" />
+    <Property Name="DesigName" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="sDocument">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="WarehouesID" />
+      <PropertyRef Name="DocCode" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="WarehouesID" Type="int" Nullable="false" />
+    <Property Name="DocCode" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="DocType" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="DocDescription" Type="varchar" MaxLength="300" />
+    <Property Name="Endof" Type="date" />
+    <Property Name="DocStart" Type="int" />
+    <Property Name="DocDate" Type="date" />
+    <Property Name="DocEnd" Type="int" />
+    <Property Name="CurrNo" Type="int" />
+    <Property Name="MaxLength" Type="int" Nullable="false" />
+    <Property Name="MidCode" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="Narration" Type="varchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="CreateBy" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="sMenu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuID" Type="int" Nullable="false" />
+    <Property Name="MenuName" Type="varchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="sPageName">
+    <Key>
+      <PropertyRef Name="SLNo" />
+    </Key>
+    <Property Name="SLNo" Type="int" Nullable="false" />
+    <Property Name="FileName" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="ContName" Type="varchar" MaxLength="100" />
+    <Property Name="PageName" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="varchar" MaxLength="3" />
+    <Property Name="Used" Type="varchar" MaxLength="500" />
+    <Property Name="MenuID" Type="int" />
+    <Property Name="PageType" Type="int" />
+  </EntityType>
+  <EntityType Name="sPlant">
+    <Key>
+      <PropertyRef Name="PlantNo" />
+    </Key>
+    <Property Name="PlantNo" Type="int" Nullable="false" />
+    <Property Name="PlantCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PlantName" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="500" />
+    <Property Name="PhoneNo" Type="varchar" MaxLength="50" />
+    <Property Name="FaxNo" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="RegetrationNo" Type="varchar" MaxLength="50" />
+    <Property Name="Status" Type="varchar" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="sRoles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="sUnit">
+    <Key>
+      <PropertyRef Name="UnitID" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnitID" Type="int" Nullable="false" />
+    <Property Name="UnitName" Type="varchar" MaxLength="500" />
+    <Property Name="MeasurmentValue" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ConvertValue" Type="int" />
+  </EntityType>
+  <EntityType Name="sUserPages">
+    <Key>
+      <PropertyRef Name="PlantNo" />
+      <PropertyRef Name="PageCode" />
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="PlantNo" Type="int" Nullable="false" />
+    <Property Name="PageCode" Type="int" Nullable="false" />
+    <Property Name="PageDescription" Type="varchar" MaxLength="500" />
+    <Property Name="ContName" Type="varchar" MaxLength="100" />
+    <Property Name="PageName" Type="varchar" MaxLength="100" />
+    <Property Name="MenuID" Type="int" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="3" />
+    <Property Name="CreateBy" Type="varchar" MaxLength="15" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sUsers">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="UserPass" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="UserPin" Type="varchar" MaxLength="8" />
+    <Property Name="RoleId" Type="int" />
+    <Property Name="MobileNo" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="UserStatus" Type="varchar" MaxLength="3" />
+    <Property Name="PlantNo" Type="int" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="LoginType" Type="varchar" MaxLength="1" />
+    <Property Name="ActiveSession" Type="int" />
+    <Property Name="CreateBy" Type="varchar" MaxLength="15" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <Association Name="fk_Menu">
+    <End Role="sMenu" Type="Self.sMenu" Multiplicity="0..1" />
+    <End Role="sPageName" Type="Self.sPageName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sMenu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="sPageName">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_MenuID">
+    <End Role="sMenu" Type="Self.sMenu" Multiplicity="0..1" />
+    <End Role="sUserPages" Type="Self.sUserPages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sMenu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="sUserPages">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RoleID">
+    <End Role="sRoles" Type="Self.sRoles" Multiplicity="0..1" />
+    <End Role="sUserPages" Type="Self.sUserPages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sRoles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="sUserPages">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="spUserLoginToApplication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="UserPass" Type="varchar" Mode="In" />
+    <Parameter Name="UserPin" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="LIVEModelStoreContainer">
+    <EntitySet Name="FrdApproval" EntityType="Self.FrdApproval" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdItem" EntityType="Self.FrdItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdMachine" EntityType="Self.FrdMachine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdParameter" EntityType="Self.FrdParameter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdReceiveDetail" EntityType="Self.FrdReceiveDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdReceiveMaster" EntityType="Self.FrdReceiveMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdRequestDetail" EntityType="Self.FrdRequestDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdRequestMaster" EntityType="Self.FrdRequestMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdStockMaster" EntityType="Self.FrdStockMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdSupplier" EntityType="Self.FrdSupplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sBenificiary" EntityType="Self.sBenificiary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sDept" EntityType="Self.sDept" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sDesignation" EntityType="Self.sDesignation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sDocument" EntityType="Self.sDocument" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sMenu" EntityType="Self.sMenu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sPageName" EntityType="Self.sPageName" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sPlant" EntityType="Self.sPlant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sRoles" EntityType="Self.sRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sUnit" EntityType="Self.sUnit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sUserPages" EntityType="Self.sUserPages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sUsers" EntityType="Self.sUsers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_Menu" Association="Self.fk_Menu">
+      <End Role="sMenu" EntitySet="sMenu" />
+      <End Role="sPageName" EntitySet="sPageName" />
+    </AssociationSet>
+    <AssociationSet Name="fk_MenuID" Association="Self.fk_MenuID">
+      <End Role="sMenu" EntitySet="sMenu" />
+      <End Role="sUserPages" EntitySet="sUserPages" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RoleID" Association="Self.fk_RoleID">
+      <End Role="sRoles" EntitySet="sRoles" />
+      <End Role="sUserPages" EntitySet="sUserPages" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LIVEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sUser">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserPass" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserPin" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserStatus" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="PlantNo" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LoginType" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="ActiveSession" Type="Int32" />
+    <Property Name="CreateBy" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="LIVEEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sUsers" EntityType="Self.sUser" />
+    <FunctionImport Name="spUserLoginToApplication" ReturnType="Collection(LIVEModel.spUserLoginToApplication_Result)">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="UserPass" Mode="In" Type="String" />
+      <Parameter Name="UserPin" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="sMenus" EntityType="LIVEModel.sMenu" />
+    <EntitySet Name="sPlants" EntityType="LIVEModel.sPlant" />
+    <EntitySet Name="sRoles" EntityType="LIVEModel.sRole" />
+    <EntitySet Name="sUserPages" EntityType="LIVEModel.sUserPage" />
+    <AssociationSet Name="fk_MenuID" Association="LIVEModel.fk_MenuID">
+      <End Role="sMenu" EntitySet="sMenus" />
+      <End Role="sUserPage" EntitySet="sUserPages" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RoleID" Association="LIVEModel.fk_RoleID">
+      <End Role="sRole" EntitySet="sRoles" />
+      <End Role="sUserPage" EntitySet="sUserPages" />
+    </AssociationSet>
+    <EntitySet Name="FrdMachines" EntityType="LIVEModel.FrdMachine" />
+    <EntitySet Name="FrdParameters" EntityType="LIVEModel.FrdParameter" />
+    <EntitySet Name="sDocuments" EntityType="LIVEModel.sDocument" />
+    <EntitySet Name="FrdSuppliers" EntityType="LIVEModel.FrdSupplier" />
+    <EntitySet Name="FrdStockMasters" EntityType="LIVEModel.FrdStockMaster" />
+    <EntitySet Name="FrdItems" EntityType="LIVEModel.FrdItem" />
+    <EntitySet Name="FrdRequestDetails" EntityType="LIVEModel.FrdRequestDetail" />
+    <EntitySet Name="FrdRequestMasters" EntityType="LIVEModel.FrdRequestMaster" />
+    <EntitySet Name="sBenificiaries" EntityType="LIVEModel.sBenificiary" />
+    <EntitySet Name="sDesignations" EntityType="LIVEModel.sDesignation" />
+    <EntitySet Name="sUnits" EntityType="LIVEModel.sUnit" />
+    <EntitySet Name="FrdApprovals" EntityType="LIVEModel.FrdApproval" />
+    <EntitySet Name="FrdReceiveDetails" EntityType="LIVEModel.FrdReceiveDetail" />
+    <EntitySet Name="FrdReceiveMasters" EntityType="LIVEModel.FrdReceiveMaster" />
+    <EntitySet Name="sPageNames" EntityType="LIVEModel.sPageName" />
+    <AssociationSet Name="fk_Menu" Association="LIVEModel.fk_Menu">
+      <End Role="sMenu" EntitySet="sMenus" />
+      <End Role="sPageName" EntitySet="sPageNames" />
+    </AssociationSet>
+    <EntitySet Name="sDepts" EntityType="LIVEModel.sDept" />
+  </EntityContainer>
+  <ComplexType Name="spUserLoginToApplication_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="userId" Nullable="false" />
+    <Property Type="String" Name="userName" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="UserPass" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="UserPin" Nullable="true" MaxLength="8" />
+    <Property Type="Int32" Name="PlantNo" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="sMenu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuID" Type="Int32" Nullable="false" />
+    <Property Name="MenuName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="sUserPages" Relationship="LIVEModel.fk_MenuID" FromRole="sMenu" ToRole="sUserPage" />
+    <NavigationProperty Name="sPageNames" Relationship="LIVEModel.fk_Menu" FromRole="sMenu" ToRole="sPageName" />
+  </EntityType>
+  <EntityType Name="sPlant">
+    <Key>
+      <PropertyRef Name="PlantNo" />
+    </Key>
+    <Property Name="PlantNo" Type="Int32" Nullable="false" />
+    <Property Name="PlantCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PlantName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FaxNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RegetrationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sRole">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="RoleName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="sUserPages" Relationship="LIVEModel.fk_RoleID" FromRole="sRole" ToRole="sUserPage" />
+  </EntityType>
+  <EntityType Name="sUserPage">
+    <Key>
+      <PropertyRef Name="PlantNo" />
+      <PropertyRef Name="PageCode" />
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="PlantNo" Type="Int32" Nullable="false" />
+    <Property Name="PageCode" Type="Int32" Nullable="false" />
+    <Property Name="PageDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ContName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PageName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MenuID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="sMenu" Relationship="LIVEModel.fk_MenuID" FromRole="sUserPage" ToRole="sMenu" />
+    <NavigationProperty Name="sRole" Relationship="LIVEModel.fk_RoleID" FromRole="sUserPage" ToRole="sRole" />
+  </EntityType>
+  <Association Name="fk_MenuID">
+    <End Type="LIVEModel.sMenu" Role="sMenu" Multiplicity="0..1" />
+    <End Type="LIVEModel.sUserPage" Role="sUserPage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sMenu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="sUserPage">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RoleID">
+    <End Type="LIVEModel.sRole" Role="sRole" Multiplicity="0..1" />
+    <End Type="LIVEModel.sUserPage" Role="sUserPage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="sUserPage">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="FrdMachine">
+    <Key>
+      <PropertyRef Name="MachineID" />
+      <PropertyRef Name="PlantName" />
+    </Key>
+    <Property Name="MachineID" Type="Int32" Nullable="false" />
+    <Property Name="MachineCode" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="MachineName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="PlantName" Type="Int32" Nullable="false" />
+    <Property Name="MachineType" Type="Int32" />
+    <Property Name="Flag" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="FrdParameter">
+    <Key>
+      <PropertyRef Name="Code" />
+      <PropertyRef Name="ParamCode" />
+      <PropertyRef Name="ParentCode" />
+    </Key>
+    <Property Name="Code" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ParamCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="ParentCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="ParamValue" Type="Int32" />
+    <Property Name="SubValue" Type="Int32" />
+    <Property Name="SubCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="sDocument">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="WarehouesID" />
+      <PropertyRef Name="DocCode" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="WarehouesID" Type="Int32" Nullable="false" />
+    <Property Name="DocCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="DocType" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="DocDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Endof" Type="DateTime" Precision="0" />
+    <Property Name="DocStart" Type="Int32" />
+    <Property Name="DocDate" Type="DateTime" Precision="0" />
+    <Property Name="DocEnd" Type="Int32" />
+    <Property Name="CurrNo" Type="Int32" />
+    <Property Name="MaxLength" Type="Int32" Nullable="false" />
+    <Property Name="MidCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="Narration" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="CreateBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="FrdSupplier">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="Int32" Nullable="false" />
+    <Property Name="SupplierCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SupplierName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="SupplierAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="ZoneCode" Type="Int32" />
+    <Property Name="BranchCode" Type="Int32" />
+    <Property Name="MultiFlag" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="ContactPerson" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="FrdStockMaster">
+    <Key>
+      <PropertyRef Name="WarehouseID" />
+      <PropertyRef Name="ItemNo" />
+    </Key>
+    <Property Name="WarehouseID" Type="Int32" Nullable="false" />
+    <Property Name="ItemNo" Type="Int32" Nullable="false" />
+    <Property Name="StockQty" Type="Int32" />
+    <Property Name="StockQuantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="AdjustedQty" Type="Int32" />
+    <Property Name="AdjustedQuantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="StartingQty" Type="Int32" />
+    <Property Name="StartingQuantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LastUnitPrice" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="LastPurchaseDate" Type="DateTime" Precision="0" />
+    <Property Name="MovingFlag" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="FrdItem">
+    <Key>
+      <PropertyRef Name="ItemNo" />
+      <PropertyRef Name="ItemCode" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemNo" Type="Int32" Nullable="false" />
+    <Property Name="ItemCode" Type="Int32" Nullable="false" />
+    <Property Name="ItemName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="ItemDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ItemType" Type="Int32" />
+    <Property Name="ItemTypeCode" Type="Int32" />
+    <Property Name="ItemUnitCode" Type="Int32" />
+    <Property Name="PlantCode" Type="Int32" Nullable="false" />
+    <Property Name="ItemMachineCode" Type="Int32" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxFlag" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="ConvertValue" Type="Int32" Nullable="false" />
+    <Property Name="UseFor" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Show" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="FrdRequestDetail">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReqID" />
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="ReqID" Type="Int32" Nullable="false" />
+    <Property Name="ItemID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="TotalAmt" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="FrdRequestMaster">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReqID" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="ReqID" Type="Int32" Nullable="false" />
+    <Property Name="ReqDate" Type="DateTime" Precision="0" />
+    <Property Name="RefNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="DeptID" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="sBenificiary">
+    <Key>
+      <PropertyRef Name="BenificiaryID" />
+    </Key>
+    <Property Name="BenificiaryID" Type="Int32" Nullable="false" />
+    <Property Name="BenificiaryName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DesigID" Type="Int32" />
+    <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DeptID" Type="Int32" />
+    <Property Name="PlantID" Type="Int32" />
+    <Property Name="PlantFlag" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sDesignation">
+    <Key>
+      <PropertyRef Name="DesigID" />
+    </Key>
+    <Property Name="DesigID" Type="Int32" Nullable="false" />
+    <Property Name="DesigName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sUnit">
+    <Key>
+      <PropertyRef Name="UnitID" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UnitID" Type="Int32" Nullable="false" />
+    <Property Name="UnitName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="MeasurmentValue" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ConvertValue" Type="Int32" />
+  </EntityType>
+  <EntityType Name="FrdApproval">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="AppID" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="RefNo" Type="Int32" />
+    <Property Name="AppID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FirstApp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SecondApp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FirstStatus" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="SecondStatus" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="FirstDate" Type="DateTime" Precision="0" />
+    <Property Name="SecondDate" Type="DateTime" Precision="0" />
+    <Property Name="FirstRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="SecondRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="FrdReceiveDetail">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReqRecID" />
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="ReqRecID" Type="Int32" Nullable="false" />
+    <Property Name="ItemID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="TotalAmt" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="FrdReceiveMaster">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReqRecID" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="ReqRecID" Type="Int32" Nullable="false" />
+    <Property Name="SupplierID" Type="Int32" />
+    <Property Name="ReqID" Type="Int32" />
+    <Property Name="RecDate" Type="DateTime" Precision="0" />
+    <Property Name="AppBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AppDate" Type="DateTime" Precision="0" />
+    <Property Name="AppFlag" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="AppRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AppBy2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AppDate2" Type="DateTime" Precision="0" />
+    <Property Name="AppFlag2" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="AppRemarks2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="sPageName">
+    <Key>
+      <PropertyRef Name="SLNo" />
+    </Key>
+    <Property Name="SLNo" Type="Int32" Nullable="false" />
+    <Property Name="FileName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ContName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PageName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="Used" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="MenuID" Type="Int32" />
+    <Property Name="PageType" Type="Int32" />
+    <NavigationProperty Name="sMenu" Relationship="LIVEModel.fk_Menu" FromRole="sPageName" ToRole="sMenu" />
+  </EntityType>
+  <Association Name="fk_Menu">
+    <End Type="LIVEModel.sMenu" Role="sMenu" Multiplicity="0..1" />
+    <End Type="LIVEModel.sPageName" Role="sPageName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sMenu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="sPageName">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="sDept">
+    <Key>
+      <PropertyRef Name="DeptID" />
+    </Key>
+    <Property Name="DeptID" Type="Int32" Nullable="false" />
+    <Property Name="DeptName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

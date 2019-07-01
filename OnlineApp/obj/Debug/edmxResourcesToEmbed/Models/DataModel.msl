@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LIVEModelStoreContainer" CdmEntityContainer="LIVEEntities">
+    <EntitySetMapping Name="sUsers">
+      <EntityTypeMapping TypeName="LIVEModel.sUser">
+        <MappingFragment StoreEntitySet="sUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPass" ColumnName="UserPass" />
+          <ScalarProperty Name="UserPin" ColumnName="UserPin" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+          <ScalarProperty Name="PlantNo" ColumnName="PlantNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LoginType" ColumnName="LoginType" />
+          <ScalarProperty Name="ActiveSession" ColumnName="ActiveSession" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spUserLoginToApplication" FunctionName="LIVEModel.Store.spUserLoginToApplication">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LIVEModel.spUserLoginToApplication_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="UserPass" ColumnName="UserPass" />
+          <ScalarProperty Name="UserPin" ColumnName="UserPin" />
+          <ScalarProperty Name="PlantNo" ColumnName="PlantNo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="sMenus">
+      <EntityTypeMapping TypeName="LIVEModel.sMenu">
+        <MappingFragment StoreEntitySet="sMenu">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sPlants">
+      <EntityTypeMapping TypeName="LIVEModel.sPlant">
+        <MappingFragment StoreEntitySet="sPlant">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RegetrationNo" ColumnName="RegetrationNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PlantName" ColumnName="PlantName" />
+          <ScalarProperty Name="PlantCode" ColumnName="PlantCode" />
+          <ScalarProperty Name="PlantNo" ColumnName="PlantNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sRoles">
+      <EntityTypeMapping TypeName="LIVEModel.sRole">
+        <MappingFragment StoreEntitySet="sRoles">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sUserPages">
+      <EntityTypeMapping TypeName="LIVEModel.sUserPage">
+        <MappingFragment StoreEntitySet="sUserPages">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="PageName" ColumnName="PageName" />
+          <ScalarProperty Name="ContName" ColumnName="ContName" />
+          <ScalarProperty Name="PageDescription" ColumnName="PageDescription" />
+          <ScalarProperty Name="PageCode" ColumnName="PageCode" />
+          <ScalarProperty Name="PlantNo" ColumnName="PlantNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdMachines">
+      <EntityTypeMapping TypeName="LIVEModel.FrdMachine">
+        <MappingFragment StoreEntitySet="FrdMachine">
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="MachineType" ColumnName="MachineType" />
+          <ScalarProperty Name="PlantName" ColumnName="PlantName" />
+          <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+          <ScalarProperty Name="MachineCode" ColumnName="MachineCode" />
+          <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdParameters">
+      <EntityTypeMapping TypeName="LIVEModel.FrdParameter">
+        <MappingFragment StoreEntitySet="FrdParameter">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SubCode" ColumnName="SubCode" />
+          <ScalarProperty Name="SubValue" ColumnName="SubValue" />
+          <ScalarProperty Name="ParamValue" ColumnName="ParamValue" />
+          <ScalarProperty Name="ParentCode" ColumnName="ParentCode" />
+          <ScalarProperty Name="ParamCode" ColumnName="ParamCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sDocuments">
+      <EntityTypeMapping TypeName="LIVEModel.sDocument">
+        <MappingFragment StoreEntitySet="sDocument">
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Narration" ColumnName="Narration" />
+          <ScalarProperty Name="MidCode" ColumnName="MidCode" />
+          <ScalarProperty Name="MaxLength" ColumnName="MaxLength" />
+          <ScalarProperty Name="CurrNo" ColumnName="CurrNo" />
+          <ScalarProperty Name="DocEnd" ColumnName="DocEnd" />
+          <ScalarProperty Name="DocDate" ColumnName="DocDate" />
+          <ScalarProperty Name="DocStart" ColumnName="DocStart" />
+          <ScalarProperty Name="Endof" ColumnName="Endof" />
+          <ScalarProperty Name="DocDescription" ColumnName="DocDescription" />
+          <ScalarProperty Name="DocType" ColumnName="DocType" />
+          <ScalarProperty Name="DocCode" ColumnName="DocCode" />
+          <ScalarProperty Name="WarehouesID" ColumnName="WarehouesID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdSuppliers">
+      <EntityTypeMapping TypeName="LIVEModel.FrdSupplier">
+        <MappingFragment StoreEntitySet="FrdSupplier">
+          <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="MultiFlag" ColumnName="MultiFlag" />
+          <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+          <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SupplierAddress" ColumnName="SupplierAddress" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="SupplierCode" ColumnName="SupplierCode" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdStockMasters">
+      <EntityTypeMapping TypeName="LIVEModel.FrdStockMaster">
+        <MappingFragment StoreEntitySet="FrdStockMaster">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="MovingFlag" ColumnName="MovingFlag" />
+          <ScalarProperty Name="LastPurchaseDate" ColumnName="LastPurchaseDate" />
+          <ScalarProperty Name="LastUnitPrice" ColumnName="LastUnitPrice" />
+          <ScalarProperty Name="StartingQuantity" ColumnName="StartingQuantity" />
+          <ScalarProperty Name="StartingQty" ColumnName="StartingQty" />
+          <ScalarProperty Name="AdjustedQuantity" ColumnName="AdjustedQuantity" />
+          <ScalarProperty Name="AdjustedQty" ColumnName="AdjustedQty" />
+          <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+          <ScalarProperty Name="StockQty" ColumnName="StockQty" />
+          <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+          <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdItems">
+      <EntityTypeMapping TypeName="LIVEModel.FrdItem">
+        <MappingFragment StoreEntitySet="FrdItem">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Show" ColumnName="Show" />
+          <ScalarProperty Name="UseFor" ColumnName="UseFor" />
+          <ScalarProperty Name="ConvertValue" ColumnName="ConvertValue" />
+          <ScalarProperty Name="TaxFlag" ColumnName="TaxFlag" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="ItemMachineCode" ColumnName="ItemMachineCode" />
+          <ScalarProperty Name="PlantCode" ColumnName="PlantCode" />
+          <ScalarProperty Name="ItemUnitCode" ColumnName="ItemUnitCode" />
+          <ScalarProperty Name="ItemTypeCode" ColumnName="ItemTypeCode" />
+          <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+          <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdRequestDetails">
+      <EntityTypeMapping TypeName="LIVEModel.FrdRequestDetail">
+        <MappingFragment StoreEntitySet="FrdRequestDetail">
+          <ScalarProperty Name="TotalAmt" ColumnName="TotalAmt" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="ReqID" ColumnName="ReqID" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdRequestMasters">
+      <EntityTypeMapping TypeName="LIVEModel.FrdRequestMaster">
+        <MappingFragment StoreEntitySet="FrdRequestMaster">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="ReqDate" ColumnName="ReqDate" />
+          <ScalarProperty Name="ReqID" ColumnName="ReqID" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sBenificiaries">
+      <EntityTypeMapping TypeName="LIVEModel.sBenificiary">
+        <MappingFragment StoreEntitySet="sBenificiary">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PlantFlag" ColumnName="PlantFlag" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="DesigID" ColumnName="DesigID" />
+          <ScalarProperty Name="BenificiaryName" ColumnName="BenificiaryName" />
+          <ScalarProperty Name="BenificiaryID" ColumnName="BenificiaryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sDesignations">
+      <EntityTypeMapping TypeName="LIVEModel.sDesignation">
+        <MappingFragment StoreEntitySet="sDesignation">
+          <ScalarProperty Name="DesigName" ColumnName="DesigName" />
+          <ScalarProperty Name="DesigID" ColumnName="DesigID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sUnits">
+      <EntityTypeMapping TypeName="LIVEModel.sUnit">
+        <MappingFragment StoreEntitySet="sUnit">
+          <ScalarProperty Name="ConvertValue" ColumnName="ConvertValue" />
+          <ScalarProperty Name="MeasurmentValue" ColumnName="MeasurmentValue" />
+          <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+          <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdApprovals">
+      <EntityTypeMapping TypeName="LIVEModel.FrdApproval">
+        <MappingFragment StoreEntitySet="FrdApproval">
+          <ScalarProperty Name="SecondRemarks" ColumnName="SecondRemarks" />
+          <ScalarProperty Name="FirstRemarks" ColumnName="FirstRemarks" />
+          <ScalarProperty Name="SecondDate" ColumnName="SecondDate" />
+          <ScalarProperty Name="FirstDate" ColumnName="FirstDate" />
+          <ScalarProperty Name="SecondStatus" ColumnName="SecondStatus" />
+          <ScalarProperty Name="FirstStatus" ColumnName="FirstStatus" />
+          <ScalarProperty Name="SecondApp" ColumnName="SecondApp" />
+          <ScalarProperty Name="FirstApp" ColumnName="FirstApp" />
+          <ScalarProperty Name="AppID" ColumnName="AppID" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdReceiveDetails">
+      <EntityTypeMapping TypeName="LIVEModel.FrdReceiveDetail">
+        <MappingFragment StoreEntitySet="FrdReceiveDetail">
+          <ScalarProperty Name="TotalAmt" ColumnName="TotalAmt" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="ReqRecID" ColumnName="ReqRecID" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdReceiveMasters">
+      <EntityTypeMapping TypeName="LIVEModel.FrdReceiveMaster">
+        <MappingFragment StoreEntitySet="FrdReceiveMaster">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="AppRemarks2" ColumnName="AppRemarks2" />
+          <ScalarProperty Name="AppFlag2" ColumnName="AppFlag2" />
+          <ScalarProperty Name="AppDate2" ColumnName="AppDate2" />
+          <ScalarProperty Name="AppBy2" ColumnName="AppBy2" />
+          <ScalarProperty Name="AppRemarks" ColumnName="AppRemarks" />
+          <ScalarProperty Name="AppFlag" ColumnName="AppFlag" />
+          <ScalarProperty Name="AppDate" ColumnName="AppDate" />
+          <ScalarProperty Name="AppBy" ColumnName="AppBy" />
+          <ScalarProperty Name="RecDate" ColumnName="RecDate" />
+          <ScalarProperty Name="ReqID" ColumnName="ReqID" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="ReqRecID" ColumnName="ReqRecID" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sPageNames">
+      <EntityTypeMapping TypeName="LIVEModel.sPageName">
+        <MappingFragment StoreEntitySet="sPageName">
+          <ScalarProperty Name="PageType" ColumnName="PageType" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="Used" ColumnName="Used" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PageName" ColumnName="PageName" />
+          <ScalarProperty Name="ContName" ColumnName="ContName" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="SLNo" ColumnName="SLNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sDepts">
+      <EntityTypeMapping TypeName="LIVEModel.sDept">
+        <MappingFragment StoreEntitySet="sDept">
+          <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

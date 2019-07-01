@@ -1,0 +1,114 @@
+﻿@model OnlineApp.Models.FrdSupplier
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FrdSupplier</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MobileNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MobileNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZoneCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZoneCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MultiFlag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MultiFlag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactPerson)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SupplierID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

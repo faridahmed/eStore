@@ -1,0 +1,104 @@
+﻿
+@model OnlineApp.Models.sUser
+
+@using (Html.BeginForm("Createuser", "userManage", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container" style="margin-top:5%">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading ">
+                        <div class="clearfix ">
+                            Create user
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover">
+                        <tr>
+
+
+                            <td style="color:black">
+                                user ID
+                            </td>
+                            <td>@Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                user Name
+                            </td>
+                            <td>@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Password
+                            </td>
+                            <td>@Html.EditorFor(model => model.UserPass, new { htmlAttributes = new { @class = "form-control", @type = "password" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Pin Number
+                            </td>
+                            <td>@Html.EditorFor(model => model.UserPin, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+                            <td style="color:black">
+                                Plant
+                            </td>
+                            <td> @Html.DropDownList("PlantNo", null, "---Select Plant---", new { @class = "form-control PlantNo", id = "PlantNo" })</td>
+                        </tr>
+                        <tr>
+                            <td style="color:black">
+                                user Role
+                            </td>
+                            <td>
+
+                                @Html.DropDownList("RoleID", null, "---Select Role---", new { @class = "form-control RoleID", id = "RoleID" })
+                            </td>
+                        </tr>
+
+                        <tr>
+
+
+                            <td style="color:black">
+                                Mobile Number
+                            </td>
+                            <td>@Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Email
+                            </td>
+                            <td>@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                                <input type="submit" value="Add Customer" class="btn btn-info" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+

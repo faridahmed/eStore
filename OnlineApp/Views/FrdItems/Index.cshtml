@@ -1,0 +1,182 @@
+﻿
+@model OnlineApp.ModelData.ItemVM
+
+@using (Html.BeginForm("CreateItem", "FrdItems", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container" style="margin-top:5%">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading ">
+                        <div class="clearfix ">
+                            Create Item
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover">
+                        <tr>
+
+
+                            <td style="color:black">
+                                Item No
+                            </td>
+                            <td>@Html.EditorFor(model => model.ItemNo, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Item Code
+                            </td>
+                            <td>@Html.EditorFor(model => model.ItemCode, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Item Name
+                            </td>
+                            <td>@Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control", @type = "password" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Item Description
+                            </td>
+                            <td>@Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+                            <td style="color:black">
+                                Plant
+                            </td>
+                            <td> @Html.DropDownList("PlantNo", null, "---Select Plant---", new { @class = "form-control PlantNo", id = "PlantNo" })</td>
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                ItemType
+                            </td>
+                            <td>@Html.EditorFor(model => model.ItemType, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Item TypeCode
+                            </td>
+                            <td>@Html.EditorFor(model => model.ItemTypeCode, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Item UnitCode
+                            </td>
+                            <td>@Html.EditorFor(model => model.ItemUnitCode, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+
+
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading ">
+                        <div class="clearfix ">
+                            Create Item
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover">
+
+                        <tr>
+
+
+                            <td style="color:black">
+                                Plant Code
+                            </td>
+                            <td>@Html.EditorFor(model => model.PlantCode, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Item MachineCode
+                            </td>
+                            <td>@Html.EditorFor(model => model.ItemMachineCode, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Unit Price
+                            </td>
+                            <td>@Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Tax Flag
+                            </td>
+                            <td>@Html.EditorFor(model => model.TaxFlag, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Convert Value
+                            </td>
+                            <td>@Html.EditorFor(model => model.ConvertValue, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Use For
+                            </td>
+                            <td>@Html.EditorFor(model => model.UseFor, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td style="color:black">
+                                Show
+                            </td>
+                            <td>@Html.EditorFor(model => model.Show, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                        </tr>
+
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                                <input type="submit" value="Add Items" class="btn btn-info" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
+

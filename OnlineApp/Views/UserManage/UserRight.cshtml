@@ -1,0 +1,116 @@
+﻿
+@model OnlineApp.ModelData.MenuSubVM
+<h2>user Menu Rights Control</h2>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <label style="color:red">Select user ID</label>
+                @*@Html.TextBox("userID", null, new { @class = "form-control", @Value = ViewBag.userID, @readonly = "readonly" })*@
+                @Html.DropDownList("userID", null, "Select user", new { @class = "form-control" })
+                <label>user Name</label>
+                @Html.TextBox("userName", null, new { @class = "form-control", @readonly = "readonly" })
+                <label>Email</label>
+                @Html.TextBox("Email", null, new { @class = "form-control", @readonly = "readonly" })
+                <label>Mobile No</label>
+                @Html.TextBox("MobileNo", null, new { @class = "form-control", @readonly = "readonly" })
+                <label>Role Id</label>
+                @Html.TextBox("RoleId", null, new { @class = "form-control", @readonly = "readonly" })
+                <label>Plant Number</label>
+                @Html.TextBox("PlantNo", null, new { @class = "form-control", @readonly = "readonly" })
+                <label style="color:red">Select Type</label>
+                @Html.DropDownList("PageType", null, "Select Type", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <!---another div row starts-->
+    <br /><br />
+    <div class="row">
+        <div class="col-md-9">
+            <button type="button" id="btnsearch" class="btn btn-info" onclick="datasearch()">Show Menu</button>
+            <button type="button" id="btnReset" class="btn btn-info">Reset</button>
+            <button id="btnSave" type="button" class="btn btn-info">Save</button>
+            <br />
+            <div style="height: 300px; overflow: auto;">
+                <table class="table table-bordered" id="MenuList">
+
+                    <tr>
+                        <th>
+                            Controller
+                        </th>
+                        <th>
+                            File Name
+                        </th>
+                        <th>
+                            Menu ID
+                        </th>
+                        <th>
+                            Page Name
+                        </th>
+                        <th>
+                            Sl
+                        </th>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+    <!---another div row Ends-->
+</div>
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+
+
+    $("#userID").change(function () {
+        $.ajax({
+            url: "@Url.Action("GetuserInfo", "userManage")",
+            data: { puserID: $("#userID").val()},
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $("#userName").val(data[0].userName);
+                $("#Email").val(data[0].Email);
+                $("#MobileNo").val(data[0].MobileNo);
+                $("#RoleId").val(data[0].RoleId);
+                $("#PlantNo").val(data[0].PlantNo);
+
+            },
+            error: function () {
+                alert("Failed! for the user..");
+            }
+        });
+        });
+        ///
+        $("#PageType").change(function () {
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("GetMenuList", "UserManage")",
+                datatype: 'JSON',
+                data: { inType: $("#PageType").val() },
+                success: function (data) {
+                    $('#MenuList tbody').empty();
+                    $.each(data, function (i, user) {
+                        var rows = "<tr>" +
+                            "<td>" + user.ContName + "</td>" +
+                            "<td>" + user.FileName + "</td>" +
+                            "<td>" + user.MenuID + "</td>" +
+                            "<td>" + user.PageName + "</td>" +
+                            "<td>" + user.SLNo + "</td>" +
+                            "</tr>";
+                        $('#MenuList tbody').append(rows);
+                    });
+                },
+                error: function (data) { alert(data.responseText); }
+            });
+        });
+
+
+    </script>
+
+
+}
