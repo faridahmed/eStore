@@ -84,4 +84,25 @@ namespace OnlineApp.ModelData
         public string CreateBy { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
     }
+    public class ReceiveVM
+    {
+        public int PlantID { get; set; }
+        public int ReqRecID { get; set; }
+        public Nullable<int> SupplierID { get; set; }
+        public Nullable<int> ReqID { get; set; }
+        public Nullable<System.DateTime> RecDate { get; set; }
+        public Nullable<int> TypeCode { get; set; }
+        public string UserNote { get; set; }
+        public string AppBy { get; set; }
+        //public Nullable<System.DateTime> AppDate { get; set; }
+        public string AppFlag { get; set; }
+        //public string AppRemarks { get; set; }
+        //public string AppBy2 { get; set; }
+        //public Nullable<System.DateTime> AppDate2 { get; set; }
+        public string AppFlag2 { get; set; }
+        public string AppRemarks2 { get; set; }
+       // public string CreateBy { get; set; }
+       // public Nullable<System.DateTime> CreateDate { get; set; }
+        public List<FrdReceiveDetail> itemdtl { get; set; }
+    }
 }

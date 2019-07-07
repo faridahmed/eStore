@@ -1,0 +1,206 @@
+﻿@model OnlineApp.ModelData.ReceiveVM
+@{
+    ViewBag.Title = "OrderReceive";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Requisition Received</h2>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                <label style="color:red">Work Station ID and Name :</label>
+                @Html.TextBox("WarehouseID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseID, @readonly = "readonly" })
+                @Html.TextBox("WarehouseIDLogin", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                @*@Html.TextBox("DeptID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })*@
+                <label style="color:red"> Benificier Name and Request No :</label>
+                @Html.DropDownList("ReqID", null, "Select One", new { @class = "form-control" })
+                <label>Dept Name/Customer Name :</label> 
+                 @Html.TextBox("DeptID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                @Html.TextBox("DeptName", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                @*<select id="ttItemCode" class="form-control" ,style="width:150px"><option>Select One</option></select>*@
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            @*<label>Total Qty.</label>
+                <input type="text" class="form-control" id="ReturnGoodsQty" value="0" readonly style="text-align:center" />
+                <label>Amount</label>
+                <input type="text" class="form-control" id="InAmount" value="0.00" readonly style="text-align:right" />*@
+            <label style="color:red">Delivery/Purchase :</label>
+            @Html.DropDownList("TypeCode", null, "Must Select One", new { @class = "form-control" })
+            <label>Supplier Name :</label>
+            @Html.DropDownList("SupplierID", null, "Select a Supplier One", new { @class = "form-control" })            
+            @*@Html.TextBox("SupplierID", null, new { placeholder = "Ref No Field Optinal", @class = "form-control" })*@
+            <label>Remarks/Note:</label>
+            @Html.TextBox("UserNote", null, new { placeholder = "Remarks Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
+            @*<input id="btnProduct" type="button" class="btn btn-primary btn-sm btn-block" value="Item Information" data-toggle="modal" data-target="#myModal" />*@
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-4">
+            @*<input type="button" id="btnready" value="Ready for Replement" class="btn btn-primary" style="background-color:orangered" onclick="readyforreplace()" ; />*@
+            <input type="button" id="btnReset" value="Reset" class="btn btn-primary btn-sm btn-block" onclick="ReLoad()" ; />
+        </div>
+        <div class="col-md-4">
+            <input type="button" id="create" value="Save" class="btn btn-primary btn-sm btn-block" onclick="SaveReceived();" />
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-md-6" style="margin-top:15px">
+            <div>
+                <h4 style="color:green">Empty Product Information</h4>
+            </div>
+            <table id="recItem" class="table-responsive table-striped table-bordered">
+                <tr>
+                    <th>SL</th>
+                    <th>Item Code</th>
+                    <th>Item Description</th>
+                    <th>Stock Qty</th>               
+                    <th style="color:red">Unit Price</th>
+                    <th>Req.Quantity</th>                   
+                    @*<th>&nbsp;</th>*@
+                </tr>
+            </table>
+            @*<div class="col-sm-offset-7">
+                <input type="text" id="totalCases" value="0" size="11" readonly style="text-align:right" />
+                <input type="text" id="totalBoxes" value="0" size="11" readonly style="text-align:right" />
+            </div>*@
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("create").disabled = true;
+    $('#ReqID').change(function () {       
+        $.ajax({
+            url: "@Url.Action("RequestData", "OrderRequest")",           
+            data: { inWarehouseID: $('#WarehouseID').val(), inTrNo: $('#ReqID').val() },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            ////console.log(data);
+            $.each(data, function (i, Req) {
+                $("#DeptID").val(Req.DeptID);
+                $("#DeptName").val(Req.DeptName);
+                //$("#tRefno").val(EmptyMove.ReferenceNo);
+                //$("#DriverID").val(EmptyMove.DriverID);
+                //$("#TotalEmpty").val(EmptyMove.QuantityCase);
+                //$("#TotalBox").val(EmptyMove.Boxes);
+                var table = document.getElementById("recItem");
+                // console.log(EmptyMove.ExpiryDate);
+                //$('#tblItem tbody').empty();
+                var rowcount = i + 1;
+                var tblRow = '<tr id="row' + rowcount + '">' +
+                   '<td>' +
+                       '<label id="lblID' + rowcount + '">' + rowcount + '</label>' + 
+               '</td>' +
+               '<td> <input type="text" readonly id="tItemID' + rowcount + '" value="' + Req.ItemID + '"size ="6"' + '" style="text-align:center;"" /></td>' +
+               '<td><input type="text"  readonly id="tDescription' + rowcount + '" value="' + Req.ItemName + '"size ="25" /></td>' +
+               '<td><input type="text"  readonly id="tStockQuantity' + rowcount + '" value="' + Req.StockQty + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '<td><input type="text"   id="tUnitPrice' + rowcount + '" value="' + Req.UnitPrice + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '<td><input type="text"   id="tReqQuantity' + rowcount + '" value="' + Req.Quantity + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '</tr>'
+                $("#recItem").append(tblRow);
+            })
+            //var nth = $("table").find("tr").length;
+            //var Cases = parseInt("0");           
+            //var Boxes = parseInt("0");
+            //for (j = 1; j < nth; j++) {
+            //    Cases += parseFloat($("table").find("tr").eq(j).find("td:eq(3) input[type='text']").val());               
+            //    Boxes += parseFloat($("table").find("tr").eq(j).find("td:eq(4) input[type='text']").val());
+            //}
+           // $("#totalCases").val(Cases);
+          //  $("#totalBoxes").val(Boxes);
+        },
+        error: function () {
+            alert("Failed! to load data for this transaction.Please Check....");
+        }
+    });
+        //$("#ReqID").prop('disabled', true);
+        document.getElementById("ReqID").disabled = true;
+   // $("#create").prop('disabled', false);
+    });
+    function SaveReceived() {
+        document.getElementById("create").disabled = true;
+        var answer = confirm('Are you sure you want to save this?');
+        if (answer) {
+            //  return;
+            //return status;
+        }
+        else {
+            return false;
+        }
+        var isAllValid = true;
+        var status = true;
+        OrderData = [];
+        //debugger;
+        var id = $('#recItem tr:last').index()
+        $('#recItem tr').each(function (row, tr){
+            if ((row > 0) && (row <= id)) {
+                OrderData.push({
+                    //ItemID: $(tr).find('td:eq(1)').text(),
+                    //UnitPrice:  $(tr).find('td:eq(4)').text(),
+                    //Quantity: $(tr).find('td:eq(5)').text(),
+                    ItemID: $('#tItemID' + row).val().trim(),
+                    UnitPrice: $('#tUnitPrice' + row).val().trim(),
+                    Quantity: $('#tReqQuantity' + row).val().trim()
+                });
+            }
+        });
+       // console.log(OrderData);
+        if (isAllValid) {
+            var data = {
+                //CustomerID: $('#CustomerID').val(),
+                PlantID: $('#WarehouseID').val(),
+                //DeptID: $('#DeptID').val(),
+                ReqID: $('#ReqID').val(),
+                UserNote: $('#UserNote').val(),
+                SupplierID: $('#SupplierID').val(),
+                TypeCode: $('#TypeCode').val(),
+                itemdtl: OrderData
+            }
+        }
+        console.log(data);
+        //debugger;
+
+        $.ajax({
+            url: '/OrderRequest/SaveReceived',
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "JSON",
+            contentType: "application/json",
+            success: function (a) {
+                //check is successfully save to database
+                if (a.status == true) {
+                    //will send status from server side
+                    alert('Successfully Done... Requisition Received Token No:' + a.v);
+                    window.location.reload();
+                    OrderData = [];
+
+                }
+                else {
+                    alert('Requisition Received Process is Failed!! Please Contact to IT dept.. ');
+                }
+
+            },
+            error: function () {
+                alert('Error. Please try again.');
+            }
+        });
+    }
+    function ReLoad() {
+        alert("Are you sure reset the page ...?")
+        location.reload();
+    }
+    $("#TypeCode").change(function () {
+        //var c = $("#tItemCode").val();
+       // $("#ItemCode").val(c);
+        // $('#ItemCode').focus();
+       // itemdesc();
+        document.getElementById("create").disabled = false;
+       // $('#OrderQty').focus()
+    });
+</script>

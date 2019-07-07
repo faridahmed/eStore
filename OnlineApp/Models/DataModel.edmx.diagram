@@ -23,12 +23,11 @@
         <EntityTypeShape EntityType="LIVEModel.sBenificiary" Width="1.5" PointX="11.375" PointY="12.75" />
         <EntityTypeShape EntityType="LIVEModel.sDesignation" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="LIVEModel.sUnit" Width="1.5" PointX="13.375" PointY="3.75" />
-        <EntityTypeShape EntityType="LIVEModel.FrdApproval" Width="1.5" PointX="5.375" PointY="13.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdReceiveDetail" Width="1.5" PointX="13.375" PointY="6.75" />
-        <EntityTypeShape EntityType="LIVEModel.FrdReceiveMaster" Width="1.5" PointX="7.375" PointY="13.75" />
         <EntityTypeShape EntityType="LIVEModel.sPageName" Width="1.5" PointX="6" PointY="4.375" />
         <AssociationConnector Association="LIVEModel.fk_Menu" />
         <EntityTypeShape EntityType="LIVEModel.sDept" Width="1.5" PointX="13.375" PointY="9.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdReceiveMaster" Width="1.5" PointX="5.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

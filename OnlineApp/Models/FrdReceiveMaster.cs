@@ -19,6 +19,8 @@ namespace OnlineApp.Models
         public Nullable<int> SupplierID { get; set; }
         public Nullable<int> ReqID { get; set; }
         public Nullable<System.DateTime> RecDate { get; set; }
+        public Nullable<int> TypeCode { get; set; }
+        public string UserNote { get; set; }
         public string AppBy { get; set; }
         public Nullable<System.DateTime> AppDate { get; set; }
         public string AppFlag { get; set; }

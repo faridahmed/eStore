@@ -27,5 +27,10 @@ namespace OnlineApp.Models
         public string MultiFlag { get; set; }
         public string Remarks { get; set; }
         public string ContactPerson { get; set; }
+        public string TINNo { get; set; }
+        public string BINNo { get; set; }
+        public string VATRegNo { get; set; }
+        public string CreateBy { get; set; }
+        public Nullable<System.DateTime> CraeteDate { get; set; }
     }
 }

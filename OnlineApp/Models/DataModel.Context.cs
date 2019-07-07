@@ -43,11 +43,10 @@ namespace OnlineApp.Models
         public virtual DbSet<sBenificiary> sBenificiaries { get; set; }
         public virtual DbSet<sDesignation> sDesignations { get; set; }
         public virtual DbSet<sUnit> sUnits { get; set; }
-        public virtual DbSet<FrdApproval> FrdApprovals { get; set; }
         public virtual DbSet<FrdReceiveDetail> FrdReceiveDetails { get; set; }
-        public virtual DbSet<FrdReceiveMaster> FrdReceiveMasters { get; set; }
         public virtual DbSet<sPageName> sPageNames { get; set; }
         public virtual DbSet<sDept> sDepts { get; set; }
+        public virtual DbSet<FrdReceiveMaster> FrdReceiveMasters { get; set; }
     
         public virtual ObjectResult<spUserLoginToApplication_Result> spUserLoginToApplication(Nullable<int> userID, string userPass, string userPin)
         {
@@ -64,6 +63,19 @@ namespace OnlineApp.Models
                 new ObjectParameter("UserPin", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spUserLoginToApplication_Result>("spUserLoginToApplication", userIDParameter, userPassParameter, userPinParameter);
+        }
+    
+        public virtual ObjectResult<spRequestData_Result> spRequestData(Nullable<int> inPlant, Nullable<int> inReqNo)
+        {
+            var inPlantParameter = inPlant.HasValue ?
+                new ObjectParameter("inPlant", inPlant) :
+                new ObjectParameter("inPlant", typeof(int));
+    
+            var inReqNoParameter = inReqNo.HasValue ?
+                new ObjectParameter("inReqNo", inReqNo) :
+                new ObjectParameter("inReqNo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spRequestData_Result>("spRequestData", inPlantParameter, inReqNoParameter);
         }
     }
 }

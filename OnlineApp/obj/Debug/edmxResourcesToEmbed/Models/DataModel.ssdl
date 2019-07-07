@@ -1,22 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="LIVEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="FrdApproval">
-    <Key>
-      <PropertyRef Name="PlantID" />
-      <PropertyRef Name="AppID" />
-    </Key>
-    <Property Name="PlantID" Type="int" Nullable="false" />
-    <Property Name="RefNo" Type="int" />
-    <Property Name="AppID" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="FirstApp" Type="varchar" MaxLength="50" />
-    <Property Name="SecondApp" Type="varchar" MaxLength="50" />
-    <Property Name="FirstStatus" Type="varchar" MaxLength="1" />
-    <Property Name="SecondStatus" Type="varchar" MaxLength="1" />
-    <Property Name="FirstDate" Type="date" />
-    <Property Name="SecondDate" Type="date" />
-    <Property Name="FirstRemarks" Type="varchar" MaxLength="500" />
-    <Property Name="SecondRemarks" Type="varchar" MaxLength="500" />
-  </EntityType>
   <EntityType Name="FrdItem">
     <Key>
       <PropertyRef Name="ItemNo" />
@@ -92,6 +75,8 @@
     <Property Name="SupplierID" Type="int" />
     <Property Name="ReqID" Type="int" />
     <Property Name="RecDate" Type="date" />
+    <Property Name="TypeCode" Type="int" />
+    <Property Name="UserNote" Type="varchar" MaxLength="500" />
     <Property Name="AppBy" Type="varchar" MaxLength="50" />
     <Property Name="AppDate" Type="date" />
     <Property Name="AppFlag" Type="varchar" MaxLength="1" />
@@ -167,6 +152,11 @@
     <Property Name="MultiFlag" Type="char" MaxLength="3" />
     <Property Name="Remarks" Type="varchar" MaxLength="300" />
     <Property Name="ContactPerson" Type="varchar" MaxLength="150" />
+    <Property Name="TINNo" Type="varchar" MaxLength="50" />
+    <Property Name="BINNo" Type="varchar" MaxLength="50" />
+    <Property Name="VATRegNo" Type="varchar" MaxLength="50" />
+    <Property Name="CreateBy" Type="varchar" MaxLength="50" />
+    <Property Name="CraeteDate" Type="datetime" />
   </EntityType>
   <EntityType Name="sBenificiary">
     <Key>
@@ -347,13 +337,16 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="spRequestData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="inPlant" Type="int" Mode="In" />
+    <Parameter Name="inReqNo" Type="int" Mode="In" />
+  </Function>
   <Function Name="spUserLoginToApplication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserID" Type="int" Mode="In" />
     <Parameter Name="UserPass" Type="varchar" Mode="In" />
     <Parameter Name="UserPin" Type="varchar" Mode="In" />
   </Function>
   <EntityContainer Name="LIVEModelStoreContainer">
-    <EntitySet Name="FrdApproval" EntityType="Self.FrdApproval" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdItem" EntityType="Self.FrdItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdMachine" EntityType="Self.FrdMachine" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdParameter" EntityType="Self.FrdParameter" Schema="dbo" store:Type="Tables" />

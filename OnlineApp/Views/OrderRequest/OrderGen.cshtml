@@ -4,7 +4,7 @@
     ViewBag.Title = "OrderRequest";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Requisition Order</h2>
+<h2>Requisition Form</h2>
 @*<div>
         <input type="hidden" id="totalPcinCase" />
     </div>*@
@@ -13,6 +13,7 @@
         <!-- Modal content-->
         <div class="modal-content row">
             <div class="modal-header">
+                <h5 class="modal-title">Item and Qty</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -24,7 +25,7 @@
                             </td>
                             <td>
                                 <select id="tItemCode" class="form-control" ,style="width:150px"><option>Select One</option></select>
-                                @Html.TextBox("ItemCode", "", new { @Class = "form-control" })
+                                @Html.TextBox("ItemCode", "", new { @Class = "form-control", @readonly = "readonly"})
                             </td>
 
                         </tr>
@@ -33,18 +34,18 @@
                                 Item Name:
                             </td>
                             <td>
-                                @Html.TextBox("ItemName", "", new { @Class = "form-control", @readonly = "readonly" })
+                                @Html.TextBox("ItemName", "", new { @Class = "form-control", @readonly = "readonly"})
                             </td>
                         </tr>
-                        <tr style="border:none">
+                        @*<tr style="border:none">
                             <td>
                                 Unit:
                             </td>
                             <td>
                                 @Html.TextBox("Unit", "0", new { @Class = "form-control" })
                             </td>
-                        </tr>
-                        <tr style="border:none">
+                        </tr>*@
+                        @*<tr style="border:none">
                             <td style="color:red">
                                 Unit Price:
                             </td>
@@ -52,18 +53,18 @@
                                 @Html.TextBox("UnitPrice", "0.0000", new { @Class = "form-control" })
                             </td>
 
-                        </tr>
+                        </tr>*@
                         <tr style="border:none">
                             <td style="color:red">
                                 Order Qty:
                             </td>
                             <td>
-                                @Html.TextBox("OrderQty", "0", new { @Class = "form-control" })
+                                @Html.TextBox("OrderQty", "0", new { @Class = "form-control", @type = "number"})
                             </td>
 
                         </tr>
 
-                        <tr style="border:none">
+                        @*<tr style="border:none">
                             <td>
                                 Total Amount:
                             </td>
@@ -71,7 +72,7 @@
                             <td>
                                 @Html.TextBox("TotAmount", "0.00", htmlAttributes: new { @Class = "form-control", @style = "float: left;text-align: right;", @readonly = "readonly" })
                             </td>
-                        </tr>
+                        </tr>*@
                         <tr style="border:none">
                             <td></td>
                             <td>
@@ -96,24 +97,25 @@
     <div class="row">
         <div class="col-md-4">
             <div>
-                <label style="color:red">Work Station ID and Name</label>
+                <label style="color:red">Work Station ID and Name :</label>
                 @Html.TextBox("WarehouseID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseID, @readonly = "readonly" })
                 @Html.TextBox("WarehouseIDLogin", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })              
-                <label style="color:red">Dept ID and  Name</label>               
-                @Html.DropDownList("DeptID", null, "Select One", new { @class = "form-control" })
-                <label style="color:red">Remarks</label>               
-                @Html.TextBox("Reasons", null, new { @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
+                <label style="color:red">Department Name :</label>               
+                @Html.DropDownList("DeptID", null, "Select Department Name", new { @class = "form-control" })
+               
                 @*<select id="ttItemCode" class="form-control" ,style="width:150px"><option>Select One</option></select>*@
             </div>
         </div>
 
         <div class="col-md-4">
-            <label>Total Qty.</label>
+            @*<label>Total Qty.</label>
             <input type="text" class="form-control" id="ReturnGoodsQty" value="0" readonly style="text-align:center" />
             <label>Amount</label>
-            <input type="text" class="form-control" id="InAmount" value="0.00" readonly style="text-align:right" />            
-            <label>RefNo</label>
-            @Html.TextBox("RefNo", null, new { @class = "form-control"})
+            <input type="text" class="form-control" id="InAmount" value="0.00" readonly style="text-align:right" />*@            
+            <label>Any Refernece No :</label>
+            @Html.TextBox("RefNo", null, new { placeholder = "Ref No Field Optional", @class = "form-control" })
+            <label>Remarks/Note:</label>
+            @Html.TextBox("Reasons", null, new { placeholder = "Remarks Field Optional",@class = "form-control", @style = "text-align:left;color:blue;font:bold" })            
             <input id="btnProduct" type="button" class="btn btn-primary btn-sm btn-block" value="Item Information" data-toggle="modal" data-target="#myModal" />
         </div>
     </div>
@@ -122,7 +124,7 @@
     <div class="row">
         <div class="col-md-4">
             @*<input type="button" id="btnready" value="Ready for Replement" class="btn btn-primary" style="background-color:orangered" onclick="readyforreplace()" ; />*@
-            <input type="button" id="btnReset" value="Reset" class="btn btn-primary btn-sm btn-block"  onclick="PageReLoad()" ; />
+            <input type="button" id="btnReset" value="Reset" class="btn btn-primary btn-sm btn-block"  onclick="ReLoad()" ; />
         </div>
         <div class="col-md-4">
             <input type="button" id="create" value="Save" class="btn btn-primary btn-sm btn-block" onclick="OrderCreated();" />
@@ -146,6 +148,8 @@
         </div>
     </div>
     <script>
+        document.getElementById("AddBtn").disabled = true;
+        document.getElementById("create").disabled = true;
         function getItemNo(id) {
             $.ajax({
                 url: "@Url.Action("getItemDescNo", "OrderRequest")",
@@ -169,12 +173,24 @@
             $("#ItemCode").val(c);
             // $('#ItemCode').focus();
             itemdesc();
+            document.getElementById("AddBtn").disabled = false;
+            $('#OrderQty').focus()
         });
         //$("#ItemCode").blur(function () {
         //    itemdesc();
         //});
+        $("#OrderQty").blur(function () {
+            var num1 = parseInt($("#OrderQty").val());
 
-
+            if (num1 <0) {
+              alert(num1 + " Sorry!!! The Negetive value You Can't Entry.");
+                
+            } 
+            //else {
+        //        alert(num1 + " is not a number");
+        //        $("#OrderQty").val('0');
+        //    }
+        })
 
         $("#DeptID").blur(function () {
             var id = $('#WarehouseID').val();
@@ -201,6 +217,8 @@
             //c4.innerHTML = y.value;
             //c5.innerHTML = u.value;
             //c6.innerHTML = z.value;
+            document.getElementById("AddBtn").disabled = true;
+            document.getElementById("create").disabled = false;
         }
 
         function itemdesc() {
@@ -216,16 +234,12 @@
                 },
                 error: function () {
                     alert("Failed! Item Invalid.");
-                    $('#ItemName').val('!!!!')
-                    //$('#ItemName').css('border-color', 'red');
-                    //$('#myModal').modal('hide');
-                    //$('#myModal').find('input[id=ProductDescription],input[id=ProductID]').val('');
-
+                    $('#ItemName').val('Error Occured');
                 }
             });
         }
         function OrderCreated() {
-
+            document.getElementById("create").disabled = true;
             var answer = confirm('Are you sure you want to save this?');
             if (answer) {
                 //  return;
@@ -254,16 +268,11 @@
                     PlantID: $('#WarehouseID').val(),
                     DeptID: $('#DeptID').val(),
                     RefNo: $('#RefNo').val(),
-                    //LoadSheetNo: $('#LoadSheetNo').val(),
-                    //TotCase: $('#TotCase').val(),
-                    //TotBox: $('#TotBox').val(),
-                    //TotDisburseAmt: $('#TotDisburseAmt').val(),
-                    //RemainingAmt: $('#RemainingAmt').val(),
                     Remarks: $('#Reasons').val(),
                     reqdtl: OrderData
                 }
             }
-            console.log(data);
+            //console.log(data);
             //debugger;
 
             $.ajax({
@@ -276,7 +285,7 @@
                     //check is successfully save to database
                     if (a.status == true) {
                         //will send status from server side
-                        alert('Successfully done... Requisition  No:' + a.v);
+                        alert('Successfully Done... Requisition Token No:' + a.v);
                         window.location.reload();
                         OrderData = [];
 
@@ -288,10 +297,12 @@
                 },
                 error: function () {
                     alert('Error. Please try again.');
-
                 }
             });
-
+        }
+        function ReLoad() {
+            alert("Are you sure reset the page ...?")
+            location.reload();
         }
 
     </script>
