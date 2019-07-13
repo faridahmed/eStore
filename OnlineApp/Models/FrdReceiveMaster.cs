@@ -18,6 +18,8 @@ namespace OnlineApp.Models
         public int ReqRecID { get; set; }
         public Nullable<int> SupplierID { get; set; }
         public Nullable<int> ReqID { get; set; }
+        public Nullable<int> DeptID { get; set; }
+        public Nullable<int> CustID { get; set; }
         public Nullable<System.DateTime> RecDate { get; set; }
         public Nullable<int> TypeCode { get; set; }
         public string UserNote { get; set; }

@@ -1,0 +1,158 @@
+﻿@model OnlineApp.ModelData.ReceiveVM
+@{
+    ViewBag.Title = "ORApproved";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Purchase Order Approval</h2>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                <label style="color:red">Work Station ID and Name :</label>
+                @Html.TextBox("WarehouseID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseID, @readonly = "readonly" })
+                @Html.TextBox("WarehouseIDLogin", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })              
+                <label style="color:red"> Reference Purchase Token No :</label>
+                @Html.DropDownList("ReqRecID", null, "Select One", new { @class = "form-control" })
+                <label>Dept Name/Customer Name :</label>
+                @Html.TextBox("DeptID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                @Html.TextBox("DeptName", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                @*<select id="ttItemCode" class="form-control" ,style="width:150px"><option>Select One</option></select>*@
+            </div>
+        </div>
+
+        <div class="col-md-4">           
+            @*<label style="color:red">Delivery/Purchase :</label>
+            @Html.DropDownList("TypeCode", null, "Must Select One", new { @class = "form-control" })
+            <label>Supplier Name :</label>
+            @Html.DropDownList("SupplierID", null, "Select a Supplier One", new { @class = "form-control" })*@          
+            <label>Note:</label>
+            @Html.TextBox("UserNote", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
+            <label>Supplier Name:</label>
+            @Html.TextBox("SupplierName", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
+            <label>Remarks:</label>
+            @Html.TextBox("FirstRemarks", null, new { placeholder = "Remarks Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
+            <input type="button" id="btnReset" value="Reset" class="btn btn-primary btn-sm btn-block" onclick="ReLoad()" ; />
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-4">           
+            <input type="button" id="btnCancel" value="Cancel" class="btn btn-primary btn-sm btn-block" onclick="Cancel()" ; />
+        </div>
+        <div class="col-md-4">
+            <input type="button" id="create" value="Approved" class="btn btn-primary btn-sm btn-block" onclick="ffnApproved();" />
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-md-6" style="margin-top:15px">
+            <div>
+                <h4 style="color:green">Item Information</h4>
+            </div>
+            <table id="recItem" class="table-responsive table-striped table-bordered">
+                <tr>
+                    <th>SL</th>
+                    <th>Item Code</th>
+                    <th>Item Description</th>
+                    <th>Stock Qty</th>
+                    <th style="color:red">Unit Price</th>
+                    <th>Req.Quantity</th>
+                    @*<th>&nbsp;</th>*@
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("create").disabled = true;
+    $('#ReqRecID').change(function () {
+        $.ajax({
+            url: "@Url.Action("PurchaseData", "OrderRequest")",           
+            data: { inWarehouseID: $('#WarehouseID').val(), inTrNo: $('#ReqRecID').val() },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {       
+            $.each(data, function (i, Req) {
+                $("#DeptID").val(Req.DeptID);
+                $("#DeptName").val(Req.DeptName);
+                $("#UserNote").val(Req.UserNote); SupplierName
+                $("#SupplierName").val(Req.NameAdd);
+                var table = document.getElementById("recItem");
+                var rowcount = i + 1;
+                var tblRow = '<tr id="row' + rowcount + '">' +
+                   '<td>' +
+                       '<label id="lblID' + rowcount + '">' + rowcount + '</label>' + 
+               '</td>' +
+               '<td><input type="text"  readonly id="tItemID' + rowcount + '" value="' + Req.ItemID + '"size ="6"' + '" style="text-align:center;"" /></td>' +
+               '<td><input type="text"  readonly id="tDescription' + rowcount + '" value="' + Req.ItemName + '"size ="25" /></td>' +
+               '<td><input type="text"  readonly id="tStockQuantity' + rowcount + '" value="' + Req.StockQty + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '<td><input type="text"  id="tUnitPrice' + rowcount + '" value="' + Req.UnitPrice + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '<td><input type="text"  id="tReqQuantity' + rowcount + '" value="' + Req.Quantity + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '</tr>'
+                $("#recItem").append(tblRow);
+            })
+
+        },
+        error: function () {
+            alert("Failed! to load data for this transaction.Please Check....");
+        }
+    }); 
+        document.getElementById("ReqRecID").disabled = true;
+        document.getElementById("create").disabled = false;
+    });
+    function ReLoad() {
+        alert("Are you sure reset the page ...?")
+        location.reload();
+    }
+    function ffnApproved() {
+        document.getElementById("create").disabled = true;
+        var answer = confirm('Are you sure you want to Approved this?');
+        if (answer) {
+            //  return;
+            //return status;
+        }
+        else {
+            return false;
+        }
+        var isAllValid = true;
+        var status = true;     
+
+        if (isAllValid) {
+            var data = {               
+                PlantID: $('#WarehouseID').val(),                
+                RefNo: $('#ReqRecID').val(),
+                FirstRemarks: $('#FirstRemarks').val(),
+               // SupplierID: $('#SupplierID').val(),
+               // TypeCode: $('#TypeCode').val(),
+                //itemdtl: OrderData
+            }
+        }
+        console.log(data);
+        $.ajax({
+            url: '/OrderRequest/Approved',
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "JSON",
+            contentType: "application/json",
+            success: function (a) {
+                //check is successfully save to database
+                if (a.status == true) {
+                    //will send status from server side
+                    alert('Successfully Done... Requisition Received Token No:' + a.v);
+                    window.location.reload();                   
+
+                }
+                else {
+                    alert('Requisition Received Process is Failed!! Please Contact to IT dept.. ');
+                }
+
+            },
+            error: function () {
+                alert('Error. Please try again.');
+            }
+        });
+    }
+</script>

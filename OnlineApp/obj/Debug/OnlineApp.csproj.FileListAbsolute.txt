@@ -162,4 +162,3 @@ E:\Development\OnlineApp\OnlineApp\obj\Debug\OnlineApp.dll
 E:\Development\OnlineApp\OnlineApp\obj\Debug\OnlineApp.pdb
 E:\Development\OnlineApp\OnlineApp\obj\Debug\RdlCompile.cache
 E:\Development\OnlineApp\OnlineApp\obj\Debug\RdlCompile.compiled
-E:\Development\OnlineApp\OnlineApp\obj\Debug\OnlineApp.csprojResolveAssemblyReference.cache

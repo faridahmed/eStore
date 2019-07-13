@@ -296,29 +296,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="FrdReceiveMasters">
-      <EntityTypeMapping TypeName="LIVEModel.FrdReceiveMaster">
-        <MappingFragment StoreEntitySet="FrdReceiveMaster">
-          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-          <ScalarProperty Name="AppRemarks2" ColumnName="AppRemarks2" />
-          <ScalarProperty Name="AppFlag2" ColumnName="AppFlag2" />
-          <ScalarProperty Name="AppDate2" ColumnName="AppDate2" />
-          <ScalarProperty Name="AppBy2" ColumnName="AppBy2" />
-          <ScalarProperty Name="AppRemarks" ColumnName="AppRemarks" />
-          <ScalarProperty Name="AppFlag" ColumnName="AppFlag" />
-          <ScalarProperty Name="AppDate" ColumnName="AppDate" />
-          <ScalarProperty Name="AppBy" ColumnName="AppBy" />
-          <ScalarProperty Name="UserNote" ColumnName="UserNote" />
-          <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
-          <ScalarProperty Name="RecDate" ColumnName="RecDate" />
-          <ScalarProperty Name="ReqID" ColumnName="ReqID" />
-          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-          <ScalarProperty Name="ReqRecID" ColumnName="ReqRecID" />
-          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="spRequestData" FunctionName="LIVEModel.Store.spRequestData">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LIVEModel.spRequestData_Result">
@@ -336,6 +313,73 @@
           <ScalarProperty Name="DeptName" ColumnName="DeptName" />
           <ScalarProperty Name="LastUnitPrice" ColumnName="LastUnitPrice" />
           <ScalarProperty Name="StockQty" ColumnName="StockQty" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="FrdReceiveMasters">
+      <EntityTypeMapping TypeName="LIVEModel.FrdReceiveMaster">
+        <MappingFragment StoreEntitySet="FrdReceiveMaster">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="AppRemarks2" ColumnName="AppRemarks2" />
+          <ScalarProperty Name="AppFlag2" ColumnName="AppFlag2" />
+          <ScalarProperty Name="AppDate2" ColumnName="AppDate2" />
+          <ScalarProperty Name="AppBy2" ColumnName="AppBy2" />
+          <ScalarProperty Name="AppRemarks" ColumnName="AppRemarks" />
+          <ScalarProperty Name="AppFlag" ColumnName="AppFlag" />
+          <ScalarProperty Name="AppDate" ColumnName="AppDate" />
+          <ScalarProperty Name="AppBy" ColumnName="AppBy" />
+          <ScalarProperty Name="UserNote" ColumnName="UserNote" />
+          <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+          <ScalarProperty Name="RecDate" ColumnName="RecDate" />
+          <ScalarProperty Name="CustID" ColumnName="CustID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ReqID" ColumnName="ReqID" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="ReqRecID" ColumnName="ReqRecID" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdApprovals">
+      <EntityTypeMapping TypeName="LIVEModel.FrdApproval">
+        <MappingFragment StoreEntitySet="FrdApproval">
+          <ScalarProperty Name="SecondRemarks" ColumnName="SecondRemarks" />
+          <ScalarProperty Name="FirstRemarks" ColumnName="FirstRemarks" />
+          <ScalarProperty Name="SecondDate" ColumnName="SecondDate" />
+          <ScalarProperty Name="FirstDate" ColumnName="FirstDate" />
+          <ScalarProperty Name="SecondStatus" ColumnName="SecondStatus" />
+          <ScalarProperty Name="FirstStatus" ColumnName="FirstStatus" />
+          <ScalarProperty Name="SecondApp" ColumnName="SecondApp" />
+          <ScalarProperty Name="FirstApp" ColumnName="FirstApp" />
+          <ScalarProperty Name="AppType" ColumnName="AppType" />
+          <ScalarProperty Name="AppCode" ColumnName="AppCode" />
+          <ScalarProperty Name="AppID" ColumnName="AppID" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spPurchaseData" FunctionName="LIVEModel.Store.spPurchaseData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LIVEModel.spPurchaseData_Result">
+          <ScalarProperty Name="ReqRecID" ColumnName="ReqRecID" />
+          <ScalarProperty Name="ReqID" ColumnName="ReqID" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="UserNote" ColumnName="UserNote" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemUnitCode" ColumnName="ItemUnitCode" />
+          <ScalarProperty Name="ConvertValue" ColumnName="ConvertValue" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+          <ScalarProperty Name="LastUnitPrice" ColumnName="LastUnitPrice" />
+          <ScalarProperty Name="StockQty" ColumnName="StockQty" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="NameAdd" ColumnName="NameAdd" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

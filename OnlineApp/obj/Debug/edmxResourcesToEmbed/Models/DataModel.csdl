@@ -56,10 +56,16 @@
       <End Role="sPageName" EntitySet="sPageNames" />
     </AssociationSet>
     <EntitySet Name="sDepts" EntityType="LIVEModel.sDept" />
-    <EntitySet Name="FrdReceiveMasters" EntityType="LIVEModel.FrdReceiveMaster" />
     <FunctionImport Name="spRequestData" ReturnType="Collection(LIVEModel.spRequestData_Result)">
       <Parameter Name="inPlant" Mode="In" Type="Int32" />
       <Parameter Name="inReqNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="FrdReceiveMasters" EntityType="LIVEModel.FrdReceiveMaster" />
+    <EntitySet Name="FrdApprovals" EntityType="LIVEModel.FrdApproval" />
+    <FunctionImport Name="spPurchaseData" ReturnType="Collection(LIVEModel.spPurchaseData_Result)">
+      <Parameter Name="inPlant" Mode="In" Type="Int32" />
+      <Parameter Name="inReqNo" Mode="In" Type="Int32" />
+      <Parameter Name="inType" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spUserLoginToApplication_Result">
@@ -371,29 +377,6 @@
     <Property Name="DeptID" Type="Int32" Nullable="false" />
     <Property Name="DeptName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="FrdReceiveMaster">
-    <Key>
-      <PropertyRef Name="PlantID" />
-      <PropertyRef Name="ReqRecID" />
-    </Key>
-    <Property Name="PlantID" Type="Int32" Nullable="false" />
-    <Property Name="ReqRecID" Type="Int32" Nullable="false" />
-    <Property Name="SupplierID" Type="Int32" />
-    <Property Name="ReqID" Type="Int32" />
-    <Property Name="RecDate" Type="DateTime" Precision="0" />
-    <Property Name="TypeCode" Type="Int32" />
-    <Property Name="UserNote" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="AppBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="AppDate" Type="DateTime" Precision="0" />
-    <Property Name="AppFlag" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="AppRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="AppBy2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="AppDate2" Type="DateTime" Precision="0" />
-    <Property Name="AppFlag2" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="AppRemarks2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="CreateDate" Type="DateTime" Precision="3" />
-  </EntityType>
   <ComplexType Name="spRequestData_Result">
     <Property Type="Int32" Name="ReqID" Nullable="false" />
     <Property Type="Int32" Name="PlantID" Nullable="false" />
@@ -409,5 +392,70 @@
     <Property Type="String" Name="DeptName" Nullable="true" MaxLength="500" />
     <Property Type="Decimal" Name="LastUnitPrice" Nullable="true" Precision="18" Scale="4" />
     <Property Type="Int32" Name="StockQty" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="FrdReceiveMaster">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReqRecID" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="ReqRecID" Type="Int32" Nullable="false" />
+    <Property Name="SupplierID" Type="Int32" />
+    <Property Name="ReqID" Type="Int32" />
+    <Property Name="DeptID" Type="Int32" />
+    <Property Name="CustID" Type="Int32" />
+    <Property Name="RecDate" Type="DateTime" Precision="0" />
+    <Property Name="TypeCode" Type="Int32" />
+    <Property Name="UserNote" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AppBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AppDate" Type="DateTime" Precision="0" />
+    <Property Name="AppFlag" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="AppRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AppBy2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AppDate2" Type="DateTime" Precision="0" />
+    <Property Name="AppFlag2" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="AppRemarks2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="FrdApproval">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="RefNo" />
+      <PropertyRef Name="AppID" />
+      <PropertyRef Name="AppType" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="RefNo" Type="Int32" Nullable="false" />
+    <Property Name="AppID" Type="Int32" Nullable="false" />
+    <Property Name="AppCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AppType" Type="Int32" Nullable="false" />
+    <Property Name="FirstApp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SecondApp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FirstStatus" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="SecondStatus" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="FirstDate" Type="DateTime" Precision="0" />
+    <Property Name="SecondDate" Type="DateTime" Precision="0" />
+    <Property Name="FirstRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="SecondRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="spPurchaseData_Result">
+    <Property Type="Int32" Name="ReqRecID" Nullable="false" />
+    <Property Type="Int32" Name="ReqID" Nullable="true" />
+    <Property Type="Int32" Name="PlantID" Nullable="false" />
+    <Property Type="Int32" Name="DeptID" Nullable="true" />
+    <Property Type="Int32" Name="SupplierID" Nullable="true" />
+    <Property Type="String" Name="UserNote" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="ItemID" Nullable="false" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="String" Name="ItemName" Nullable="true" MaxLength="300" />
+    <Property Type="Int32" Name="ItemUnitCode" Nullable="true" />
+    <Property Type="Int32" Name="ConvertValue" Nullable="false" />
+    <Property Type="Decimal" Name="UnitPrice" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="DeptName" Nullable="true" MaxLength="500" />
+    <Property Type="Decimal" Name="LastUnitPrice" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Int32" Name="StockQty" Nullable="true" />
+    <Property Type="String" Name="SupplierName" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="NameAdd" Nullable="false" MaxLength="651" />
   </ComplexType>
 </Schema>

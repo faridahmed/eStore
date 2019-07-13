@@ -94,6 +94,7 @@ namespace OnlineApp.ModelData
         public Nullable<int> TypeCode { get; set; }
         public string UserNote { get; set; }
         public string AppBy { get; set; }
+        public int DeptID { get; set; }
         //public Nullable<System.DateTime> AppDate { get; set; }
         public string AppFlag { get; set; }
         //public string AppRemarks { get; set; }
@@ -104,5 +105,21 @@ namespace OnlineApp.ModelData
        // public string CreateBy { get; set; }
        // public Nullable<System.DateTime> CreateDate { get; set; }
         public List<FrdReceiveDetail> itemdtl { get; set; }
+    }
+    public  class ApprovalVM
+    {
+        public int PlantID { get; set; }
+        public int RefNo { get; set; }
+        public int AppID { get; set; }
+        public string AppCode { get; set; }
+        public int AppType { get; set; }
+        public string FirstApp { get; set; }
+        public string SecondApp { get; set; }
+        public string FirstStatus { get; set; }
+        public string SecondStatus { get; set; }
+        public Nullable<System.DateTime> FirstDate { get; set; }
+        public Nullable<System.DateTime> SecondDate { get; set; }
+        public string FirstRemarks { get; set; }
+        public string SecondRemarks { get; set; }
     }
 }
