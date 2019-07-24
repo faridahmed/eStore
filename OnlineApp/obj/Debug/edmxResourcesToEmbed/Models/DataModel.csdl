@@ -67,6 +67,8 @@
       <Parameter Name="inReqNo" Mode="In" Type="Int32" />
       <Parameter Name="inType" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="FrdPurchases" EntityType="LIVEModel.FrdPurchase" />
+    <EntitySet Name="FrdPurchaseInfoes" EntityType="LIVEModel.FrdPurchaseInfo" />
   </EntityContainer>
   <ComplexType Name="spUserLoginToApplication_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />
@@ -458,4 +460,39 @@
     <Property Type="String" Name="SupplierName" Nullable="true" MaxLength="150" />
     <Property Type="String" Name="NameAdd" Nullable="false" MaxLength="651" />
   </ComplexType>
+  <EntityType Name="FrdPurchase">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReceivedTranNo" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="ReceivedTranNo" Type="Int32" Nullable="false" />
+    <Property Name="LocalForeign" Type="Int32" />
+    <Property Name="TranDate" Type="DateTime" Precision="0" />
+    <Property Name="RefOrderNo" Type="Int32" />
+    <Property Name="RefInvoice" Type="Int32" />
+    <Property Name="SupplierID" Type="Int32" />
+    <Property Name="IndentNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LCNo" Type="Int32" />
+    <Property Name="TotalQty" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Binary" MaxLength="3" FixedLength="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="FrdPurchaseInfo">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="TranRefNo" />
+      <PropertyRef Name="ItemCode" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="TranRefNo" Type="Int32" Nullable="false" />
+    <Property Name="ItemCode" Type="Int32" Nullable="false" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="Qty" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="UnitID" Type="Int32" />
+    <Property Name="MachineID" Type="Int32" />
+  </EntityType>
 </Schema>

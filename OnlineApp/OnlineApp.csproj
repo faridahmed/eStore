@@ -200,6 +200,7 @@
     <Compile Include="Controllers\FrdItemsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderRequestController.cs" />
+    <Compile Include="Controllers\StoreTransactionController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="FrdData\MyController.cs" />
@@ -234,6 +235,12 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FrdParameter.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FrdPurchase.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FrdPurchaseInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FrdReceiveDetail.cs">
@@ -448,6 +455,7 @@
     <Content Include="Views\OrderRequest\OrderReceive.cshtml" />
     <Content Include="Views\OrderRequest\ORApproved.cshtml" />
     <Content Include="Views\OrderRequest\WOApp.cshtml" />
+    <Content Include="Views\StoreTransaction\ItemReceived.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -48,6 +48,8 @@ namespace OnlineApp.Models
         public virtual DbSet<sDept> sDepts { get; set; }
         public virtual DbSet<FrdReceiveMaster> FrdReceiveMasters { get; set; }
         public virtual DbSet<FrdApproval> FrdApprovals { get; set; }
+        public virtual DbSet<FrdPurchase> FrdPurchases { get; set; }
+        public virtual DbSet<FrdPurchaseInfo> FrdPurchaseInfoes { get; set; }
     
         public virtual ObjectResult<spUserLoginToApplication_Result> spUserLoginToApplication(Nullable<int> userID, string userPass, string userPin)
         {

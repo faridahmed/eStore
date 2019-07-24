@@ -78,6 +78,41 @@
           <Property Name="CreateBy" Type="varchar" MaxLength="30" />
           <Property Name="CreateDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="FrdPurchase">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="ReceivedTranNo" />
+          </Key>
+          <Property Name="PlantID" Type="int" Nullable="false" />
+          <Property Name="ReceivedTranNo" Type="int" Nullable="false" />
+          <Property Name="LocalForeign" Type="int" />
+          <Property Name="TranDate" Type="date" />
+          <Property Name="RefOrderNo" Type="int" />
+          <Property Name="RefInvoice" Type="int" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="IndentNo" Type="varchar" MaxLength="50" />
+          <Property Name="LCNo" Type="int" />
+          <Property Name="TotalQty" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="varchar" MaxLength="500" />
+          <Property Name="Status" Type="varbinary" MaxLength="3" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FrdPurchaseInfo">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="TranRefNo" />
+            <PropertyRef Name="ItemCode" />
+          </Key>
+          <Property Name="PlantID" Type="int" Nullable="false" />
+          <Property Name="TranRefNo" Type="int" Nullable="false" />
+          <Property Name="ItemCode" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Qty" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="UnitID" Type="int" />
+          <Property Name="MachineID" Type="int" />
+        </EntityType>
         <EntityType Name="FrdReceiveDetail">
           <Key>
             <PropertyRef Name="PlantID" />
@@ -384,6 +419,8 @@
           <EntitySet Name="FrdItem" EntityType="Self.FrdItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdMachine" EntityType="Self.FrdMachine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdParameter" EntityType="Self.FrdParameter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FrdPurchase" EntityType="Self.FrdPurchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FrdPurchaseInfo" EntityType="Self.FrdPurchaseInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdReceiveDetail" EntityType="Self.FrdReceiveDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdReceiveMaster" EntityType="Self.FrdReceiveMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdRequestDetail" EntityType="Self.FrdRequestDetail" Schema="dbo" store:Type="Tables" />
@@ -485,6 +522,8 @@
             <Parameter Name="inReqNo" Mode="In" Type="Int32" />
             <Parameter Name="inType" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="FrdPurchases" EntityType="LIVEModel.FrdPurchase" />
+          <EntitySet Name="FrdPurchaseInfoes" EntityType="LIVEModel.FrdPurchaseInfo" />
         </EntityContainer>
         <ComplexType Name="spUserLoginToApplication_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -876,6 +915,41 @@
           <Property Type="String" Name="SupplierName" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="NameAdd" Nullable="false" MaxLength="651" />
         </ComplexType>
+        <EntityType Name="FrdPurchase">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="ReceivedTranNo" />
+          </Key>
+          <Property Name="PlantID" Type="Int32" Nullable="false" />
+          <Property Name="ReceivedTranNo" Type="Int32" Nullable="false" />
+          <Property Name="LocalForeign" Type="Int32" />
+          <Property Name="TranDate" Type="DateTime" Precision="0" />
+          <Property Name="RefOrderNo" Type="Int32" />
+          <Property Name="RefInvoice" Type="Int32" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="IndentNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LCNo" Type="Int32" />
+          <Property Name="TotalQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Binary" MaxLength="3" FixedLength="false" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FrdPurchaseInfo">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="TranRefNo" />
+            <PropertyRef Name="ItemCode" />
+          </Key>
+          <Property Name="PlantID" Type="Int32" Nullable="false" />
+          <Property Name="TranRefNo" Type="Int32" Nullable="false" />
+          <Property Name="ItemCode" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UnitID" Type="Int32" />
+          <Property Name="MachineID" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1264,6 +1338,40 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="FrdPurchases">
+            <EntityTypeMapping TypeName="LIVEModel.FrdPurchase">
+              <MappingFragment StoreEntitySet="FrdPurchase">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="TotalQty" ColumnName="TotalQty" />
+                <ScalarProperty Name="LCNo" ColumnName="LCNo" />
+                <ScalarProperty Name="IndentNo" ColumnName="IndentNo" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="RefInvoice" ColumnName="RefInvoice" />
+                <ScalarProperty Name="RefOrderNo" ColumnName="RefOrderNo" />
+                <ScalarProperty Name="TranDate" ColumnName="TranDate" />
+                <ScalarProperty Name="LocalForeign" ColumnName="LocalForeign" />
+                <ScalarProperty Name="ReceivedTranNo" ColumnName="ReceivedTranNo" />
+                <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FrdPurchaseInfoes">
+            <EntityTypeMapping TypeName="LIVEModel.FrdPurchaseInfo">
+              <MappingFragment StoreEntitySet="FrdPurchaseInfo">
+                <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="TranRefNo" ColumnName="TranRefNo" />
+                <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

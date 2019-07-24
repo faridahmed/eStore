@@ -383,5 +383,39 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="FrdPurchases">
+      <EntityTypeMapping TypeName="LIVEModel.FrdPurchase">
+        <MappingFragment StoreEntitySet="FrdPurchase">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="TotalQty" ColumnName="TotalQty" />
+          <ScalarProperty Name="LCNo" ColumnName="LCNo" />
+          <ScalarProperty Name="IndentNo" ColumnName="IndentNo" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="RefInvoice" ColumnName="RefInvoice" />
+          <ScalarProperty Name="RefOrderNo" ColumnName="RefOrderNo" />
+          <ScalarProperty Name="TranDate" ColumnName="TranDate" />
+          <ScalarProperty Name="LocalForeign" ColumnName="LocalForeign" />
+          <ScalarProperty Name="ReceivedTranNo" ColumnName="ReceivedTranNo" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdPurchaseInfoes">
+      <EntityTypeMapping TypeName="LIVEModel.FrdPurchaseInfo">
+        <MappingFragment StoreEntitySet="FrdPurchaseInfo">
+          <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+          <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+          <ScalarProperty Name="Qty" ColumnName="Qty" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="TranRefNo" ColumnName="TranRefNo" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

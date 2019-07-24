@@ -73,6 +73,41 @@
     <Property Name="CreateBy" Type="varchar" MaxLength="30" />
     <Property Name="CreateDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="FrdPurchase">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ReceivedTranNo" />
+    </Key>
+    <Property Name="PlantID" Type="int" Nullable="false" />
+    <Property Name="ReceivedTranNo" Type="int" Nullable="false" />
+    <Property Name="LocalForeign" Type="int" />
+    <Property Name="TranDate" Type="date" />
+    <Property Name="RefOrderNo" Type="int" />
+    <Property Name="RefInvoice" Type="int" />
+    <Property Name="SupplierID" Type="int" />
+    <Property Name="IndentNo" Type="varchar" MaxLength="50" />
+    <Property Name="LCNo" Type="int" />
+    <Property Name="TotalQty" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Remarks" Type="varchar" MaxLength="500" />
+    <Property Name="Status" Type="varbinary" MaxLength="3" />
+    <Property Name="CreateBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FrdPurchaseInfo">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="TranRefNo" />
+      <PropertyRef Name="ItemCode" />
+    </Key>
+    <Property Name="PlantID" Type="int" Nullable="false" />
+    <Property Name="TranRefNo" Type="int" Nullable="false" />
+    <Property Name="ItemCode" Type="int" Nullable="false" />
+    <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="Qty" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="UnitID" Type="int" />
+    <Property Name="MachineID" Type="int" />
+  </EntityType>
   <EntityType Name="FrdReceiveDetail">
     <Key>
       <PropertyRef Name="PlantID" />
@@ -379,6 +414,8 @@
     <EntitySet Name="FrdItem" EntityType="Self.FrdItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdMachine" EntityType="Self.FrdMachine" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdParameter" EntityType="Self.FrdParameter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdPurchase" EntityType="Self.FrdPurchase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdPurchaseInfo" EntityType="Self.FrdPurchaseInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdReceiveDetail" EntityType="Self.FrdReceiveDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdReceiveMaster" EntityType="Self.FrdReceiveMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdRequestDetail" EntityType="Self.FrdRequestDetail" Schema="dbo" store:Type="Tables" />

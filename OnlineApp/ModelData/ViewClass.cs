@@ -122,4 +122,22 @@ namespace OnlineApp.ModelData
         public string FirstRemarks { get; set; }
         public string SecondRemarks { get; set; }
     }
+    public  class TransactionVM
+    {
+        public int PlantID { get; set; }
+        public int ReceivedTranNo { get; set; }
+        public Nullable<int> LocalForeign { get; set; }
+        public Nullable<System.DateTime> TranDate { get; set; }
+        public Nullable<int> RefOrderNo { get; set; }
+        public Nullable<int> RefInvoice { get; set; }
+        public Nullable<int> SupplierID { get; set; }
+        public string IndentNo { get; set; }
+        public Nullable<int> LCNo { get; set; }
+        public Nullable<decimal> TotalQty { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
+        public string Remarks { get; set; }
+        public byte[] Status { get; set; }
+       // public string CreateBy { get; set; }
+       // public Nullable<System.DateTime> CreateDate { get; set; }
+    }
 }
