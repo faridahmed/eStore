@@ -31,6 +31,7 @@ namespace OnlineApp.Models
         public Nullable<System.DateTime> AppDate2 { get; set; }
         public string AppFlag2 { get; set; }
         public string AppRemarks2 { get; set; }
+        public string Status { get; set; }
         public string CreateBy { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
     }

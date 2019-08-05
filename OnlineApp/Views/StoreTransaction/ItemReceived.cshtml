@@ -20,6 +20,11 @@
                 <label style="color:red"> Foreign/Local :</label>
                 @Html.DropDownList("TypeCode", null, "Select One", new { @class = "form-control" })
                 @*<select id="ttItemCode" class="form-control" ,style="width:150px"><option>Select One</option></select>*@
+               @*<input type="hidden" id="SupplierID" name="SupplierID" value="0">*@
+                @Html.Hidden("SupplierID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                @Html.Hidden("ReqID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                @Html.Hidden("TotQty", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                @Html.Hidden("TotAmt", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
             </div>
         </div>
 
@@ -29,28 +34,30 @@
                 <label>Supplier Name :</label>
                 @Html.DropDownList("SupplierID", null, "Select a Supplier One", new { @class = "form-control" })*@
             <label>Dept Name/Customer Name :</label>
-             @Html.TextBox("DeptID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+             @Html.Hidden("DeptID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
              @Html.TextBox("DeptName", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
             <label>Note:</label>
-            @Html.TextBox("UserNote", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
+            @Html.TextBox("UserNote", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold", @readonly = "readonly" })
             <label>Supplier Name:</label>
-            @Html.TextBox("SupplierName", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
-            <label>Remarks:</label>
-            @Html.TextBox("FirstRemarks", null, new { placeholder = "Remarks Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
-            
+            @Html.TextBox("SupplierName", null, new { placeholder = "SupplierName Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold", @readonly = "readonly" })
+            <label>Incoice Ref No:</label>
+            @Html.TextBox("Invoice", null, new { placeholder = "Ref Invoice Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
+           
         </div>
         <div class="col-md-4">
             @*<label style="color:red">Delivery/Purchase :</label>
             @Html.DropDownList("TypeCode", null, "Must Select One", new { @class = "form-control" })
             <label>Supplier Name :</label>
             @Html.DropDownList("SupplierID", null, "Select a Supplier One", new { @class = "form-control" })*@
-            <label>Option:</label>
-            @Html.TextBox("UserNote", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
-            <label>Transaction:</label>
-            @Html.TextBox("SupplierName", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold"})
-            <label>QrCode:</label>
-            @Html.TextBox("Qr", null, new { placeholder = "Remarks Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold"})
-            <input type="button" id="Generate" value="Barcode Generate" class="btn btn-primary btn-sm btn-block" onclick="ffnTransaction();" />
+            <label>LC No:</label>
+            @Html.TextBox("LCNo", null, new { placeholder = "LC No Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
+            <label>Indent No:</label>
+            @Html.TextBox("IndentNo", null, new { placeholder = "Indent No Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold"})
+            <label>Location:</label>
+            @Html.TextBox("Location", null, new { placeholder = "Location Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold"})
+            @*<input type="button" id="Generate" value="Barcode Generate" class="btn btn-primary btn-sm btn-block" onclick="ffnTransaction();" />*@
+            <label>Remarks/Note:</label>
+             @Html.TextBox("Remarks", null, new { placeholder = "Remarks Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
         </div>
     </div>
 </div>
@@ -78,6 +85,7 @@
                     <th>Stock Qty</th>
                     <th>Unit Price</th>
                     <th>Quantity</th>
+                    <th>Total</th>
                     @*<th>&nbsp;</th>*@
                 </tr>
             </table>
@@ -85,7 +93,7 @@
     </div>
 </div>
 <script>
-    document.getElementById("create").disabled = true;
+    //document.getElementById("create").disabled = true;
     $('#RefInvoice').change(function () {
         $.ajax({
             url: "@Url.Action("ShowData", "StoreTransaction")",
@@ -96,7 +104,9 @@
             $.each(data, function (i, Req) {
                 $("#DeptID").val(Req.DeptID);
                 $("#DeptName").val(Req.DeptName);
-                $("#UserNote").val(Req.UserNote); SupplierName
+                $("#ReqID").val(Req.ReqID);
+                $("#UserNote").val(Req.UserNote); 
+                $("#SupplierID").val(Req.SupplierID);
                 $("#SupplierName").val(Req.NameAdd);
                 var table = document.getElementById("recItem");
                 var rowcount = i + 1;
@@ -109,9 +119,21 @@
                '<td><input type="text"  readonly id="tStockQuantity' + rowcount + '" value="' + Req.StockQty + '"size ="12"' + '" style="text-align:right;"" /></td>' +
                '<td><input type="text"  id="tUnitPrice' + rowcount + '" value="' + Req.UnitPrice + '"size ="12"' + '" style="text-align:right;"" /></td>' +
                '<td><input type="text"  id="tReqQuantity' + rowcount + '" value="' + Req.Quantity + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+                '<td><input type="text"  id="tTotAmt' + rowcount + '" value="' + Req.Quantity * Req.UnitPrice + '"size ="12"' + '" style="text-align:right;"" /></td>' +
                '</tr>'
                 $("#recItem").append(tblRow);
             })
+            var nth = $("table").find("tr").length;
+            var Cases = parseFloat("0");
+            var Boxes = parseFloat("0");
+            var vprice = parseFloat("0");
+            for (j = 1; j < nth; j++) {
+                Cases += parseFloat($("table").find("tr").eq(j).find("td:eq(5) input[type='text']").val());               
+                Boxes += parseFloat(parseFloat($("table").find("tr").eq(j).find("td:eq(4) input[type='text']").val()) * (parseFloat($("table").find("tr").eq(j).find("td:eq(5) input[type='text']").val())));
+            }
+            $("#TotQty").val(Cases);
+            $("#TotAmt").val(Boxes);
+           // console.log(data);
 
         },
         error: function () {
@@ -119,7 +141,7 @@
         }
     });
         document.getElementById("RefInvoice").disabled = true;
-        document.getElementById("create").disabled = false;
+       // document.getElementById("create").disabled = false;
     });
     function ReLoad() {
         alert("Are you sure reset the page ...?")
@@ -137,17 +159,37 @@
         }
         var isAllValid = true;
         var status = true;
+        OrderData = [];
+        var id = $('#recItem tr:last').index()
+        $('#recItem tr').each(function (row, tr) {
+            if ((row > 0) && (row <= id)) {
+                OrderData.push({
+                    ItemCode:$('#tItemID' + row).val().trim(),// $(tr).find('td:eq(1)').text(),                    
+                    Qty: $('#tReqQuantity' + row).val().trim(),//$(tr).find('td:eq(5)').text(),
+                    UnitPrice: $('#tUnitPrice' + row).val().trim(),// $(tr).find('td:eq(4)').text(),
+                });
+            }
+        });
 
+        console.log(OrderData);
         if (isAllValid) {
             var data = {
                 PlantID: $('#WarehouseID').val(),
-                RefNo: $('#ReqRecID').val(),
-                SecondRemarks: $('#SecondRemarks').val(),
-               // SupplierID: $('#SupplierID').val(),
-               // TypeCode: $('#TypeCode').val(),
-                //itemdtl: OrderData
+                RefOrderNo: $('#RefInvoice').val(),
+                RefInvoice: $('#Invoice').val(),
+                SupplierID: $('#SupplierID').val(),
+                LCNo: $('#LCNo').val(),
+                IndentNo: $('#IndentNo').val(),
+                LocalForeign: $('#TypeCode').val(),
+                Remarks: $('#Remarks').val(),
+                TotalQty: $('#TotQty').val(),
+                TotalPrice: $('#TotAmt').val(),
+                reqdtl: OrderData
             }
+            console.log(data);
         }
+       // console.log(data);
+
 
         $.ajax({
             url: '/StoreTransaction/MyTransaction',
@@ -161,6 +203,7 @@
                     //will send status from server side
                     alert('Successfully Done... Requisition Received Token No:' + a.v);
                     window.location.reload();
+                    OrderData = [];
 
                 }
                 else {
@@ -173,4 +216,36 @@
             }
         });
     }
+    $('#LCNo').blur(function () {
+        if ($('#LCNo').val() != "") {
+            var value = $('#LCNo').val().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+            var intRegex = /^\d+$/;
+            if (!intRegex.test(value)) {
+                alert("Field must be Numeric");
+                $('#LCNo').focus();
+                success = false;
+            }
+        } else {
+            alert( "Field is blank.");
+            success = false;
+        }
+            
+    })
+    
+    $('#Invoice').blur(function () {
+        if ($('#Invoice').val() != "") {
+            var value = $('#Invoice').val().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+            var intRegex = /^\d+$/;
+            if (!intRegex.test(value)) {
+                alert("Field must be Numeric");
+                $('#Invoice').focus();
+                success = false;
+            }
+        } else {
+            alert("Field is blank.");
+            success = false;
+        }
+
+    })
+
 </script>

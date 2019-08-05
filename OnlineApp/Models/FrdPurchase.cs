@@ -26,7 +26,7 @@ namespace OnlineApp.Models
         public Nullable<decimal> TotalQty { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
         public string Remarks { get; set; }
-        public byte[] Status { get; set; }
+        public string Status { get; set; }
         public string CreateBy { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
     }

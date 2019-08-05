@@ -36,7 +36,6 @@ namespace OnlineApp.Models
         public virtual DbSet<FrdParameter> FrdParameters { get; set; }
         public virtual DbSet<sDocument> sDocuments { get; set; }
         public virtual DbSet<FrdSupplier> FrdSuppliers { get; set; }
-        public virtual DbSet<FrdStockMaster> FrdStockMasters { get; set; }
         public virtual DbSet<FrdItem> FrdItems { get; set; }
         public virtual DbSet<FrdRequestDetail> FrdRequestDetails { get; set; }
         public virtual DbSet<FrdRequestMaster> FrdRequestMasters { get; set; }
@@ -46,10 +45,11 @@ namespace OnlineApp.Models
         public virtual DbSet<FrdReceiveDetail> FrdReceiveDetails { get; set; }
         public virtual DbSet<sPageName> sPageNames { get; set; }
         public virtual DbSet<sDept> sDepts { get; set; }
-        public virtual DbSet<FrdReceiveMaster> FrdReceiveMasters { get; set; }
         public virtual DbSet<FrdApproval> FrdApprovals { get; set; }
-        public virtual DbSet<FrdPurchase> FrdPurchases { get; set; }
         public virtual DbSet<FrdPurchaseInfo> FrdPurchaseInfoes { get; set; }
+        public virtual DbSet<FrdPurchase> FrdPurchases { get; set; }
+        public virtual DbSet<FrdReceiveMaster> FrdReceiveMasters { get; set; }
+        public virtual DbSet<FrdStockMaster> FrdStockMasters { get; set; }
     
         public virtual ObjectResult<spUserLoginToApplication_Result> spUserLoginToApplication(Nullable<int> userID, string userPass, string userPin)
         {
@@ -96,6 +96,35 @@ namespace OnlineApp.Models
                 new ObjectParameter("inType", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spPurchaseData_Result>("spPurchaseData", inPlantParameter, inReqNoParameter, inTypeParameter);
+        }
+    
+        public virtual int spStockProduct(Nullable<int> inPlant, Nullable<int> inItenCode, Nullable<int> inTrans, Nullable<int> inQty, Nullable<decimal> inQtyd, Nullable<decimal> inUnit)
+        {
+            var inPlantParameter = inPlant.HasValue ?
+                new ObjectParameter("inPlant", inPlant) :
+                new ObjectParameter("inPlant", typeof(int));
+    
+            var inItenCodeParameter = inItenCode.HasValue ?
+                new ObjectParameter("inItenCode", inItenCode) :
+                new ObjectParameter("inItenCode", typeof(int));
+    
+            var inTransParameter = inTrans.HasValue ?
+                new ObjectParameter("inTrans", inTrans) :
+                new ObjectParameter("inTrans", typeof(int));
+    
+            var inQtyParameter = inQty.HasValue ?
+                new ObjectParameter("inQty", inQty) :
+                new ObjectParameter("inQty", typeof(int));
+    
+            var inQtydParameter = inQtyd.HasValue ?
+                new ObjectParameter("inQtyd", inQtyd) :
+                new ObjectParameter("inQtyd", typeof(decimal));
+    
+            var inUnitParameter = inUnit.HasValue ?
+                new ObjectParameter("inUnit", inUnit) :
+                new ObjectParameter("inUnit", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spStockProduct", inPlantParameter, inItenCodeParameter, inTransParameter, inQtyParameter, inQtydParameter, inUnitParameter);
         }
     }
 }

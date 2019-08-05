@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="LIVEModel.FrdParameter" Width="1.5" PointX="5.375" PointY="8.75" />
         <EntityTypeShape EntityType="LIVEModel.sDocument" Width="1.5" PointX="7.375" PointY="8.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdSupplier" Width="1.5" PointX="9.375" PointY="8.75" />
-        <EntityTypeShape EntityType="LIVEModel.FrdStockMaster" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdItem" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdRequestDetail" Width="1.5" PointX="11.375" PointY="9.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdRequestMaster" Width="1.5" PointX="3.375" PointY="12.75" />
@@ -27,10 +26,11 @@
         <EntityTypeShape EntityType="LIVEModel.sPageName" Width="1.5" PointX="6" PointY="4.375" />
         <AssociationConnector Association="LIVEModel.fk_Menu" />
         <EntityTypeShape EntityType="LIVEModel.sDept" Width="1.5" PointX="13.375" PointY="9.75" />
-        <EntityTypeShape EntityType="LIVEModel.FrdReceiveMaster" Width="1.5" PointX="5.375" PointY="13.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdApproval" Width="1.5" PointX="13.375" PointY="12.75" />
-        <EntityTypeShape EntityType="LIVEModel.FrdPurchase" Width="1.5" PointX="7.375" PointY="14.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdPurchaseInfo" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdPurchase" Width="1.5" PointX="7.375" PointY="14.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdReceiveMaster" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdStockMaster" Width="1.5" PointX="0.75" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

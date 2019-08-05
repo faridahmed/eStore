@@ -178,10 +178,12 @@ namespace OnlineApp.Controllers
                             {
                                 dbo.AppBy = "XXXXX";
                                 dbo.AppFlag = "O";
+                                dbo.Status = "PEN";
                             }
                             else {
                                 dbo.AppBy = "NA";
                                 dbo.AppFlag = "N";
+                                dbo.Status = "COM";
                             }
                             dbo.CreateDate = DateTime.Now;
                             dbo.CreateBy = User.Identity.Name;

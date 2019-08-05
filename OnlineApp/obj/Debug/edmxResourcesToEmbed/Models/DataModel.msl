@@ -159,24 +159,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="FrdStockMasters">
-      <EntityTypeMapping TypeName="LIVEModel.FrdStockMaster">
-        <MappingFragment StoreEntitySet="FrdStockMaster">
-          <ScalarProperty Name="Active" ColumnName="Active" />
-          <ScalarProperty Name="MovingFlag" ColumnName="MovingFlag" />
-          <ScalarProperty Name="LastPurchaseDate" ColumnName="LastPurchaseDate" />
-          <ScalarProperty Name="LastUnitPrice" ColumnName="LastUnitPrice" />
-          <ScalarProperty Name="StartingQuantity" ColumnName="StartingQuantity" />
-          <ScalarProperty Name="StartingQty" ColumnName="StartingQty" />
-          <ScalarProperty Name="AdjustedQuantity" ColumnName="AdjustedQuantity" />
-          <ScalarProperty Name="AdjustedQty" ColumnName="AdjustedQty" />
-          <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
-          <ScalarProperty Name="StockQty" ColumnName="StockQty" />
-          <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
-          <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="FrdItems">
       <EntityTypeMapping TypeName="LIVEModel.FrdItem">
         <MappingFragment StoreEntitySet="FrdItem">
@@ -316,31 +298,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="FrdReceiveMasters">
-      <EntityTypeMapping TypeName="LIVEModel.FrdReceiveMaster">
-        <MappingFragment StoreEntitySet="FrdReceiveMaster">
-          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-          <ScalarProperty Name="AppRemarks2" ColumnName="AppRemarks2" />
-          <ScalarProperty Name="AppFlag2" ColumnName="AppFlag2" />
-          <ScalarProperty Name="AppDate2" ColumnName="AppDate2" />
-          <ScalarProperty Name="AppBy2" ColumnName="AppBy2" />
-          <ScalarProperty Name="AppRemarks" ColumnName="AppRemarks" />
-          <ScalarProperty Name="AppFlag" ColumnName="AppFlag" />
-          <ScalarProperty Name="AppDate" ColumnName="AppDate" />
-          <ScalarProperty Name="AppBy" ColumnName="AppBy" />
-          <ScalarProperty Name="UserNote" ColumnName="UserNote" />
-          <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
-          <ScalarProperty Name="RecDate" ColumnName="RecDate" />
-          <ScalarProperty Name="CustID" ColumnName="CustID" />
-          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
-          <ScalarProperty Name="ReqID" ColumnName="ReqID" />
-          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-          <ScalarProperty Name="ReqRecID" ColumnName="ReqRecID" />
-          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="FrdApprovals">
       <EntityTypeMapping TypeName="LIVEModel.FrdApproval">
         <MappingFragment StoreEntitySet="FrdApproval">
@@ -383,6 +340,19 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="FrdPurchaseInfoes">
+      <EntityTypeMapping TypeName="LIVEModel.FrdPurchaseInfo">
+        <MappingFragment StoreEntitySet="FrdPurchaseInfo">
+          <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+          <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+          <ScalarProperty Name="Qty" ColumnName="Qty" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="TranRefNo" ColumnName="TranRefNo" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="FrdPurchases">
       <EntityTypeMapping TypeName="LIVEModel.FrdPurchase">
         <MappingFragment StoreEntitySet="FrdPurchase">
@@ -404,18 +374,52 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="FrdPurchaseInfoes">
-      <EntityTypeMapping TypeName="LIVEModel.FrdPurchaseInfo">
-        <MappingFragment StoreEntitySet="FrdPurchaseInfo">
-          <ScalarProperty Name="MachineID" ColumnName="MachineID" />
-          <ScalarProperty Name="UnitID" ColumnName="UnitID" />
-          <ScalarProperty Name="Qty" ColumnName="Qty" />
-          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
-          <ScalarProperty Name="TranRefNo" ColumnName="TranRefNo" />
+    <EntitySetMapping Name="FrdReceiveMasters">
+      <EntityTypeMapping TypeName="LIVEModel.FrdReceiveMaster">
+        <MappingFragment StoreEntitySet="FrdReceiveMaster">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="AppRemarks2" ColumnName="AppRemarks2" />
+          <ScalarProperty Name="AppFlag2" ColumnName="AppFlag2" />
+          <ScalarProperty Name="AppDate2" ColumnName="AppDate2" />
+          <ScalarProperty Name="AppBy2" ColumnName="AppBy2" />
+          <ScalarProperty Name="AppRemarks" ColumnName="AppRemarks" />
+          <ScalarProperty Name="AppFlag" ColumnName="AppFlag" />
+          <ScalarProperty Name="AppDate" ColumnName="AppDate" />
+          <ScalarProperty Name="AppBy" ColumnName="AppBy" />
+          <ScalarProperty Name="UserNote" ColumnName="UserNote" />
+          <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+          <ScalarProperty Name="RecDate" ColumnName="RecDate" />
+          <ScalarProperty Name="CustID" ColumnName="CustID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ReqID" ColumnName="ReqID" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="ReqRecID" ColumnName="ReqRecID" />
           <ScalarProperty Name="PlantID" ColumnName="PlantID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="FrdStockMasters">
+      <EntityTypeMapping TypeName="LIVEModel.FrdStockMaster">
+        <MappingFragment StoreEntitySet="FrdStockMaster">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="MovingFlag" ColumnName="MovingFlag" />
+          <ScalarProperty Name="LastPurchaseDate" ColumnName="LastPurchaseDate" />
+          <ScalarProperty Name="LastUnitPrice" ColumnName="LastUnitPrice" />
+          <ScalarProperty Name="StartingQuantity" ColumnName="StartingQuantity" />
+          <ScalarProperty Name="StartingQty" ColumnName="StartingQty" />
+          <ScalarProperty Name="ReturnQuantity" ColumnName="ReturnQuantity" />
+          <ScalarProperty Name="ReturnQty" ColumnName="ReturnQty" />
+          <ScalarProperty Name="AdjustedQuantity" ColumnName="AdjustedQuantity" />
+          <ScalarProperty Name="AdjustedQty" ColumnName="AdjustedQty" />
+          <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+          <ScalarProperty Name="StockQty" ColumnName="StockQty" />
+          <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+          <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spStockProduct" FunctionName="LIVEModel.Store.spStockProduct" />
   </EntityContainerMapping>
 </Mapping>

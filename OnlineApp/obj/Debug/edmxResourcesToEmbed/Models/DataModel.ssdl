@@ -90,7 +90,7 @@
     <Property Name="TotalQty" Type="decimal" Precision="18" Scale="2" />
     <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Remarks" Type="varchar" MaxLength="500" />
-    <Property Name="Status" Type="varbinary" MaxLength="3" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
     <Property Name="CreateBy" Type="varchar" MaxLength="50" />
     <Property Name="CreateDate" Type="datetime" />
   </EntityType>
@@ -143,6 +143,7 @@
     <Property Name="AppDate2" Type="date" />
     <Property Name="AppFlag2" Type="varchar" MaxLength="1" />
     <Property Name="AppRemarks2" Type="varchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="3" />
     <Property Name="CreateBy" Type="varchar" MaxLength="50" />
     <Property Name="CreateDate" Type="datetime" />
   </EntityType>
@@ -186,6 +187,8 @@
     <Property Name="StockQuantity" Type="decimal" Precision="18" Scale="2" />
     <Property Name="AdjustedQty" Type="int" />
     <Property Name="AdjustedQuantity" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ReturnQty" Type="int" />
+    <Property Name="ReturnQuantity" Type="decimal" Precision="18" Scale="2" />
     <Property Name="StartingQty" Type="int" />
     <Property Name="StartingQuantity" Type="decimal" Precision="18" Scale="2" />
     <Property Name="LastUnitPrice" Type="decimal" Precision="18" Scale="4" />
@@ -403,6 +406,14 @@
   <Function Name="spRequestData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="inPlant" Type="int" Mode="In" />
     <Parameter Name="inReqNo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spStockProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="inPlant" Type="int" Mode="In" />
+    <Parameter Name="inItenCode" Type="int" Mode="In" />
+    <Parameter Name="inTrans" Type="int" Mode="In" />
+    <Parameter Name="inQty" Type="int" Mode="In" />
+    <Parameter Name="inQtyd" Type="decimal" Mode="In" />
+    <Parameter Name="inUnit" Type="decimal" Mode="In" />
   </Function>
   <Function Name="spUserLoginToApplication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserID" Type="int" Mode="In" />

@@ -20,6 +20,8 @@ namespace OnlineApp.Models
         public Nullable<decimal> StockQuantity { get; set; }
         public Nullable<int> AdjustedQty { get; set; }
         public Nullable<decimal> AdjustedQuantity { get; set; }
+        public Nullable<int> ReturnQty { get; set; }
+        public Nullable<decimal> ReturnQuantity { get; set; }
         public Nullable<int> StartingQty { get; set; }
         public Nullable<decimal> StartingQuantity { get; set; }
         public Nullable<decimal> LastUnitPrice { get; set; }

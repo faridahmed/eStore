@@ -24,7 +24,7 @@ namespace OnlineApp.Controllers
             ViewBag.RefInvoice = new SelectList((from s in databaseManager.FrdReceiveMasters
                                                join cust in databaseManager.FrdSuppliers
                                                       on s.SupplierID equals cust.SupplierID
-                                               where s.PlantID == cust.BranchCode && s.PlantID == w.PlantNo && s.AppFlag == "A" && s.AppBy != "XXXXX" && s.AppFlag2 == "A"
+                                               where s.PlantID == cust.BranchCode && s.PlantID == w.PlantNo && s.AppFlag == "A" && s.AppBy != "XXXXX" && s.Status == "PEN"
                                                orderby s.ReqRecID descending
                                                select new
                                                {
@@ -60,7 +60,7 @@ namespace OnlineApp.Controllers
             return new JsonResult { Data = pData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-        public ActionResult PurApproved(TransactionVM D)
+        public ActionResult MyTransaction(TransactionVM D)
         {
             bool status = false;
             string mes = "";
@@ -71,9 +71,9 @@ namespace OnlineApp.Controllers
             string s1 = w.PlantNo.ToString();
             string s2 = string.Concat(s1 + "000000");
             int reqno = Convert.ToInt32(s2);
-            var maxreqno = (from n in databaseManager.FrdApprovals where n.PlantID == w.PlantNo select n.AppID).DefaultIfEmpty(reqno).Max();
+            var maxreqno = (from n in databaseManager.FrdPurchases where n.PlantID == w.PlantNo select n.ReceivedTranNo).DefaultIfEmpty(reqno).Max();
             var maxrNo = maxreqno + 1;
-            string Code = string.Concat("APP" + maxreqno + "RM");
+            string Code = string.Concat("REC" + maxreqno);
             int v = maxrNo;
             try
             {
@@ -82,43 +82,49 @@ namespace OnlineApp.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        FrdApproval dbo = new FrdApproval();
+                        FrdPurchase dbo = new FrdPurchase();
                         {
-                            dbo.AppID = maxrNo;
+                            dbo.ReceivedTranNo = maxrNo;
                             dbo.PlantID = D.PlantID;
-                            //dbo.RefNo = D.RefNo;
-                            dbo.AppType = 1;
-                            dbo.AppCode = Code;
-                            //dbo.FirstApp = D.ReqID;
-                            //dbo.SecondRemarks = D.SecondRemarks;
-                            dbo.SecondStatus = "A";
-                            //dbo.RefNo = D.RefNo;
-                            //dbo.SupplierID = D.SupplierID;
-                            //dbo.UserNote = D.UserNote;
-                            //dbo.TypeCode = D.TypeCode;
-                            //  if (D.TypeCode == 20)
-                            // {
-                            // dbo.AppBy = "XXXXX";
-                            //  dbo.AppFlag = "O";
-                            // }
-                            //  else
-                            // {
-                            // dbo.AppBy = "NA";
-                            // dbo.AppFlag = "N";
-                            //  }
-                            dbo.SecondDate = DateTime.Now;
-                            dbo.SecondApp = User.Identity.Name;
+                            dbo.ReceivedTranNo = maxrNo;
+                            dbo.TranDate = DateTime.Today;
+                            dbo.RefOrderNo = D.RefOrderNo;
+                            dbo.LCNo = D.LCNo;
+                            dbo.LocalForeign = D.LocalForeign;
+                            dbo.SupplierID = D.SupplierID;
+                            dbo.IndentNo = D.IndentNo;
+                            dbo.TotalQty = D.TotalQty;
+                            dbo.TotalPrice = D.TotalPrice;
+                            dbo.Remarks = D.Remarks;             
+                            dbo.Status ="REC";
+                            dbo.RefInvoice = D.RefInvoice;
+                            dbo.CreateBy = User.Identity.Name;
+                            dbo.CreateDate = DateTime.Now;                      
                         };
-                        databaseManager.FrdApprovals.Add(dbo);
-                        var result = databaseManager.FrdReceiveMasters.SingleOrDefault(b => b.ReqRecID == D.RefInvoice);
+                        databaseManager.FrdPurchases.Add(dbo);
+                        foreach (var i in D.reqdtl)
+                        {
+                            FrdPurchaseInfo obd = new FrdPurchaseInfo();
+                            {
+                                obd.PlantID = D.PlantID;
+                                obd.TranRefNo = maxrNo;
+                                obd.ItemCode = i.ItemCode;
+                                obd.Qty = i.Qty;
+                                obd.UnitPrice =i.UnitPrice;
+                                databaseManager.FrdPurchaseInfoes.Add(obd);
+                            }
+                            if (i.ItemCode != 0 && D.PlantID!=0)
+                            {
+                                databaseManager.spStockProduct(D.PlantID, i.ItemCode, 1, Convert.ToInt32(i.Qty), i.Qty, i.UnitPrice);
+                            }
+                        }
+                        var result = databaseManager.FrdReceiveMasters.SingleOrDefault(b => b.ReqRecID == D.RefOrderNo);
                         if (result != null)
                         {
-                            result.AppFlag2 = "A";
-                            result.AppDate2 = DateTime.Today;
-                            result.AppBy2 = User.Identity.Name;
-                           // result.AppRemarks2 = D.SecondRemarks;
-                            databaseManager.SaveChanges();
+                            result.Status = "COM";
+                            //databaseManager.SaveChanges();
                         }
+
                         databaseManager.SaveChanges();
                         transaction.Commit();
                         status = true;
