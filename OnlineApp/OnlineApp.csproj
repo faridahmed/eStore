@@ -456,6 +456,7 @@
     <Content Include="Views\OrderRequest\ORApproved.cshtml" />
     <Content Include="Views\OrderRequest\WOApp.cshtml" />
     <Content Include="Views\StoreTransaction\ItemReceived.cshtml" />
+    <Content Include="Views\Home\TestView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
