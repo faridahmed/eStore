@@ -1,0 +1,55 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+<br />
+
+
+
+<h2>Choose Report Parameter</h2>
+<div class="panel-body">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Select Catagory:</label>
+            @Html.DropDownList("ReqRecID", null, "---Select Item Id---", new { @class = "from-control ReqRecID", id = "ReqRecID" })
+            <input type="button" id="showReport" value="Preview" class="form-control btn-primary" />
+        </div>
+    </div>
+
+</div>
+<br />
+<div id="tabledata"></div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $('#showReport').click(function () {
+            $("#ajax_load").show();
+            var wValue = $("#ReqRecID").val();
+
+
+
+                $.ajax({
+                    url: "@Url.Action("OrderCount", "WorkOrder")",
+                    dataType: "HTML",
+                    type: "POST",
+                    data: {Id: wValue },
+                    cache: false,
+                    async: true,
+                    success: function(data) {
+                        $("#tabledata").html(data);
+                    }
+                });
+
+
+
+
+        })
+
+    </script>
+}
+
+

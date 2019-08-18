@@ -126,5 +126,14 @@ namespace OnlineApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spStockProduct", inPlantParameter, inItenCodeParameter, inTransParameter, inQtyParameter, inQtydParameter, inUnitParameter);
         }
+    
+        public virtual ObjectResult<Work_order_Result> Work_order(Nullable<int> reqId)
+        {
+            var reqIdParameter = reqId.HasValue ?
+                new ObjectParameter("reqId", reqId) :
+                new ObjectParameter("reqId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Work_order_Result>("Work_order", reqIdParameter);
+        }
     }
 }
