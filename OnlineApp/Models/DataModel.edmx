@@ -425,6 +425,9 @@
           <Parameter Name="UserPass" Type="varchar" Mode="In" />
           <Parameter Name="UserPin" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="Work_order" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="reqId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="LIVEModelStoreContainer">
           <EntitySet Name="FrdApproval" EntityType="Self.FrdApproval" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdItem" EntityType="Self.FrdItem" Schema="dbo" store:Type="Tables" />
@@ -542,6 +545,9 @@
             <Parameter Name="inQty" Mode="In" Type="Int32" />
             <Parameter Name="inQtyd" Mode="In" Type="Decimal" />
             <Parameter Name="inUnit" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Work_order" ReturnType="Collection(LIVEModel.Work_order_Result)">
+            <Parameter Name="reqId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spUserLoginToApplication_Result">
@@ -972,6 +978,23 @@
           <Property Name="MovingFlag" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="Work_order_Result">
+          <Property Type="String" Name="SupplierName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SupplierAddress" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="MobileNumber" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="VATRegNo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ReqRecID" Nullable="false" />
+          <Property Type="DateTime" Name="RecDate" Nullable="true" />
+          <Property Type="String" Name="UserNote" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="String" Name="ItemName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ItemDescription" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="PlantID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1398,6 +1421,27 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spStockProduct" FunctionName="LIVEModel.Store.spStockProduct" />
+          <FunctionImportMapping FunctionImportName="Work_order" FunctionName="LIVEModel.Store.Work_order">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LIVEModel.Work_order_Result">
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierAddress" ColumnName="SupplierAddress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="VATRegNo" ColumnName="VATRegNo" />
+                <ScalarProperty Name="ReqRecID" ColumnName="ReqRecID" />
+                <ScalarProperty Name="RecDate" ColumnName="RecDate" />
+                <ScalarProperty Name="UserNote" ColumnName="UserNote" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+                <ScalarProperty Name="PlantName" ColumnName="PlantName" />
+                <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

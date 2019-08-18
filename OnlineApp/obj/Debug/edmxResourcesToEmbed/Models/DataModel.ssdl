@@ -420,6 +420,9 @@
     <Parameter Name="UserPass" Type="varchar" Mode="In" />
     <Parameter Name="UserPin" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="Work_order" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="reqId" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="LIVEModelStoreContainer">
     <EntitySet Name="FrdApproval" EntityType="Self.FrdApproval" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdItem" EntityType="Self.FrdItem" Schema="dbo" store:Type="Tables" />
