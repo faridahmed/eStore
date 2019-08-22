@@ -8,59 +8,43 @@
 @Html.AntiForgeryToken()
 <div class="panel-body">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div>
                 <label style="color:red">Work Station ID and Name :</label>
                 @Html.TextBox("WarehouseID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseID, @readonly = "readonly" })
                 @Html.TextBox("WarehouseIDLogin", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
                 <label style="color:red"> Reference Order No :</label>
                 @Html.DropDownList("RefOrderNo", null, "Select One", new { @class = "form-control" })
-                @*<label style="color:red"> Sphere/Non-Sphere :</label>
-                @Html.DropDownList("TypeCodes", null, "Select One", new { @class = "form-control" })
-                <label style="color:red"> Foreign/Local :</label>
-                @Html.DropDownList("TypeCode", null, "Select One", new { @class = "form-control" })*@
-                @*<select id="ttItemCode" class="form-control" ,style="width:150px"><option>Select One</option></select>*@
-                @*<input type="hidden" id="SupplierID" name="SupplierID" value="0">*@
-                @Html.Hidden("SupplierID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                <label>Dept Name/Customer Name :</label>
+                @Html.Hidden("DeptID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                @Html.TextBox("DeptName", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                @Html.Hidden("BeneficiaryID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
                 @Html.Hidden("ReqID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
                 @Html.Hidden("TotQty", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
                 @Html.Hidden("TotAmt", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
             </div>
         </div>
-
-        <div class="col-md-4">          
-            <label>Dept Name/Customer Name :</label>
-            @Html.Hidden("DeptID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
-            @Html.TextBox("DeptName", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
-            <label>Note:</label>
-            @Html.TextBox("UserNote", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold", @readonly = "readonly" })
-            <label>Supplier Name:</label>
-            @Html.TextBox("SupplierName", null, new { placeholder = "SupplierName Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold", @readonly = "readonly" })
+        <div class="col-md-6">     
+            
+            <label>Received By:</label>
+            @Html.TextBox("ReceivedBy", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold"})
+            <label>Remarks:</label>
+            @Html.TextBox("Remarks", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold"})
+            @*<label>Supplier Name:</label>
+            @Html.TextBox("SupplierName", null, new { placeholder = "SupplierName Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold", @readonly = "readonly" })*@
             <label>Incoice Ref No:</label>
             @Html.TextBox("Invoice", null, new { placeholder = "Ref Invoice Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
 
         </div>
-        @*<div class="col-md-4">
-           
-            <label>LC No:</label>
-            @Html.TextBox("LCNo", null, new { placeholder = "LC No Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
-            <label>Indent No:</label>
-            @Html.TextBox("IndentNo", null, new { placeholder = "Indent No Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
-            <label>Location:</label>
-            @Html.TextBox("Location", null, new { placeholder = "Location Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
-            @*<input type="button" id="Generate" value="Barcode Generate" class="btn btn-primary btn-sm btn-block" onclick="ffnTransaction();" />
-            <label>Remarks/Note:</label>
-            Html.TextBox("Remarks", null, new { placeholder = "Remarks Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
-        </div>*@
     </div>
 </div>
 <div class="panel-body">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             @*<input type="button" id="btnready" value="Ready for Replement" class="btn btn-primary" style="background-color:orangered" onclick="readyforreplace()" ; />*@
             <input type="button" id="btnReset" value="Reset" class="btn btn-primary btn-sm btn-block" onclick="ReLoad()" ; />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <input type="button" id="create" value="Save" class="btn btn-primary btn-sm btn-block" onclick="SaveReceived();" />
         </div>
     </div>
@@ -111,7 +95,7 @@
                '<td><input type="text"  readonly id="tStockQuantity' + rowcount + '" value="' + Req.StockQty + '"size ="12"' + '" style="text-align:right;"" /></td>' +
                '<td><input type="text"  readonly id="tUnitPrice' + rowcount + '" value="' + Req.UnitPrice + '"size ="12"' + '" style="text-align:right;"" /></td>' +
                '<td><input type="text"  readonly id="tReqQuantity' + rowcount + '" value="' + Req.Quantity + '"size ="12"' + '" style="text-align:right;"" /></td>' +
-               '<td><input type="text"  id="tReqQuantity' + rowcount + '" value="' + Req.Quantity + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '<td><input type="text"  id="tDelQuantity' + rowcount + '" value="' + Req.Quantity + '"size ="12"' + '" style="text-align:right;"" /></td>' +
                '</tr>'
                 $("#recItem").append(tblRow);
             })
@@ -154,9 +138,10 @@
         $('#recItem tr').each(function (row, tr) {
             if ((row > 0) && (row <= id)) {
                 OrderData.push({
-                    ItemID: $('#tItemID' + row).val().trim(),
+                    ItemNo: $('#tItemID' + row).val().trim(),
                     UnitPrice: $('#tUnitPrice' + row).val().trim(),
-                    Quantity: $('#tReqQuantity' + row).val().trim()
+                    Qty: $('#tReqQuantity' + row).val().trim(),
+                    DelQty: $('#tDelQuantity' + row).val().trim()
                 });
             }
         });
@@ -166,10 +151,9 @@
                 //CustomerID: $('#CustomerID').val(),
                 PlantID: $('#WarehouseID').val(),
                 DeptID: $('#DeptID').val(),
-                ReqID: $('#ReqID').val(),
-                UserNote: $('#UserNote').val(),
-                SupplierID: $('#SupplierID').val(),
-                TypeCode: $('#TypeCode').val(),
+                RefOrderNo: $('#RefOrderNo').val(),
+                Remarks: $('#Remarks').val(),
+                ReceivedBy: $('#ReceivedBy').val(),                
                 itemdtl: OrderData
             }
         }
@@ -177,7 +161,7 @@
         //debugger;
 
         $.ajax({
-            url: '/OrderRequest/SaveReceived',
+            url: '/StoreTransaction/SaveAdj',
             type: "POST",
             data: JSON.stringify(data),
             dataType: "JSON",
@@ -186,7 +170,7 @@
                 //check is successfully save to database
                 if (a.status == true) {
                     //will send status from server side
-                    alert('Successfully Done... Requisition Received Token No:' + a.v);
+                    alert('Successfully Done... Issued Token No:' + a.v);
                     window.location.reload();
                     OrderData = [];
 

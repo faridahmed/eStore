@@ -21,5 +21,7 @@ namespace OnlineApp.Models
         public Nullable<decimal> QtyD { get; set; }
         public Nullable<decimal> UnitPrice { get; set; }
         public Nullable<decimal> TotAmt { get; set; }
+        public Nullable<int> DelQty { get; set; }
+        public Nullable<decimal> DelQtyD { get; set; }
     }
 }

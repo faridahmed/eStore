@@ -432,4 +432,3 @@ E:\Development\OnlineApp\OnlineApp\bin\VSLangProj80.xml
 E:\Development\OnlineApp\OnlineApp\bin\VSLangProj2.xml
 E:\Development\OnlineApp\OnlineApp\obj\Debug\RdlCompile.cache
 E:\Development\OnlineApp\OnlineApp\obj\Debug\RdlCompile.compiled
-E:\Development\OnlineApp\OnlineApp\obj\Debug\OnlineApp.csprojResolveAssemblyReference.cache

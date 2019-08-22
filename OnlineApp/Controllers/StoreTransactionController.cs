@@ -76,8 +76,7 @@ namespace OnlineApp.Controllers
             string Code = string.Concat("REC" + maxreqno);
             int v = maxrNo;
             try
-            {
-                // using (LIVEEntities ddd = new LIVEEntities())
+            {             
                 using (var transaction = databaseManager.Database.BeginTransaction())
                 {
                     if (ModelState.IsValid)
@@ -188,5 +187,85 @@ namespace OnlineApp.Controllers
             ViewBag.TypeCodes = tCodes;
             return View("ItemAdj");
         }
+        public ActionResult SaveAdj(IssueVm D)
+        {
+            bool status = false;
+            string mes = "";
+            var w = (from y in databaseManager.sUsers
+                     where y.UserID.ToString() == User.Identity.Name
+                     select new { y.PlantNo }).FirstOrDefault();
+            var wn = databaseManager.sPlants.Where(x => x.PlantNo == w.PlantNo).FirstOrDefault();
+            string s1 = w.PlantNo.ToString();
+            string s2 = string.Concat(s1 + "000000");
+            int reqno = Convert.ToInt32(s2);
+            var maxreqno = (from n in databaseManager.FrdItemIssues where n.PlantID == w.PlantNo select n.TrNo).DefaultIfEmpty(reqno).Max();
+            var maxrNo = maxreqno + 1;
+            int v = maxrNo;
+            try
+            {
+                using (var transaction = databaseManager.Database.BeginTransaction())
+                {
+                    if (ModelState.IsValid)
+                    {
+                        FrdItemIssue dbo = new FrdItemIssue();
+                        {
+                            dbo.TrNo = maxrNo;
+                            dbo.PlantID = D.PlantID;
+                            dbo.DeptID = D.DeptID;
+                            dbo.TrDate = DateTime.Today;
+                            dbo.BeneficiaryID = Convert.ToInt32(User.Identity.Name);
+                            dbo.RefOrderNo = D.RefOrderNo;
+                            dbo.Remarks = D.Remarks;
+                            dbo.ReceivedBy = D.ReceivedBy;
+                            dbo.ReceiverName = D.ReceiverName;
+                            dbo.Status = "ISS";
+                            dbo.CreateDate = DateTime.Now;
+                            dbo.CreateBy = User.Identity.Name;
+                        };
+                        databaseManager.FrdItemIssues.Add(dbo);
+                        foreach (var i in D.itemdtl)
+                        {
+                            FrdIssueDetail obd = new FrdIssueDetail();
+                            {
+                                obd.PlantID = D.PlantID;
+                                obd.TrNo = maxrNo;
+                                obd.ItemNo = i.ItemNo;
+                                obd.Qty = i.Qty;
+                                obd.DelQty = i.DelQty;
+                                obd.UnitPrice = 0;
+                                databaseManager.FrdIssueDetails.Add(obd);
+                            }
+                            if (i.ItemNo != 0 && D.PlantID != 0)
+                            {
+                                databaseManager.spStockProduct(D.PlantID, i.ItemNo, 2, Convert.ToInt32(i.Qty), i.Qty, 0);
+                            }
+                        }
+                        var result = databaseManager.FrdRequestMasters.SingleOrDefault(b => b.ReqID == D.RefOrderNo);
+                        if (result != null)
+                        {
+                            result.Status = "D";
+                            //databaseManager.SaveChanges();
+                        }
+                        databaseManager.SaveChanges();
+                        transaction.Commit();
+                        status = true;
+                        databaseManager.Dispose();
+                        ModelState.Clear();
+                    }
+                    else
+                    {
+                        status = false;
+                        transaction.Rollback();
+
+                    }
+                    return new JsonResult { Data = new { status = status, mes = mes, v = v } };
+                }
+            }
+            catch (Exception ex)
+            {
+                string mess = ex.Message;
+                return Json(new { status = "error", message = "Error Generate" });
+            }
+          }
     }
 }

@@ -442,19 +442,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="FrdIssueDetails">
-      <EntityTypeMapping TypeName="LIVEModel.FrdIssueDetail">
-        <MappingFragment StoreEntitySet="FrdIssueDetail">
-          <ScalarProperty Name="TotAmt" ColumnName="TotAmt" />
-          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-          <ScalarProperty Name="QtyD" ColumnName="QtyD" />
-          <ScalarProperty Name="Qty" ColumnName="Qty" />
-          <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-          <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
-          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="FrdItemIssues">
       <EntityTypeMapping TypeName="LIVEModel.FrdItemIssue">
         <MappingFragment StoreEntitySet="FrdItemIssue">
@@ -471,6 +458,21 @@
           <ScalarProperty Name="RefOrderNo" ColumnName="RefOrderNo" />
           <ScalarProperty Name="TrDate" ColumnName="TrDate" />
           <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdIssueDetails">
+      <EntityTypeMapping TypeName="LIVEModel.FrdIssueDetail">
+        <MappingFragment StoreEntitySet="FrdIssueDetail">
+          <ScalarProperty Name="DelQtyD" ColumnName="DelQtyD" />
+          <ScalarProperty Name="DelQty" ColumnName="DelQty" />
+          <ScalarProperty Name="TotAmt" ColumnName="TotAmt" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="QtyD" ColumnName="QtyD" />
+          <ScalarProperty Name="Qty" ColumnName="Qty" />
+          <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+          <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
           <ScalarProperty Name="PlantID" ColumnName="PlantID" />
         </MappingFragment>
       </EntityTypeMapping>

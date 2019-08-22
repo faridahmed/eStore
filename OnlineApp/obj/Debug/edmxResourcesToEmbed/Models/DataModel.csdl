@@ -80,8 +80,8 @@
     <FunctionImport Name="Work_order" ReturnType="Collection(LIVEModel.Work_order_Result)">
       <Parameter Name="reqId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="FrdIssueDetails" EntityType="LIVEModel.FrdIssueDetail" />
     <EntitySet Name="FrdItemIssues" EntityType="LIVEModel.FrdItemIssue" />
+    <EntitySet Name="FrdIssueDetails" EntityType="LIVEModel.FrdIssueDetail" />
   </EntityContainer>
   <ComplexType Name="spUserLoginToApplication_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />
@@ -528,20 +528,6 @@
     <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
     <Property Type="Int32" Name="PlantID" Nullable="false" />
   </ComplexType>
-  <EntityType Name="FrdIssueDetail">
-    <Key>
-      <PropertyRef Name="PlantID" />
-      <PropertyRef Name="ItemNo" />
-      <PropertyRef Name="TrNo" />
-    </Key>
-    <Property Name="PlantID" Type="Int32" Nullable="false" />
-    <Property Name="ItemNo" Type="Int32" Nullable="false" />
-    <Property Name="TrNo" Type="Int32" Nullable="false" />
-    <Property Name="Qty" Type="Int32" />
-    <Property Name="QtyD" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
-  </EntityType>
   <EntityType Name="FrdItemIssue">
     <Key>
       <PropertyRef Name="PlantID" />
@@ -561,5 +547,21 @@
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
     <Property Name="TotQty" Type="Int32" />
     <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="FrdIssueDetail">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ItemNo" />
+      <PropertyRef Name="TrNo" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="ItemNo" Type="Int32" Nullable="false" />
+    <Property Name="TrNo" Type="Int32" Nullable="false" />
+    <Property Name="Qty" Type="Int32" />
+    <Property Name="QtyD" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DelQty" Type="Int32" />
+    <Property Name="DelQtyD" Type="Decimal" Precision="18" Scale="2" />
   </EntityType>
 </Schema>

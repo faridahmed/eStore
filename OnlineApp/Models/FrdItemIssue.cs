@@ -24,8 +24,9 @@ namespace OnlineApp.Models
         public Nullable<int> ReceivedBy { get; set; }
         public string ReceiverName { get; set; }
         public string Status { get; set; }
+        public string CreateBy { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<int> TotQty { get; set; }
         public Nullable<decimal> TotAmt { get; set; }
-        public List<FrdIssueDetail> reqdtl { get; set; }
     }
 }
