@@ -265,7 +265,13 @@
     <Compile Include="Models\FrdApproval.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FrdIssueDetail.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FrdItem.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FrdItemIssue.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FrdMachine.cs">
@@ -479,7 +485,9 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -516,9 +524,7 @@
     <Content Include="Views\OrderRequest\ORApproved.cshtml" />
     <Content Include="Views\OrderRequest\WOApp.cshtml" />
     <Content Include="Views\StoreTransaction\ItemReceived.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\StoreTransaction\ItemAdj.cshtml" />
-=======
     <Content Include="Views\Home\TestView.cshtml" />
     <Content Include="Views\WorkOrder\Index.cshtml" />
     <Content Include="workorderdataset.xsc">
@@ -533,7 +539,6 @@
     <Content Include="workorderdataset.xss">
       <DependentUpon>workorderdataset.xsd</DependentUpon>
     </Content>
->>>>>>> 467be6fd7f8df4e80345245b16d7db7b0463164a
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

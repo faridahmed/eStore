@@ -26,6 +26,20 @@
           <Property Name="FirstRemarks" Type="varchar" MaxLength="500" />
           <Property Name="SecondRemarks" Type="varchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="FrdIssueDetail">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="ItemNo" />
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="PlantID" Type="int" Nullable="false" />
+          <Property Name="ItemNo" Type="int" Nullable="false" />
+          <Property Name="TrNo" Type="int" Nullable="false" />
+          <Property Name="Qty" Type="int" />
+          <Property Name="QtyD" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="TotAmt" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="FrdItem">
           <Key>
             <PropertyRef Name="ItemNo" />
@@ -48,6 +62,26 @@
           <Property Name="Show" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="CreateBy" Type="varchar" MaxLength="30" />
           <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FrdItemIssue">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="PlantID" Type="int" Nullable="false" />
+          <Property Name="TrNo" Type="int" Nullable="false" />
+          <Property Name="TrDate" Type="date" />
+          <Property Name="RefOrderNo" Type="int" />
+          <Property Name="BeneficiaryID" Type="int" />
+          <Property Name="DeptID" Type="int" />
+          <Property Name="Remarks" Type="varchar" MaxLength="500" />
+          <Property Name="ReceivedBy" Type="int" />
+          <Property Name="ReceiverName" Type="varchar" MaxLength="500" />
+          <Property Name="Status" Type="varchar" MaxLength="3" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="TotQty" Type="int" />
+          <Property Name="TotAmt" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="FrdMachine">
           <Key>
@@ -430,7 +464,9 @@
         </Function>
         <EntityContainer Name="LIVEModelStoreContainer">
           <EntitySet Name="FrdApproval" EntityType="Self.FrdApproval" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FrdIssueDetail" EntityType="Self.FrdIssueDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdItem" EntityType="Self.FrdItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FrdItemIssue" EntityType="Self.FrdItemIssue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdMachine" EntityType="Self.FrdMachine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdParameter" EntityType="Self.FrdParameter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdPurchase" EntityType="Self.FrdPurchase" Schema="dbo" store:Type="Tables" />
@@ -547,8 +583,10 @@
             <Parameter Name="inUnit" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="Work_order" ReturnType="Collection(LIVEModel.Work_order_Result)">
-            <Parameter Name="reqId" Mode="In" Type="Int32" />
+          <Parameter Name="reqId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="FrdIssueDetails" EntityType="LIVEModel.FrdIssueDetail" />
+          <EntitySet Name="FrdItemIssues" EntityType="LIVEModel.FrdItemIssue" />
         </EntityContainer>
         <ComplexType Name="spUserLoginToApplication_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -995,6 +1033,40 @@
           <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
           <Property Type="Int32" Name="PlantID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="FrdIssueDetail">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="ItemNo" />
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="PlantID" Type="Int32" Nullable="false" />
+          <Property Name="ItemNo" Type="Int32" Nullable="false" />
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="Qty" Type="Int32" />
+          <Property Name="QtyD" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="FrdItemIssue">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="PlantID" Type="Int32" Nullable="false" />
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="TrDate" Type="DateTime" Precision="0" />
+          <Property Name="RefOrderNo" Type="Int32" />
+          <Property Name="BeneficiaryID" Type="Int32" />
+          <Property Name="DeptID" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ReceivedBy" Type="Int32" />
+          <Property Name="ReceiverName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="TotQty" Type="Int32" />
+          <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1442,6 +1514,39 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="FrdIssueDetails">
+            <EntityTypeMapping TypeName="LIVEModel.FrdIssueDetail">
+              <MappingFragment StoreEntitySet="FrdIssueDetail">
+                <ScalarProperty Name="TotAmt" ColumnName="TotAmt" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="QtyD" ColumnName="QtyD" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+                <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FrdItemIssues">
+            <EntityTypeMapping TypeName="LIVEModel.FrdItemIssue">
+              <MappingFragment StoreEntitySet="FrdItemIssue">
+                <ScalarProperty Name="TotAmt" ColumnName="TotAmt" />
+                <ScalarProperty Name="TotQty" ColumnName="TotQty" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
+                <ScalarProperty Name="RefOrderNo" ColumnName="RefOrderNo" />
+                <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

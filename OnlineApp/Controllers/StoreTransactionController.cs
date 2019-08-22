@@ -147,5 +147,46 @@ namespace OnlineApp.Controllers
 
             }
         }
+        public ActionResult ItemAdj()
+        {
+            var w = (from y in databaseManager.sUsers
+                     where y.UserID.ToString() == User.Identity.Name
+                     select new { y.PlantNo }).FirstOrDefault();
+            var wn = databaseManager.sPlants.Where(x => x.PlantNo == w.PlantNo).FirstOrDefault();
+            ViewBag.WarehouseID = wn.PlantNo;
+            ViewBag.WarehouseIDLogin = wn.PlantName;
+            ViewBag.RefOrderNo = new SelectList((from s in databaseManager.FrdRequestMasters
+                                                 join cust in databaseManager.sBenificiaries
+                                                        on s.CustomerID equals cust.BenificiaryID
+                                                 where s.PlantID == w.PlantNo && s.Status == "A" 
+                                                 orderby s.ReqID descending
+                                                 select new
+                                                 {
+                                                     ReqRecID = s.ReqID,
+                                                     CustomerID = cust.BenificiaryName + " (" + s.ReqID + ") " 
+                                                 }),
+           "ReqRecID", "CustomerID", null);
+            var tCode = new SelectList(
+            new[]
+                {
+                       new { ID = 130, Name = "Local" },
+                       new { ID = 120, Name = "Foreign" },
+                },
+                "ID",
+                "Name"
+            );
+            ViewBag.TypeCode = tCode;
+            var tCodes = new SelectList(
+            new[]
+                {
+                       new { ID = 220, Name = "Sphere" },
+                       new { ID = 230, Name = "Non-Sphere" },
+                },
+                "ID",
+                "Name"
+            );
+            ViewBag.TypeCodes = tCodes;
+            return View("ItemAdj");
+        }
     }
 }

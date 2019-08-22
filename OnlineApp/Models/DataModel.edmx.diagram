@@ -31,6 +31,8 @@
         <EntityTypeShape EntityType="LIVEModel.FrdPurchase" Width="1.5" PointX="7.375" PointY="14.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdReceiveMaster" Width="1.5" PointX="0.75" PointY="15.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdStockMaster" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdIssueDetail" Width="1.5" PointX="15.375" PointY="4.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdItemIssue" Width="1.5" PointX="15.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
