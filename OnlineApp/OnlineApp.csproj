@@ -235,6 +235,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FrdItemsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MachineAmountController.cs" />
     <Compile Include="Controllers\OrderRequestController.cs" />
     <Compile Include="Controllers\StoreTransactionController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
@@ -243,6 +244,11 @@
     <Compile Include="FrdData\MyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="machinewiseamount.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>machinewiseamount.xsd</DependentUpon>
     </Compile>
     <Compile Include="ModelData\LoginData.cs" />
     <Compile Include="ModelData\ViewClass.cs" />
@@ -296,6 +302,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FrdSupplier.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\machineWiseAmount_Result.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
@@ -452,6 +461,17 @@
     <Content Include="Models\DataModel.edmx.diagram">
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Content>
+    <Content Include="machinewiseamount.xsc">
+      <DependentUpon>machinewiseamount.xsd</DependentUpon>
+    </Content>
+    <None Include="machinewiseamount.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>machinewiseamount.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="machinewiseamount.xss">
+      <DependentUpon>machinewiseamount.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -522,6 +542,8 @@
       <DependentUpon>workorderdataset.xsd</DependentUpon>
     </Content>
     <Content Include="Views\WorkOrder\OrderCount.cshtml" />
+    <Content Include="Views\MachineAmount\Index.cshtml" />
+    <Content Include="Views\MachineAmount\Amount.cshtml" />
     <None Include="workorderdataset.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -546,6 +568,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\machinewiseamount.rdlc" />
     <EmbeddedResource Include="Reports\MyReport.rdlc" />
     <EmbeddedResource Include="Reports\workorder.rdlc" />
   </ItemGroup>

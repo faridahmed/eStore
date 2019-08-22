@@ -442,5 +442,28 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="machineWiseAmount" FunctionName="LIVEModel.Store.machineWiseAmount">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LIVEModel.machineWiseAmount_Result">
+          <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+          <ScalarProperty Name="StockQty" ColumnName="StockQty" />
+          <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+          <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+          <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+          <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+          <ScalarProperty Name="LastUnitPrice" ColumnName="LastUnitPrice" />
+          <ScalarProperty Name="StartingQty" ColumnName="StartingQty" />
+          <ScalarProperty Name="StartingQuantity" ColumnName="StartingQuantity" />
+          <ScalarProperty Name="AdjustedQty" ColumnName="AdjustedQty" />
+          <ScalarProperty Name="AdjustedQuantity" ColumnName="AdjustedQuantity" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="PlantName" ColumnName="PlantName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

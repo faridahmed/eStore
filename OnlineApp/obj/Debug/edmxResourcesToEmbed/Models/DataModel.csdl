@@ -80,6 +80,9 @@
     <FunctionImport Name="Work_order" ReturnType="Collection(LIVEModel.Work_order_Result)">
       <Parameter Name="reqId" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="machineWiseAmount" ReturnType="Collection(LIVEModel.machineWiseAmount_Result)">
+      <Parameter Name="wId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spUserLoginToApplication_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />
@@ -525,5 +528,24 @@
     <Property Type="String" Name="ItemDescription" Nullable="true" MaxLength="500" />
     <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
     <Property Type="Int32" Name="PlantID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="machineWiseAmount_Result">
+    <Property Type="Int32" Name="WarehouseID" Nullable="false" />
+    <Property Type="Int32" Name="StockQty" Nullable="true" />
+    <Property Type="Decimal" Name="StockQuantity" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="ItemNo" Nullable="false" />
+    <Property Type="Int32" Name="ItemCode" Nullable="false" />
+    <Property Type="String" Name="ItemName" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="ItemDescription" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="MachineID" Nullable="true" />
+    <Property Type="String" Name="MachineName" Nullable="true" MaxLength="300" />
+    <Property Type="Decimal" Name="LastUnitPrice" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Int32" Name="StartingQty" Nullable="true" />
+    <Property Type="Decimal" Name="StartingQuantity" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="AdjustedQty" Nullable="true" />
+    <Property Type="Decimal" Name="AdjustedQuantity" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Location" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
   </ComplexType>
 </Schema>

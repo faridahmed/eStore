@@ -135,5 +135,14 @@ namespace OnlineApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Work_order_Result>("Work_order", reqIdParameter);
         }
+    
+        public virtual ObjectResult<machineWiseAmount_Result> machineWiseAmount(Nullable<int> wId)
+        {
+            var wIdParameter = wId.HasValue ?
+                new ObjectParameter("wId", wId) :
+                new ObjectParameter("wId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<machineWiseAmount_Result>("machineWiseAmount", wIdParameter);
+        }
     }
 }

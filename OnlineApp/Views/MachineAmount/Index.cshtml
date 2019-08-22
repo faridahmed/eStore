@@ -13,10 +13,8 @@
 <div class="panel-body">
     <div class="col-md-6">
         <div class="form-group">
-            <label>Select Item:</label>
-            <br />
-            @Html.DropDownList("ReqRecID", null, "Select Item", new { @class = "form-control" })
-            <br />
+            <label>Select Plant:</label>
+            @Html.DropDownList("PlantNo", null, "Select Plant ", new { @class = "form-control",@id = "PlantNo"})
             <input type="button" id="showReport" value="Preview" class="form-control btn-primary" />
         </div>
     </div>
@@ -30,9 +28,9 @@
 
         $('#showReport').click(function () {
             $("#ajax_load").show();
-            var wValue = $("#ReqRecID").val();
+            var wValue = $("#PlantNo").val();
             $.ajax({
-                    url: "@Url.Action("OrderCount", "WorkOrder")",
+                    url: "@Url.Action("Amount", "MachineAmount")",
                     dataType: "HTML",
                     type: "POST",
                     data: {Id: wValue },
@@ -46,5 +44,7 @@
 
     </script>
 }
+
+
 
 
