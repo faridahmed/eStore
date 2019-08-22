@@ -21,6 +21,22 @@
     <Property Name="FirstRemarks" Type="varchar" MaxLength="500" />
     <Property Name="SecondRemarks" Type="varchar" MaxLength="500" />
   </EntityType>
+  <EntityType Name="FrdIssueDetail">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ItemNo" />
+      <PropertyRef Name="TrNo" />
+    </Key>
+    <Property Name="PlantID" Type="int" Nullable="false" />
+    <Property Name="ItemNo" Type="int" Nullable="false" />
+    <Property Name="TrNo" Type="int" Nullable="false" />
+    <Property Name="Qty" Type="int" />
+    <Property Name="QtyD" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="TotAmt" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="DelQty" Type="int" />
+    <Property Name="DelQtyD" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
   <EntityType Name="FrdItem">
     <Key>
       <PropertyRef Name="ItemNo" />
@@ -43,6 +59,26 @@
     <Property Name="Show" Type="varchar" MaxLength="3" Nullable="false" />
     <Property Name="CreateBy" Type="varchar" MaxLength="30" />
     <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FrdItemIssue">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="TrNo" />
+    </Key>
+    <Property Name="PlantID" Type="int" Nullable="false" />
+    <Property Name="TrNo" Type="int" Nullable="false" />
+    <Property Name="TrDate" Type="date" />
+    <Property Name="RefOrderNo" Type="int" />
+    <Property Name="BeneficiaryID" Type="int" />
+    <Property Name="DeptID" Type="int" />
+    <Property Name="Remarks" Type="varchar" MaxLength="500" />
+    <Property Name="ReceivedBy" Type="int" />
+    <Property Name="ReceiverName" Type="varchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="3" />
+    <Property Name="CreateBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="TotQty" Type="int" />
+    <Property Name="TotAmt" Type="decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="FrdMachine">
     <Key>
@@ -428,7 +464,9 @@
   </Function>
   <EntityContainer Name="LIVEModelStoreContainer">
     <EntitySet Name="FrdApproval" EntityType="Self.FrdApproval" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdIssueDetail" EntityType="Self.FrdIssueDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdItem" EntityType="Self.FrdItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrdItemIssue" EntityType="Self.FrdItemIssue" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdMachine" EntityType="Self.FrdMachine" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdParameter" EntityType="Self.FrdParameter" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FrdPurchase" EntityType="Self.FrdPurchase" Schema="dbo" store:Type="Tables" />

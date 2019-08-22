@@ -18,7 +18,7 @@ namespace OnlineApp.Controllers
         public ActionResult Index()
         {
 
-            ViewBag.ReqRecID = new SelectList(db.FrdReceiveDetails, "ReqRecID", "ReqRecID");
+            ViewBag.ReqRecID = new SelectList(db.FrdReceiveMasters, "ReqRecID", "ReqRecID");
 
 
             return View();

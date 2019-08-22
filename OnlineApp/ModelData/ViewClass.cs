@@ -141,4 +141,23 @@ namespace OnlineApp.ModelData
         // public Nullable<System.DateTime> CreateDate { get; set; }
         public List<FrdPurchaseInfo> reqdtl { get; set; }
     }
+    public class IssueVm
+    {
+          public int PlantID { get; set; }
+        public int TrNo { get; set; }
+        public Nullable<System.DateTime> TrDate { get; set; }
+        public Nullable<int> RefOrderNo { get; set; }
+        public Nullable<int> BeneficiaryID { get; set; }
+        public Nullable<int> DeptID { get; set; }
+        public string Remarks { get; set; }
+        public Nullable<int> ReceivedBy { get; set; }
+        public string ReceiverName { get; set; }
+        public string Status { get; set; }
+        //public string CreateBy { get; set; }
+        //public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<int> TotQty { get; set; }
+        public Nullable<decimal> TotAmt { get; set; }
+        public List<FrdIssueDetail> itemdtl { get; set; }
+
+    }
 }

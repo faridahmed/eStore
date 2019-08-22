@@ -1,0 +1,188 @@
+﻿@model OnlineApp.ModelData.IssueVm
+
+@{
+    ViewBag.Title = "ItemAdj";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Issue To Beneficiary</h2>
+@Html.AntiForgeryToken()
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <label style="color:red">Work Station ID and Name :</label>
+                @Html.TextBox("WarehouseID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseID, @readonly = "readonly" })
+                @Html.TextBox("WarehouseIDLogin", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                <label style="color:red"> Reference Order No :</label>
+                @Html.DropDownList("RefOrderNo", null, "Select One", new { @class = "form-control" })
+                <label>Dept Name/Customer Name :</label>
+                @Html.Hidden("DeptID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                @Html.TextBox("DeptName", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                @Html.Hidden("BeneficiaryID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                @Html.Hidden("ReqID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                @Html.Hidden("TotQty", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                @Html.Hidden("TotAmt", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="col-md-6">     
+            
+            <label>Received By:</label>
+            @Html.TextBox("ReceivedBy", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold"})
+            <label>Remarks:</label>
+            @Html.TextBox("Remarks", null, new { placeholder = "User Note Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold"})
+            @*<label>Supplier Name:</label>
+            @Html.TextBox("SupplierName", null, new { placeholder = "SupplierName Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold", @readonly = "readonly" })*@
+            <label>Incoice Ref No:</label>
+            @Html.TextBox("Invoice", null, new { placeholder = "Ref Invoice Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
+
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-6">
+            @*<input type="button" id="btnready" value="Ready for Replement" class="btn btn-primary" style="background-color:orangered" onclick="readyforreplace()" ; />*@
+            <input type="button" id="btnReset" value="Reset" class="btn btn-primary btn-sm btn-block" onclick="ReLoad()" ; />
+        </div>
+        <div class="col-md-6">
+            <input type="button" id="create" value="Save" class="btn btn-primary btn-sm btn-block" onclick="SaveReceived();" />
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-md-6" style="margin-top:15px">
+            <div>
+                <h4 style="color:green">Order Information</h4>
+            </div>
+            <table id="recItem" class="table-responsive table-striped table-bordered">
+                <tr>
+                    <th>SL</th>
+                    <th>Item Code</th>
+                    <th>Item Description</th>
+                    <th>Stock Qty</th>
+                    <th style="color:green">Unit Price</th>
+                    <th style="color:green">Req.Quantity</th>
+                    <th style="color:red">Issue Quantity</th>                    
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $("#create").prop('disabled', true);
+    $('#RefOrderNo').change(function () {
+        $.ajax({
+            url: "@Url.Action("RequestData", "OrderRequest")",           
+            data: { inWarehouseID: $('#WarehouseID').val(), inTrNo: $('#RefOrderNo').val() },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            ////console.log(data);
+            $.each(data, function (i, Req) {
+                $("#DeptID").val(Req.DeptID);
+                $("#DeptName").val(Req.DeptName);         
+                var table = document.getElementById("recItem");
+                // console.log(EmptyMove.ExpiryDate);
+                //$('#tblItem tbody').empty();
+                var rowcount = i + 1;
+                var tblRow = '<tr id="row' + rowcount + '">' +
+                   '<td>' +
+                       '<label id="lblID' + rowcount + '">' + rowcount + '</label>' + 
+               '</td>' +
+               '<td><input type="text"  readonly id="tItemID' + rowcount + '" value="' + Req.ItemID + '"size ="6"' + '" style="text-align:center;"" /></td>' +
+               '<td><input type="text"  readonly id="tDescription' + rowcount + '" value="' + Req.ItemName + '"size ="25" /></td>' +
+               '<td><input type="text"  readonly id="tStockQuantity' + rowcount + '" value="' + Req.StockQty + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '<td><input type="text"  readonly id="tUnitPrice' + rowcount + '" value="' + Req.UnitPrice + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '<td><input type="text"  readonly id="tReqQuantity' + rowcount + '" value="' + Req.Quantity + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '<td><input type="text"  id="tDelQuantity' + rowcount + '" value="' + Req.Quantity + '"size ="12"' + '" style="text-align:right;"" /></td>' +
+               '</tr>'
+                $("#recItem").append(tblRow);
+            })
+            //var nth = $("table").find("tr").length;
+            //var Cases = parseInt("0");           
+            //var Boxes = parseInt("0");
+            //for (j = 1; j < nth; j++) {
+            //    Cases += parseFloat($("table").find("tr").eq(j).find("td:eq(3) input[type='text']").val());               
+            //    Boxes += parseFloat($("table").find("tr").eq(j).find("td:eq(4) input[type='text']").val());
+            //}
+            // $("#totalCases").val(Cases);
+            //  $("#totalBoxes").val(Boxes);
+        },
+        error: function () {
+            alert("Failed! to load data for this transaction.Please Check....");
+        }
+    });
+    //$("#ReqID").prop('disabled', true);
+        document.getElementById("RefOrderNo").disabled = true;
+     $("#create").prop('disabled', false);
+    });
+    function ReLoad() {
+        alert("Are you sure reset the page ...?")
+        location.reload();
+    }
+    function SaveReceived() {
+        document.getElementById("create").disabled = true;
+        var answer = confirm('Are you sure you want to save this?');
+        if (answer) {
+            //  return;
+            //return status;
+        }
+        else {
+            return false;
+        }
+        var isAllValid = true;
+        var status = true;
+        OrderData = [];
+        var id = $('#recItem tr:last').index()
+        $('#recItem tr').each(function (row, tr) {
+            if ((row > 0) && (row <= id)) {
+                OrderData.push({
+                    ItemNo: $('#tItemID' + row).val().trim(),
+                    UnitPrice: $('#tUnitPrice' + row).val().trim(),
+                    Qty: $('#tReqQuantity' + row).val().trim(),
+                    DelQty: $('#tDelQuantity' + row).val().trim()
+                });
+            }
+        });
+        // console.log(OrderData);
+        if (isAllValid) {
+            var data = {
+                //CustomerID: $('#CustomerID').val(),
+                PlantID: $('#WarehouseID').val(),
+                DeptID: $('#DeptID').val(),
+                RefOrderNo: $('#RefOrderNo').val(),
+                Remarks: $('#Remarks').val(),
+                ReceivedBy: $('#ReceivedBy').val(),                
+                itemdtl: OrderData
+            }
+        }
+        console.log(data);
+        //debugger;
+
+        $.ajax({
+            url: '/StoreTransaction/SaveAdj',
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "JSON",
+            contentType: "application/json",
+            success: function (a) {
+                //check is successfully save to database
+                if (a.status == true) {
+                    //will send status from server side
+                    alert('Successfully Done... Issued Token No:' + a.v);
+                    window.location.reload();
+                    OrderData = [];
+
+                }
+                else {
+                    alert('Requisition Received Process is Failed!! Please Contact to IT dept.. ');
+                }
+
+            },
+            error: function () {
+                alert('Error. Please try again.');
+            }
+        });
+    }
+</script>
