@@ -233,6 +233,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BarcodeController.cs" />
     <Compile Include="Controllers\FrdItemsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MachineAmountController.cs" />
@@ -553,6 +554,8 @@
     <Content Include="Views\WorkOrder\OrderCount.cshtml" />
     <Content Include="Views\MachineAmount\Index.cshtml" />
     <Content Include="Views\MachineAmount\Amount.cshtml" />
+    <Content Include="Views\Barcode\Index.cshtml" />
+    <Content Include="Views\UserManage\ChangePass.cshtml" />
     <None Include="workorderdataset.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>

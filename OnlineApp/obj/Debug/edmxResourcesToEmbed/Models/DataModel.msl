@@ -442,7 +442,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="machineWiseAmount" FunctionName="LIVEModel.Store.machineWiseAmount">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LIVEModel.machineWiseAmount_Result">
@@ -466,7 +465,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-=======
     <EntitySetMapping Name="FrdItemIssues">
       <EntityTypeMapping TypeName="LIVEModel.FrdItemIssue">
         <MappingFragment StoreEntitySet="FrdItemIssue">
@@ -502,6 +500,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
->>>>>>> 11d2be17d1e602a513536397cf0622d225136a5f
   </EntityContainerMapping>
 </Mapping>

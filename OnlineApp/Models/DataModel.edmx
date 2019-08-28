@@ -589,12 +589,10 @@
           </FunctionImport>
           <FunctionImport Name="Work_order" ReturnType="Collection(LIVEModel.Work_order_Result)">
           <Parameter Name="reqId" Mode="In" Type="Int32" />
-<<<<<<< HEAD
-          </FunctionImport>
+</FunctionImport>
           <FunctionImport Name="machineWiseAmount" ReturnType="Collection(LIVEModel.machineWiseAmount_Result)">
             <Parameter Name="wId" Mode="In" Type="Int32" />
-=======
->>>>>>> 11d2be17d1e602a513536397cf0622d225136a5f
+
           </FunctionImport>
           <EntitySet Name="FrdItemIssues" EntityType="LIVEModel.FrdItemIssue" />
           <EntitySet Name="FrdIssueDetails" EntityType="LIVEModel.FrdIssueDetail" />
@@ -1044,7 +1042,7 @@
           <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
           <Property Type="Int32" Name="PlantID" Nullable="false" />
         </ComplexType>
-<<<<<<< HEAD
+
         <ComplexType Name="machineWiseAmount_Result">
           <Property Type="Int32" Name="WarehouseID" Nullable="false" />
           <Property Type="Int32" Name="StockQty" Nullable="true" />
@@ -1064,7 +1062,7 @@
           <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
           <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
         </ComplexType>
-=======
+
         <EntityType Name="FrdItemIssue">
           <Key>
             <PropertyRef Name="PlantID" />
@@ -1101,7 +1099,7 @@
           <Property Name="DelQty" Type="Int32" />
           <Property Name="DelQtyD" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
->>>>>>> 11d2be17d1e602a513536397cf0622d225136a5f
+
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1549,7 +1547,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-<<<<<<< HEAD
+
           <FunctionImportMapping FunctionImportName="machineWiseAmount" FunctionName="LIVEModel.Store.machineWiseAmount">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LIVEModel.machineWiseAmount_Result">
@@ -1573,7 +1571,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-=======
+
           <EntitySetMapping Name="FrdItemIssues">
             <EntityTypeMapping TypeName="LIVEModel.FrdItemIssue">
               <MappingFragment StoreEntitySet="FrdItemIssue">
@@ -1609,7 +1607,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
->>>>>>> 11d2be17d1e602a513536397cf0622d225136a5f
+
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
