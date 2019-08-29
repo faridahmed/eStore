@@ -1,0 +1,139 @@
+﻿<h1>Related Reports & Slip</h1>
+<input type="radio" name="nm" id="r1" value="1" class="radio radio-inline"> Recuisition</>
+<input type="radio" name="nm" id="r2" value="2" class="radio radio-inline"> Issue & Receieve </>
+<input type="radio" name="nm" id="r3" value="3" class="radio radio-inline">Quality Assurance Check</>
+
+
+
+<div class="panel-body">
+    <div class="col-md-6">
+        <div>
+            <label>Enter Begining Date:</label>
+            @Html.TextBox("BeginingDate", DateTime.Now.ToString("dd-MMM-yyyy"), new { @class = "form-control date-picker" })
+            <label>Enter Ending Date:</label>
+            @Html.TextBox("EndingDate", DateTime.Now.ToString("dd-MMM-yyyy"), new { @class = "form-control date-picker" })
+            <br />
+            <input type="button" id="showReport" value="Preview" class="form-control btn-primary" />
+        </div>
+    </div>
+    <div>
+        <label>Select Requisition ID:</label>
+        @Html.DropDownList("ReqID", null, "Select Requsition Number ", new { @class = "form-control", @id = "ReqID" })
+        <label>Select Plant:</label>
+        @Html.DropDownList("PlantNo", null, "Select Plant ", new { @class = "form-control", @id = "PlantNo" })
+        <label>Select Receive Request ID</label>
+        @Html.DropDownList("ReqRecID", null, "Select Receive Request", new { @class = "form-control", @id = "ReqRecID" })
+    </div>
+</div>
+<br />
+<div id="tabledata"></div>
+<script>
+    $('.date-picker').datepicker({
+        dateFormat: "dd/M/yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-1:+0"
+    });
+    $(document).ready(function () {
+        $("#BeginingDate").prop('disabled', true);
+        $("#EndingDate").prop('disabled', true);
+        $("#ReqID").prop('disabled', true);
+        $("#PlantNo").prop('disabled', true);
+        $("#ReqRecID").prop('disabled', true);
+
+        $("#r1").change(function () {
+            $("#BeginingDate").prop('disabled', true);
+            $("#EndingDate").prop('disabled', true);
+            $("#ReqID").prop('disabled', false);
+            $("#PlantNo").prop('disabled', false);
+            $("#ReqRecID").prop('disabled', true);
+
+        });
+        $("#r2").change(function () {
+            $("#BeginingDate").prop('disabled', false);
+            $("#EndingDate").prop('disabled', false);
+            $("#ReqID").prop('disabled', true);
+            $("#PlantNo").prop('disabled', false);
+            $("#ReqRecID").prop('disabled', true);
+
+        });
+        $("#r3").change(function () {
+            $("#BeginingDate").prop('disabled', true);
+            $("#EndingDate").prop('disabled', true);
+            $("#ReqID").prop('disabled', true);
+            $("#PlantNo").prop('disabled', false);
+            $("#ReqRecID").prop('disabled', false);
+
+        });
+       
+
+
+        $('#showReport').click(function () {
+            var radioValue = $('input:radio[name=nm]:checked').val();
+            var vValue = $("#ReqID").val();
+            var wValue = $("#PlantNo").val();
+            var reValue = $("#ReqRecID").val();
+            if (radioValue == 1) {
+                $.ajax({
+                    url:"@Url.Action("RequisitionslipCount", "RequisitionSlip")",
+                    dataType: "HTML",
+                    type: "POST",
+                    data: {reqid: vValue,planid:wValue},
+                    cache: false,
+                    async: true,
+                    success: function (data) {
+                        $("#tabledata").html(data);
+                    }
+                });
+            }
+            else if (radioValue == 2) {
+                $.ajax({
+                    url: "@Url.Action("IssueRcvCount", "RequisitionSlip")",
+                    dataType: "HTML",
+                    type: "POST",
+                    data: { d1: $("#BeginingDate").val(), d2: $("#EndingDate").val(), planid:wValue },
+                    cache: false,
+                    async: true,
+                    success: function (data) {
+                        $("#tabledata").html(data);
+                    }
+                });
+            }
+            else if (radioValue == 3) {
+                $.ajax({
+                    url: "@Url.Action("AssuranceCheck", "RequisitionSlip")",
+                    dataType: "HTML",
+                type: "POST",
+                data: { planid: wValue, reqrecid: reValue},
+                cache: false,
+                async: true,
+                success: function (data) {
+                    $("#tabledata").html(data);
+                }
+            });
+        }
+            else {
+                $.ajax({
+                    url: "@Url.Action("PaymentStatusForNormalCustomerWise", "Report")",
+                    dataType: "HTML",
+                    type: "POST",
+                    data: { bDate: $("#BeginingDate").val(), eDate: $("#EndingDate").val(), customerId: $("#CustomerLists").val()},
+                    cache: false,
+                    async: true,
+                    success: function (data) {
+                        $("#tabledata").html(data);
+                    }
+                });
+            }
+
+        });
+
+    })
+
+
+</script>
+
+
+
+
+

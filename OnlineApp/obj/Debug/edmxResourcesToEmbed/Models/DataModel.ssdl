@@ -434,8 +434,21 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="IssueReturnQty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="wId" Type="int" Mode="In" />
+    <Parameter Name="startDate" Type="date" Mode="In" />
+    <Parameter Name="endDate" Type="date" Mode="In" />
+  </Function>
   <Function Name="machineWiseAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="wId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="qualityAssurance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pid" Type="int" Mode="In" />
+    <Parameter Name="recrcid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="requisitionSlip" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="reqId" Type="int" Mode="In" />
+    <Parameter Name="plantId" Type="int" Mode="In" />
   </Function>
   <Function Name="spPurchaseData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="inPlant" Type="int" Mode="In" />

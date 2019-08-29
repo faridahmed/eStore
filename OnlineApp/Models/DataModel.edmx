@@ -439,8 +439,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="IssueReturnQty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="wId" Type="int" Mode="In" />
+          <Parameter Name="startDate" Type="date" Mode="In" />
+          <Parameter Name="endDate" Type="date" Mode="In" />
+        </Function>
         <Function Name="machineWiseAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="wId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="qualityAssurance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pid" Type="int" Mode="In" />
+          <Parameter Name="recrcid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="requisitionSlip" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="reqId" Type="int" Mode="In" />
+          <Parameter Name="plantId" Type="int" Mode="In" />
         </Function>
         <Function Name="spPurchaseData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inPlant" Type="int" Mode="In" />
@@ -589,15 +602,25 @@
           </FunctionImport>
           <FunctionImport Name="Work_order" ReturnType="Collection(LIVEModel.Work_order_Result)">
           <Parameter Name="reqId" Mode="In" Type="Int32" />
-<<<<<<< HEAD
           </FunctionImport>
           <FunctionImport Name="machineWiseAmount" ReturnType="Collection(LIVEModel.machineWiseAmount_Result)">
-            <Parameter Name="wId" Mode="In" Type="Int32" />
-=======
->>>>>>> 11d2be17d1e602a513536397cf0622d225136a5f
+          <Parameter Name="wId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="FrdItemIssues" EntityType="LIVEModel.FrdItemIssue" />
+          <FunctionImport Name="requisitionSlip" ReturnType="Collection(LIVEModel.requisitionSlip_Result)">
+            <Parameter Name="reqId" Mode="In" Type="Int32" />
+            <Parameter Name="plantId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <EntitySet Name="FrdIssueDetails" EntityType="LIVEModel.FrdIssueDetail" />
+          <EntitySet Name="FrdItemIssues" EntityType="LIVEModel.FrdItemIssue" />
+          <FunctionImport Name="IssueReturnQty" ReturnType="Collection(LIVEModel.IssueReturnQty_Result)">
+            <Parameter Name="wId" Mode="In" Type="Int32" />
+            <Parameter Name="startDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="qualityAssurance" ReturnType="Collection(LIVEModel.qualityAssurance_Result)">
+            <Parameter Name="pid" Mode="In" Type="Int32" />
+            <Parameter Name="recrcid" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spUserLoginToApplication_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1044,7 +1067,7 @@
           <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
           <Property Type="Int32" Name="PlantID" Nullable="false" />
         </ComplexType>
-<<<<<<< HEAD
+
         <ComplexType Name="machineWiseAmount_Result">
           <Property Type="Int32" Name="WarehouseID" Nullable="false" />
           <Property Type="Int32" Name="StockQty" Nullable="true" />
@@ -1064,7 +1087,35 @@
           <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
           <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
         </ComplexType>
-=======
+        <ComplexType Name="requisitionSlip_Result">
+          <Property Type="Int32" Name="ItemID" Nullable="false" />
+          <Property Type="Int32" Name="ReqID" Nullable="false" />
+          <Property Type="DateTime" Name="ReqDate" Nullable="true" />
+          <Property Type="String" Name="RefNo" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Int32" Name="ItemCode" Nullable="false" />
+          <Property Type="String" Name="ItemName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ItemDescription" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <EntityType Name="FrdIssueDetail">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="ItemNo" />
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="PlantID" Type="Int32" Nullable="false" />
+          <Property Name="ItemNo" Type="Int32" Nullable="false" />
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="Qty" Type="Int32" />
+          <Property Name="QtyD" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DelQty" Type="Int32" />
+          <Property Name="DelQtyD" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="FrdItemIssue">
           <Key>
             <PropertyRef Name="PlantID" />
@@ -1085,23 +1136,42 @@
           <Property Name="TotQty" Type="Int32" />
           <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
-        <EntityType Name="FrdIssueDetail">
-          <Key>
-            <PropertyRef Name="PlantID" />
-            <PropertyRef Name="ItemNo" />
-            <PropertyRef Name="TrNo" />
-          </Key>
-          <Property Name="PlantID" Type="Int32" Nullable="false" />
-          <Property Name="ItemNo" Type="Int32" Nullable="false" />
-          <Property Name="TrNo" Type="Int32" Nullable="false" />
-          <Property Name="Qty" Type="Int32" />
-          <Property Name="QtyD" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="DelQty" Type="Int32" />
-          <Property Name="DelQtyD" Type="Decimal" Precision="18" Scale="2" />
-        </EntityType>
->>>>>>> 11d2be17d1e602a513536397cf0622d225136a5f
+        <ComplexType Name="IssueReturnQty_Result">
+          <Property Type="Int32" Name="WarehouseID" Nullable="false" />
+          <Property Type="String" Name="WarehouseName" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="TrNo" Nullable="false" />
+          <Property Type="DateTime" Name="TrDate" Nullable="true" />
+          <Property Type="Int32" Name="OrderNo" Nullable="true" />
+          <Property Type="Int32" Name="ItemNo" Nullable="false" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Int32" Name="ItemCode" Nullable="false" />
+          <Property Type="String" Name="ItemName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ItemDes" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="BenName" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="IssQty" Nullable="true" />
+          <Property Type="Decimal" Name="RecQty" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="OrderQty" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="qualityAssurance_Result">
+          <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ReqRecID" Nullable="false" />
+          <Property Type="Int32" Name="ReqID" Nullable="true" />
+          <Property Type="DateTime" Name="RecDate" Nullable="true" />
+          <Property Type="Int32" Name="ItemID" Nullable="false" />
+          <Property Type="String" Name="ItemName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ItemDescription" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="ItemCode" Nullable="false" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="String" Name="SupplierName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SupplierAddress" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="MobileNumber" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="PlantID" Nullable="false" />
+        </ComplexType>
+
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1549,7 +1619,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-<<<<<<< HEAD
+
           <FunctionImportMapping FunctionImportName="machineWiseAmount" FunctionName="LIVEModel.Store.machineWiseAmount">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LIVEModel.machineWiseAmount_Result">
@@ -1573,7 +1643,38 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-=======
+          <FunctionImportMapping FunctionImportName="requisitionSlip" FunctionName="LIVEModel.Store.requisitionSlip">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LIVEModel.requisitionSlip_Result">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ReqID" ColumnName="ReqID" />
+                <ScalarProperty Name="ReqDate" ColumnName="ReqDate" />
+                <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+                <ScalarProperty Name="PlantName" ColumnName="PlantName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="FrdIssueDetails">
+            <EntityTypeMapping TypeName="LIVEModel.FrdIssueDetail">
+              <MappingFragment StoreEntitySet="FrdIssueDetail">
+                <ScalarProperty Name="DelQtyD" ColumnName="DelQtyD" />
+                <ScalarProperty Name="DelQty" ColumnName="DelQty" />
+                <ScalarProperty Name="TotAmt" ColumnName="TotAmt" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="QtyD" ColumnName="QtyD" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+                <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="FrdItemIssues">
             <EntityTypeMapping TypeName="LIVEModel.FrdItemIssue">
               <MappingFragment StoreEntitySet="FrdItemIssue">
@@ -1594,23 +1695,50 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FrdIssueDetails">
-            <EntityTypeMapping TypeName="LIVEModel.FrdIssueDetail">
-              <MappingFragment StoreEntitySet="FrdIssueDetail">
-                <ScalarProperty Name="DelQtyD" ColumnName="DelQtyD" />
-                <ScalarProperty Name="DelQty" ColumnName="DelQty" />
-                <ScalarProperty Name="TotAmt" ColumnName="TotAmt" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="QtyD" ColumnName="QtyD" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
+          <FunctionImportMapping FunctionImportName="IssueReturnQty" FunctionName="LIVEModel.Store.IssueReturnQty">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LIVEModel.IssueReturnQty_Result">
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="WarehouseName" ColumnName="WarehouseName" />
                 <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
                 <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemDes" ColumnName="ItemDes" />
+                <ScalarProperty Name="BenName" ColumnName="BenName" />
+                <ScalarProperty Name="IssQty" ColumnName="IssQty" />
+                <ScalarProperty Name="RecQty" ColumnName="RecQty" />
+                <ScalarProperty Name="OrderQty" ColumnName="OrderQty" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="qualityAssurance" FunctionName="LIVEModel.Store.qualityAssurance">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LIVEModel.qualityAssurance_Result">
+                <ScalarProperty Name="PlantName" ColumnName="PlantName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="ReqRecID" ColumnName="ReqRecID" />
+                <ScalarProperty Name="ReqID" ColumnName="ReqID" />
+                <ScalarProperty Name="RecDate" ColumnName="RecDate" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierAddress" ColumnName="SupplierAddress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
                 <ScalarProperty Name="PlantID" ColumnName="PlantID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
->>>>>>> 11d2be17d1e602a513536397cf0622d225136a5f
-        </EntityContainerMapping>
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

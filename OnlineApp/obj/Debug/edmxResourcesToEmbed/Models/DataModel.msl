@@ -442,7 +442,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="machineWiseAmount" FunctionName="LIVEModel.Store.machineWiseAmount">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LIVEModel.machineWiseAmount_Result">
@@ -466,7 +465,38 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-=======
+    <FunctionImportMapping FunctionImportName="requisitionSlip" FunctionName="LIVEModel.Store.requisitionSlip">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LIVEModel.requisitionSlip_Result">
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="ReqID" ColumnName="ReqID" />
+          <ScalarProperty Name="ReqDate" ColumnName="ReqDate" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+          <ScalarProperty Name="PlantName" ColumnName="PlantName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="FrdIssueDetails">
+      <EntityTypeMapping TypeName="LIVEModel.FrdIssueDetail">
+        <MappingFragment StoreEntitySet="FrdIssueDetail">
+          <ScalarProperty Name="DelQtyD" ColumnName="DelQtyD" />
+          <ScalarProperty Name="DelQty" ColumnName="DelQty" />
+          <ScalarProperty Name="TotAmt" ColumnName="TotAmt" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="QtyD" ColumnName="QtyD" />
+          <ScalarProperty Name="Qty" ColumnName="Qty" />
+          <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+          <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="FrdItemIssues">
       <EntityTypeMapping TypeName="LIVEModel.FrdItemIssue">
         <MappingFragment StoreEntitySet="FrdItemIssue">
@@ -487,21 +517,48 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="FrdIssueDetails">
-      <EntityTypeMapping TypeName="LIVEModel.FrdIssueDetail">
-        <MappingFragment StoreEntitySet="FrdIssueDetail">
-          <ScalarProperty Name="DelQtyD" ColumnName="DelQtyD" />
-          <ScalarProperty Name="DelQty" ColumnName="DelQty" />
-          <ScalarProperty Name="TotAmt" ColumnName="TotAmt" />
-          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-          <ScalarProperty Name="QtyD" ColumnName="QtyD" />
-          <ScalarProperty Name="Qty" ColumnName="Qty" />
+    <FunctionImportMapping FunctionImportName="IssueReturnQty" FunctionName="LIVEModel.Store.IssueReturnQty">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LIVEModel.IssueReturnQty_Result">
+          <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+          <ScalarProperty Name="WarehouseName" ColumnName="WarehouseName" />
           <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+          <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+          <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
           <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemDes" ColumnName="ItemDes" />
+          <ScalarProperty Name="BenName" ColumnName="BenName" />
+          <ScalarProperty Name="IssQty" ColumnName="IssQty" />
+          <ScalarProperty Name="RecQty" ColumnName="RecQty" />
+          <ScalarProperty Name="OrderQty" ColumnName="OrderQty" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="qualityAssurance" FunctionName="LIVEModel.Store.qualityAssurance">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LIVEModel.qualityAssurance_Result">
+          <ScalarProperty Name="PlantName" ColumnName="PlantName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="ReqRecID" ColumnName="ReqRecID" />
+          <ScalarProperty Name="ReqID" ColumnName="ReqID" />
+          <ScalarProperty Name="RecDate" ColumnName="RecDate" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="SupplierAddress" ColumnName="SupplierAddress" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
           <ScalarProperty Name="PlantID" ColumnName="PlantID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
->>>>>>> 11d2be17d1e602a513536397cf0622d225136a5f
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

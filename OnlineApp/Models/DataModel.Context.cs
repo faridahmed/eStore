@@ -50,8 +50,8 @@ namespace OnlineApp.Models
         public virtual DbSet<FrdPurchase> FrdPurchases { get; set; }
         public virtual DbSet<FrdReceiveMaster> FrdReceiveMasters { get; set; }
         public virtual DbSet<FrdStockMaster> FrdStockMasters { get; set; }
-        public virtual DbSet<FrdItemIssue> FrdItemIssues { get; set; }
         public virtual DbSet<FrdIssueDetail> FrdIssueDetails { get; set; }
+        public virtual DbSet<FrdItemIssue> FrdItemIssues { get; set; }
     
         public virtual ObjectResult<spUserLoginToApplication_Result> spUserLoginToApplication(Nullable<int> userID, string userPass, string userPin)
         {
@@ -145,6 +145,49 @@ namespace OnlineApp.Models
                 new ObjectParameter("wId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<machineWiseAmount_Result>("machineWiseAmount", wIdParameter);
+        }
+    
+        public virtual ObjectResult<requisitionSlip_Result> requisitionSlip(Nullable<int> reqId, Nullable<int> plantId)
+        {
+            var reqIdParameter = reqId.HasValue ?
+                new ObjectParameter("reqId", reqId) :
+                new ObjectParameter("reqId", typeof(int));
+    
+            var plantIdParameter = plantId.HasValue ?
+                new ObjectParameter("plantId", plantId) :
+                new ObjectParameter("plantId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<requisitionSlip_Result>("requisitionSlip", reqIdParameter, plantIdParameter);
+        }
+    
+        public virtual ObjectResult<IssueReturnQty_Result> IssueReturnQty(Nullable<int> wId, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        {
+            var wIdParameter = wId.HasValue ?
+                new ObjectParameter("wId", wId) :
+                new ObjectParameter("wId", typeof(int));
+    
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("startDate", startDate) :
+                new ObjectParameter("startDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IssueReturnQty_Result>("IssueReturnQty", wIdParameter, startDateParameter, endDateParameter);
+        }
+    
+        public virtual ObjectResult<qualityAssurance_Result> qualityAssurance(Nullable<int> pid, Nullable<int> recrcid)
+        {
+            var pidParameter = pid.HasValue ?
+                new ObjectParameter("pid", pid) :
+                new ObjectParameter("pid", typeof(int));
+    
+            var recrcidParameter = recrcid.HasValue ?
+                new ObjectParameter("recrcid", recrcid) :
+                new ObjectParameter("recrcid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<qualityAssurance_Result>("qualityAssurance", pidParameter, recrcidParameter);
         }
     }
 }

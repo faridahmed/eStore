@@ -157,7 +157,7 @@ namespace OnlineApp.ModelData
         //public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<int> TotQty { get; set; }
         public Nullable<decimal> TotAmt { get; set; }
-        public List<FrdIssueDetail> itemdtl { get; set; }
+       
 
     }
 }

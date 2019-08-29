@@ -80,14 +80,24 @@
     <FunctionImport Name="Work_order" ReturnType="Collection(LIVEModel.Work_order_Result)">
       <Parameter Name="reqId" Mode="In" Type="Int32" />
     </FunctionImport>
-<<<<<<< HEAD
     <FunctionImport Name="machineWiseAmount" ReturnType="Collection(LIVEModel.machineWiseAmount_Result)">
       <Parameter Name="wId" Mode="In" Type="Int32" />
     </FunctionImport>
-=======
-    <EntitySet Name="FrdItemIssues" EntityType="LIVEModel.FrdItemIssue" />
+    <FunctionImport Name="requisitionSlip" ReturnType="Collection(LIVEModel.requisitionSlip_Result)">
+      <Parameter Name="reqId" Mode="In" Type="Int32" />
+      <Parameter Name="plantId" Mode="In" Type="Int32" />
+    </FunctionImport>
     <EntitySet Name="FrdIssueDetails" EntityType="LIVEModel.FrdIssueDetail" />
->>>>>>> 11d2be17d1e602a513536397cf0622d225136a5f
+    <EntitySet Name="FrdItemIssues" EntityType="LIVEModel.FrdItemIssue" />
+    <FunctionImport Name="IssueReturnQty" ReturnType="Collection(LIVEModel.IssueReturnQty_Result)">
+      <Parameter Name="wId" Mode="In" Type="Int32" />
+      <Parameter Name="startDate" Mode="In" Type="DateTime" />
+      <Parameter Name="endDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="qualityAssurance" ReturnType="Collection(LIVEModel.qualityAssurance_Result)">
+      <Parameter Name="pid" Mode="In" Type="Int32" />
+      <Parameter Name="recrcid" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spUserLoginToApplication_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />
@@ -534,7 +544,6 @@
     <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
     <Property Type="Int32" Name="PlantID" Nullable="false" />
   </ComplexType>
-<<<<<<< HEAD
   <ComplexType Name="machineWiseAmount_Result">
     <Property Type="Int32" Name="WarehouseID" Nullable="false" />
     <Property Type="Int32" Name="StockQty" Nullable="true" />
@@ -554,7 +563,35 @@
     <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
     <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
   </ComplexType>
-=======
+  <ComplexType Name="requisitionSlip_Result">
+    <Property Type="Int32" Name="ItemID" Nullable="false" />
+    <Property Type="Int32" Name="ReqID" Nullable="false" />
+    <Property Type="DateTime" Name="ReqDate" Nullable="true" />
+    <Property Type="String" Name="RefNo" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="Int32" Name="ItemCode" Nullable="false" />
+    <Property Type="String" Name="ItemName" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="ItemDescription" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <EntityType Name="FrdIssueDetail">
+    <Key>
+      <PropertyRef Name="PlantID" />
+      <PropertyRef Name="ItemNo" />
+      <PropertyRef Name="TrNo" />
+    </Key>
+    <Property Name="PlantID" Type="Int32" Nullable="false" />
+    <Property Name="ItemNo" Type="Int32" Nullable="false" />
+    <Property Name="TrNo" Type="Int32" Nullable="false" />
+    <Property Name="Qty" Type="Int32" />
+    <Property Name="QtyD" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DelQty" Type="Int32" />
+    <Property Name="DelQtyD" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
   <EntityType Name="FrdItemIssue">
     <Key>
       <PropertyRef Name="PlantID" />
@@ -575,21 +612,39 @@
     <Property Name="TotQty" Type="Int32" />
     <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
   </EntityType>
-  <EntityType Name="FrdIssueDetail">
-    <Key>
-      <PropertyRef Name="PlantID" />
-      <PropertyRef Name="ItemNo" />
-      <PropertyRef Name="TrNo" />
-    </Key>
-    <Property Name="PlantID" Type="Int32" Nullable="false" />
-    <Property Name="ItemNo" Type="Int32" Nullable="false" />
-    <Property Name="TrNo" Type="Int32" Nullable="false" />
-    <Property Name="Qty" Type="Int32" />
-    <Property Name="QtyD" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="DelQty" Type="Int32" />
-    <Property Name="DelQtyD" Type="Decimal" Precision="18" Scale="2" />
-  </EntityType>
->>>>>>> 11d2be17d1e602a513536397cf0622d225136a5f
+  <ComplexType Name="IssueReturnQty_Result">
+    <Property Type="Int32" Name="WarehouseID" Nullable="false" />
+    <Property Type="String" Name="WarehouseName" Nullable="false" MaxLength="500" />
+    <Property Type="Int32" Name="TrNo" Nullable="false" />
+    <Property Type="DateTime" Name="TrDate" Nullable="true" />
+    <Property Type="Int32" Name="OrderNo" Nullable="true" />
+    <Property Type="Int32" Name="ItemNo" Nullable="false" />
+    <Property Type="Decimal" Name="UnitPrice" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Int32" Name="ItemCode" Nullable="false" />
+    <Property Type="String" Name="ItemName" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="ItemDes" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="BenName" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="IssQty" Nullable="true" />
+    <Property Type="Decimal" Name="RecQty" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="OrderQty" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="qualityAssurance_Result">
+    <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="ReqRecID" Nullable="false" />
+    <Property Type="Int32" Name="ReqID" Nullable="true" />
+    <Property Type="DateTime" Name="RecDate" Nullable="true" />
+    <Property Type="Int32" Name="ItemID" Nullable="false" />
+    <Property Type="String" Name="ItemName" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="ItemDescription" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="ItemCode" Nullable="false" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="Decimal" Name="UnitPrice" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="String" Name="SupplierName" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="SupplierAddress" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="MobileNumber" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="PlantID" Nullable="false" />
+  </ComplexType>
 </Schema>

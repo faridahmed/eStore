@@ -233,10 +233,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BarcodeController.cs" />
     <Compile Include="Controllers\FrdItemsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MachineAmountController.cs" />
     <Compile Include="Controllers\OrderRequestController.cs" />
+    <Compile Include="Controllers\RequisitionSlipController.cs" />
     <Compile Include="Controllers\StoreTransactionController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
@@ -244,6 +246,11 @@
     <Compile Include="FrdData\MyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="issuercvdataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>issuercvdataset.xsd</DependentUpon>
     </Compile>
     <Compile Include="machinewiseamount.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -310,10 +317,19 @@
     <Compile Include="Models\FrdSupplier.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IssueReturnQty_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\machineWiseAmount_Result.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\qualityAssurance_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\requisitionSlip_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sBenificiary.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -360,6 +376,16 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="qualityassure.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>qualityassure.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="requisitionslip.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>requisitionslip.xsd</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="workorderdataset.Designer.cs">
@@ -470,6 +496,17 @@
     <Content Include="machinewiseamount.xsc">
       <DependentUpon>machinewiseamount.xsd</DependentUpon>
     </Content>
+    <Content Include="issuercvdataset.xsc">
+      <DependentUpon>issuercvdataset.xsd</DependentUpon>
+    </Content>
+    <None Include="issuercvdataset.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>issuercvdataset.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="issuercvdataset.xss">
+      <DependentUpon>issuercvdataset.xsd</DependentUpon>
+    </Content>
     <None Include="machinewiseamount.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -477,6 +514,28 @@
     </None>
     <Content Include="machinewiseamount.xss">
       <DependentUpon>machinewiseamount.xsd</DependentUpon>
+    </Content>
+    <Content Include="requisitionslip.xsc">
+      <DependentUpon>requisitionslip.xsd</DependentUpon>
+    </Content>
+    <Content Include="qualityassure.xsc">
+      <DependentUpon>qualityassure.xsd</DependentUpon>
+    </Content>
+    <None Include="qualityassure.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>qualityassure.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="qualityassure.xss">
+      <DependentUpon>qualityassure.xsd</DependentUpon>
+    </Content>
+    <None Include="requisitionslip.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>requisitionslip.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="requisitionslip.xss">
+      <DependentUpon>requisitionslip.xsd</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -553,6 +612,10 @@
     <Content Include="Views\WorkOrder\OrderCount.cshtml" />
     <Content Include="Views\MachineAmount\Index.cshtml" />
     <Content Include="Views\MachineAmount\Amount.cshtml" />
+    <Content Include="Views\Barcode\Index.cshtml" />
+    <Content Include="Views\RequisitionSlip\RequisitionslipCount.cshtml" />
+    <Content Include="Views\RequisitionSlip\Index.cshtml" />
+    <Content Include="Views\RequisitionSlip\AssuranceCheck.cshtml" />
     <None Include="workorderdataset.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -577,8 +640,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\issuereturnqty.rdlc" />
     <EmbeddedResource Include="Reports\machinewiseamount.rdlc" />
     <EmbeddedResource Include="Reports\MyReport.rdlc" />
+    <EmbeddedResource Include="Reports\qualityAssurance.rdlc" />
+    <EmbeddedResource Include="Reports\requisitionslip.rdlc" />
     <EmbeddedResource Include="Reports\workorder.rdlc" />
   </ItemGroup>
   <PropertyGroup>

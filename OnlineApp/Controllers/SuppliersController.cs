@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OnlineApp.Models;
+using System.Data.Entity.Validation;
 
 namespace OnlineApp.Controllers
 {
@@ -38,24 +39,66 @@ namespace OnlineApp.Controllers
         // GET: Suppliers/Create
         public ActionResult Create()
         {
-            return View();
+            int value = db.FrdSuppliers.Max(a => a.SupplierID);
+            int num = value;
+
+            FrdSupplier sup = new FrdSupplier
+            {
+                SupplierID = (num + 1),
+
+            };
+
+            return View(sup);
         }
 
         // POST: Suppliers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SupplierID,SupplierCode,SupplierName,SupplierAddress,PhoneNumber,MobileNumber,EmailAddress,Status,ZoneCode,BranchCode,MultiFlag,Remarks,ContactPerson")] FrdSupplier frdSupplier)
+       
+        public ActionResult Create(FrdSupplier frdSupplier)
         {
-            if (ModelState.IsValid)
+            LIVEEntities db = new LIVEEntities();
+            try
             {
-                db.FrdSuppliers.Add(frdSupplier);
+                if (ModelState.IsValid)
+                    {
+                FrdSupplier sp = new FrdSupplier();
+                    sp.SupplierID = frdSupplier.SupplierID;
+                sp.SupplierCode = frdSupplier.SupplierCode;
+                sp.SupplierName = frdSupplier.SupplierName;
+                sp.SupplierAddress = frdSupplier.SupplierAddress;
+                sp.PhoneNumber = frdSupplier.PhoneNumber;
+                sp.MobileNumber = frdSupplier.MobileNumber;
+                sp.EmailAddress = frdSupplier.EmailAddress;
+                sp.ZoneCode = frdSupplier.ZoneCode;
+                sp.BranchCode = frdSupplier.BranchCode;
+                sp.Remarks = frdSupplier.Remarks;
+                sp.VATRegNo = "222";
+                sp.Status = "ACT";
+                db.FrdSuppliers.Add(sp);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                    }
 
-            return View(frdSupplier);
+            }
+            
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            return RedirectToAction("Index");
+
+
         }
 
         // GET: Suppliers/Edit/5
