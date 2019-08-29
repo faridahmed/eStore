@@ -10,7 +10,11 @@ using OnlineApp.Models;
 
 namespace OnlineApp.Controllers
 {
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
     public class BarcodeController : Controller
     {
         // GET: Barcode

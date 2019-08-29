@@ -32,7 +32,12 @@
         <EntityTypeShape EntityType="LIVEModel.FrdReceiveMaster" Width="1.5" PointX="0.75" PointY="15.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdStockMaster" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdIssueDetail" Width="1.5" PointX="15.375" PointY="4.75" />
+<<<<<<< HEAD
         <EntityTypeShape EntityType="LIVEModel.FrdItemIssue" Width="1.5" PointX="15.375" PointY="8.75" />
+=======
+        <EntityTypeShape EntityType="LIVEModel.FrdItemTran" Width="1.5" PointX="15.375" PointY="13.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdItemTranInfo" Width="1.5" PointX="3.375" PointY="16.75" />
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

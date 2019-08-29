@@ -13,6 +13,7 @@ namespace OnlineApp.Controllers
     public class UserManageController : Controller
     {
         public LIVEEntities db = new LIVEEntities();
+        private LIVEEntities databaseManager = new LIVEEntities();
         // GET: UserManage
         public ActionResult Index()
         {
@@ -53,7 +54,7 @@ namespace OnlineApp.Controllers
                 nw.UserStatus = "ACT";
                 nw.LoginType = "A";
                 nw.ActiveSession = 0;
-                nw.CreateBy = Session["Name"].ToString();
+                nw.CreateBy = User.Identity.Name;
                 nw.CreateDate = DateTime.Now;
                 db.sUsers.Add(nw);
                 db.SaveChanges();
@@ -114,6 +115,76 @@ namespace OnlineApp.Controllers
                     return Json(new { status = "error", message = "Not Assign" });
                     throw ex;
                 }
+            }
+        }
+        public ActionResult ChangePass()
+        {
+            var w = (from y in db.sUsers
+                     where y.UserID.ToString() == User.Identity.Name
+                     select new { y.UserID }).FirstOrDefault();
+            var un = (from y in db.sUsers
+                     where y.UserID.ToString() == User.Identity.Name
+                     select new { y.UserName }).FirstOrDefault();
+            ViewBag.userID = w.UserID;
+            ViewBag.userName = un.UserName;
+            return View("ChangePass");
+        }
+        [HttpGet]
+        public JsonResult GetUserPass(int pUserID)
+        {
+            string pass;
+
+            try
+            {
+
+                var userinfo = db.sUsers.Where(e => e.UserID == pUserID).FirstOrDefault();
+                pass = userinfo.UserPass;
+                return new JsonResult { Data = pass, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = "error", message = "Password not found for the user..!!" });
+                throw ex;
+            }
+        }
+        public ActionResult SaveUpdate(ChangeVM D)
+        {
+            bool status = false;
+            string mes = "";
+            var w = (from y in databaseManager.sUsers
+                     where y.UserID.ToString() == User.Identity.Name
+                     select new { y.UserID }).FirstOrDefault();
+            try
+            {
+                using (var transaction = databaseManager.Database.BeginTransaction())
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var result = databaseManager.sUsers.SingleOrDefault(b => b.UserID == w.UserID);
+                        if (result != null)
+                        {
+                            result.UserPass = D.NewPass ;
+                            result.UserPin = D.UserPass;                      
+                        }
+                        databaseManager.SaveChanges();
+                        transaction.Commit();
+                        status = true;
+                        databaseManager.Dispose();
+                        ModelState.Clear();
+                    }
+                    else
+                    {
+                        status = false;
+                        transaction.Rollback();
+
+                    }
+                    return new JsonResult { Data = new { status = status, mes = mes } };
+                }
+            }
+            catch (Exception ex)
+            {
+                string mess = ex.Message;
+                return Json(new { status = "error", message = "Error Generate" });
             }
         }
     }

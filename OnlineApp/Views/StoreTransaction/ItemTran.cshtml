@@ -1,0 +1,269 @@
+﻿@model OnlineApp.ModelData.TranVM
+
+@{
+    ViewBag.Title = "ItemTran";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Item Return Adjustment/Write Off</h2>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content row">
+            <div class="modal-header">
+                <h5 class="modal-title">Item and Qty</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <table style="border:none">
+                        <tr style="border:none">
+                            <td style="color:red">
+                                Item Code:
+                            </td>
+                            <td>
+                                <select id="tItemCode" class="form-control" ,style="width:150px"><option>Select One</option></select>
+                                @Html.TextBox("ItemCode", "", new { @Class = "form-control", @readonly = "readonly" })
+                            </td>
+
+                        </tr>
+                        <tr style="border:none">
+                            <td>
+                                Item Name:
+                            </td>
+                            <td>
+                                @Html.TextBox("ItemName", "", new { @Class = "form-control", @readonly = "readonly" })
+                            </td>
+                        </tr>
+                        <tr style="border:none">
+                            <td style="color:red">
+                                Order Qty:
+                            </td>
+                            <td>
+                                @Html.TextBox("OrderQty", "0", new { @Class = "form-control", @type = "number" })
+                            </td>
+
+                        </tr>
+
+                        <tr style="border:none">
+                            <td></td>
+                            <td>
+                                <button style="width:100%" type="button" id="AddBtn"
+                                        class="btn btn-primary"
+                                        onclick="ItemInfo();">
+                                    Add
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <label style="color:red">Work Station ID and Name :</label>
+                @Html.TextBox("WarehouseID", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseID, @readonly = "readonly" })
+                @Html.TextBox("WarehouseIDLogin", null, htmlAttributes: new { @class = "form-control", @Value = ViewBag.WarehouseIDLogin, @readonly = "readonly" })
+                <label style="color:red">Transaction Type :</label>
+                @Html.DropDownList("TypeCode", null, "Select Transaction Typoe", new { @class = "form-control" })
+                <label>Any Refernece No :</label>
+                @Html.TextBox("RefNo", null, new { placeholder = "Ref No Field Optional", @class = "form-control" })                
+            </div>
+        </div>
+
+        <div class="col-md-6">         
+            
+            <label style="color:red">Issue Transaction No :</label>
+            @Html.DropDownList("ReturnNo", null, "Select Transaction Typoe", new { @class = "form-control" })            
+            <label>Remarks/Note:</label>
+            @Html.TextBox("Reasons", null, new { placeholder = "Remarks Field Optional", @class = "form-control", @style = "text-align:left;color:blue;font:bold" })
+            <input id="btnProduct" type="button" class="btn btn-primary btn-sm btn-block" value="Item Information" data-toggle="modal" data-target="#myModal" />
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-6">           
+            <input type="button" id="btnReset" value="Reset" class="btn btn-primary btn-sm btn-block" onclick="ReLoad()" ; />
+        </div>
+        <div class="col-md-6">
+            <input type="button" id="create" value="Save" class="btn btn-primary btn-sm btn-block" onclick="OrderCreated();" />
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-md-7">
+            <div>
+                <h4 style="color:green">Item Information </h4>
+            </div>
+            <table id="tblItem" class="table table-striped">
+                <tr>
+                    <th>Item Code</th>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("AddBtn").disabled = true;
+    document.getElementById("create").disabled = true;
+    document.getElementById("ReturnNo").disabled = true;
+    function getItemNo(id) {
+        $.ajax({
+            url: "@Url.Action("getItemDescNo", "OrderRequest")",
+            data: { inCustomer: $("#WarehouseID").val() },
+        type: "GET",
+        dataType: "json",
+        success: function (j) {
+            $("#tItemCode").html('0');
+            var options = '0-0';
+            for (var i = 0; i < j.length; i++) {
+                options += '<option value="' + j[i].id + '">' + j[i].name + '</option>';
+            }
+            $("#tItemCode").html(options);
+        }
+    });
+
+    }
+    $("#TypeCode").blur(function () {
+        var id = $('#WarehouseID').val();
+        getItemNo(id);
+    });
+    $("#tItemCode").change(function () {
+        var c = $("#tItemCode").val();
+        $("#ItemCode").val(c);
+        // $('#ItemCode').focus();
+        itemdesc();
+        document.getElementById("AddBtn").disabled = false;
+        $('#OrderQty').focus()
+    });
+ 
+    $("#OrderQty").blur(function () {
+        var num1 = parseInt($("#OrderQty").val());
+
+        if (num1 < 0) {
+            alert(num1 + " Sorry!!! The Negetive value You Can't Entry.");
+
+        }
+        //else {
+        //        alert(num1 + " is not a number");
+        //        $("#OrderQty").val('0');
+        //    }
+    })
+    function itemdesc() {
+
+        $.ajax({
+            url: "@Url.Action("getItemDesc", "OrderRequest")",
+            data: { inCustomer: $('#ItemCode').val() },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#ItemName').val(data);
+            //$('#ItemName').css('border-color', '');
+        },
+        error: function () {
+            alert("Failed! Item Invalid.");
+            $('#ItemName').val('Error Occured');
+        }
+    });
+    }
+    function ItemInfo() {
+        var d = document.getElementById("ItemCode");
+        var s = document.getElementById("ItemName");
+        var x = document.getElementById("OrderQty");
+        var vorder = document.getElementById("tblItem");
+        var tbr = vorder.rows.length;
+        var n = vorder.insertRow(tbr);
+        var c1 = n.insertCell(0);
+        var c2 = n.insertCell(1);
+        var c3 = n.insertCell(2);
+        //var c4 = n.insertCell(3);
+        //var c5 = n.insertCell(4);
+        //var c6 = n.insertCell(5);
+
+        c1.innerHTML = d.value;
+        c2.innerHTML = s.value;
+        c3.innerHTML = x.value;
+        //c4.innerHTML = y.value;
+        //c5.innerHTML = u.value;
+        //c6.innerHTML = z.value;
+        document.getElementById("AddBtn").disabled = true;
+        document.getElementById("create").disabled = false;
+    }
+    function ReLoad() {
+        alert("Are you sure reset the page ...?")
+        location.reload();
+    }
+    function OrderCreated() {
+        document.getElementById("create").disabled = true;
+        var answer = confirm('Are you sure you want to save this?');
+        if (answer) {
+            //  return;
+            //return status;
+        }
+        else {
+            return false;
+        }
+        var isAllValid = true;
+        var status = true;
+        OrderData = [];
+        debugger;
+        var id = $('#tblItem tr:last').index()
+        $('#tblItem tr').each(function (row, tr) {
+            if ((row > 0) && (row <= id)) {
+                OrderData.push({
+                    ItemNo: $(tr).find('td:eq(0)').text(),
+                    Qty: $(tr).find('td:eq(2)').text(),
+                    //UnitPrice: $(tr).find('td:eq(3)').text(),
+                });
+            }
+        });
+        if (isAllValid) {
+            var data = {
+             
+                PlantID: $('#WarehouseID').val(),       
+                RefNo: $('#RefNo').val(),
+                TranType: $('#TypeCode').val(),
+                Remarks: $('#Reasons').val(),
+                itemdtl: OrderData
+            }
+        }
+        //console.log(data);
+        //debugger;
+
+        $.ajax({
+            url: '/StoreTransaction/RAW',
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "JSON",
+            contentType: "application/json",
+            success: function (a) {
+                //check is successfully save to database
+                if (a.status == true) {
+                    //will send status from server side
+                    alert('Successfully Done... Transaction No:' + a.v);
+                    window.location.reload();
+                    OrderData = [];
+
+                }
+                else {
+                    alert('Transaction Process is Failed!! Please Contact to IT dept.. ');
+                }
+
+            },
+            error: function () {
+                alert('Error. Please try again.');
+            }
+        });
+    }
+</script>

@@ -432,6 +432,7 @@ E:\Development\OnlineApp\OnlineApp\bin\VSLangProj80.xml
 E:\Development\OnlineApp\OnlineApp\bin\VSLangProj2.xml
 E:\Development\OnlineApp\OnlineApp\obj\Debug\RdlCompile.cache
 E:\Development\OnlineApp\OnlineApp\obj\Debug\RdlCompile.compiled
+<<<<<<< HEAD
 D:\OfficeWork\Farid_Bhai\eStore\OnlineApp\bin\ApplicationInsights.config
 D:\OfficeWork\Farid_Bhai\eStore\OnlineApp\bin\SqlServerTypes\x64\msvcr120.dll
 D:\OfficeWork\Farid_Bhai\eStore\OnlineApp\bin\SqlServerTypes\x64\SqlServerSpatial140.dll
@@ -609,3 +610,6 @@ D:\OfficeWork\Farid_Bhai\eStore\OnlineApp\obj\Debug\RdlCompile.compiled
 D:\OfficeWork\Farid_Bhai\eStore\OnlineApp\obj\Debug\OnlineApp.dll
 D:\OfficeWork\Farid_Bhai\eStore\OnlineApp\obj\Debug\OnlineApp.pdb
 D:\OfficeWork\Farid_Bhai\eStore\OnlineApp\obj\Debug\OnlineApp.csprojResolveAssemblyReference.cache
+=======
+E:\Development\OnlineApp\OnlineApp\obj\Debug\OnlineApp.csprojResolveAssemblyReference.cache
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780

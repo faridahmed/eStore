@@ -465,6 +465,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="requisitionSlip" FunctionName="LIVEModel.Store.requisitionSlip">
       <ResultMapping>
         <ComplexTypeMapping TypeName="LIVEModel.requisitionSlip_Result">
@@ -497,6 +498,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+=======
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
     <EntitySetMapping Name="FrdItemIssues">
       <EntityTypeMapping TypeName="LIVEModel.FrdItemIssue">
         <MappingFragment StoreEntitySet="FrdItemIssue">
@@ -557,8 +560,39 @@
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
           <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+<<<<<<< HEAD
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+=======
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdItemTrans">
+      <EntityTypeMapping TypeName="LIVEModel.FrdItemTran">
+        <MappingFragment StoreEntitySet="FrdItemTran">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="TranType" ColumnName="TranType" />
+          <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+          <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FrdItemTranInfoes">
+      <EntityTypeMapping TypeName="LIVEModel.FrdItemTranInfo">
+        <MappingFragment StoreEntitySet="FrdItemTranInfo">
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Qty" ColumnName="Qty" />
+          <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+          <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+          <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
   </EntityContainerMapping>
 </Mapping>

@@ -85,6 +85,32 @@
           <Property Name="TotQty" Type="int" />
           <Property Name="TotAmt" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
+        <EntityType Name="FrdItemTran">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="PlantID" Type="int" Nullable="false" />
+          <Property Name="TrDate" Type="date" />
+          <Property Name="TrNo" Type="int" Nullable="false" />
+          <Property Name="TranType" Type="int" />
+          <Property Name="RefNo" Type="int" />
+          <Property Name="Remarks" Type="varchar" MaxLength="500" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FrdItemTranInfo">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="TrNo" />
+            <PropertyRef Name="ItemNo" />
+          </Key>
+          <Property Name="PlantID" Type="int" Nullable="false" />
+          <Property Name="TrNo" Type="int" Nullable="false" />
+          <Property Name="ItemNo" Type="int" Nullable="false" />
+          <Property Name="Qty" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="4" />
+        </EntityType>
         <EntityType Name="FrdMachine">
           <Key>
             <PropertyRef Name="MachineID" />
@@ -485,6 +511,8 @@
           <EntitySet Name="FrdIssueDetail" EntityType="Self.FrdIssueDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdItem" EntityType="Self.FrdItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdItemIssue" EntityType="Self.FrdItemIssue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FrdItemTran" EntityType="Self.FrdItemTran" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FrdItemTranInfo" EntityType="Self.FrdItemTranInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdMachine" EntityType="Self.FrdMachine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdParameter" EntityType="Self.FrdParameter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrdPurchase" EntityType="Self.FrdPurchase" Schema="dbo" store:Type="Tables" />
@@ -601,6 +629,7 @@
             <Parameter Name="inUnit" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="Work_order" ReturnType="Collection(LIVEModel.Work_order_Result)">
+<<<<<<< HEAD
           <Parameter Name="reqId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="machineWiseAmount" ReturnType="Collection(LIVEModel.machineWiseAmount_Result)">
@@ -609,8 +638,16 @@
           <FunctionImport Name="requisitionSlip" ReturnType="Collection(LIVEModel.requisitionSlip_Result)">
             <Parameter Name="reqId" Mode="In" Type="Int32" />
             <Parameter Name="plantId" Mode="In" Type="Int32" />
+=======
+<Parameter Name="reqId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="machineWiseAmount" ReturnType="Collection(LIVEModel.machineWiseAmount_Result)">
+
+          <Parameter Name="wId" Mode="In" Type="Int32" />
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
           </FunctionImport>
           <EntitySet Name="FrdIssueDetails" EntityType="LIVEModel.FrdIssueDetail" />
+<<<<<<< HEAD
           <EntitySet Name="FrdItemIssues" EntityType="LIVEModel.FrdItemIssue" />
           <FunctionImport Name="IssueReturnQty" ReturnType="Collection(LIVEModel.IssueReturnQty_Result)">
             <Parameter Name="wId" Mode="In" Type="Int32" />
@@ -621,6 +658,10 @@
             <Parameter Name="pid" Mode="In" Type="Int32" />
             <Parameter Name="recrcid" Mode="In" Type="Int32" />
           </FunctionImport>
+=======
+          <EntitySet Name="FrdItemTrans" EntityType="LIVEModel.FrdItemTran" />
+          <EntitySet Name="FrdItemTranInfoes" EntityType="LIVEModel.FrdItemTranInfo" />
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
         </EntityContainer>
         <ComplexType Name="spUserLoginToApplication_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1087,6 +1128,7 @@
           <Property Type="String" Name="PlantName" Nullable="false" MaxLength="500" />
           <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
         </ComplexType>
+<<<<<<< HEAD
         <ComplexType Name="requisitionSlip_Result">
           <Property Type="Int32" Name="ItemID" Nullable="false" />
           <Property Type="Int32" Name="ReqID" Nullable="false" />
@@ -1116,6 +1158,9 @@
           <Property Name="DelQty" Type="Int32" />
           <Property Name="DelQtyD" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
+=======
+
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
         <EntityType Name="FrdItemIssue">
           <Key>
             <PropertyRef Name="PlantID" />
@@ -1136,6 +1181,7 @@
           <Property Name="TotQty" Type="Int32" />
           <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
+<<<<<<< HEAD
         <ComplexType Name="IssueReturnQty_Result">
           <Property Type="Int32" Name="WarehouseID" Nullable="false" />
           <Property Type="String" Name="WarehouseName" Nullable="false" MaxLength="500" />
@@ -1171,6 +1217,50 @@
           <Property Type="String" Name="MobileNumber" Nullable="true" MaxLength="30" />
           <Property Type="Int32" Name="PlantID" Nullable="false" />
         </ComplexType>
+=======
+        <EntityType Name="FrdIssueDetail">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="ItemNo" />
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="PlantID" Type="Int32" Nullable="false" />
+          <Property Name="ItemNo" Type="Int32" Nullable="false" />
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="Qty" Type="Int32" />
+          <Property Name="QtyD" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="TotAmt" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DelQty" Type="Int32" />
+          <Property Name="DelQtyD" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="FrdItemTran">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="PlantID" Type="Int32" Nullable="false" />
+          <Property Name="TrDate" Type="DateTime" Precision="0" />
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="TranType" Type="Int32" />
+          <Property Name="RefNo" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FrdItemTranInfo">
+          <Key>
+            <PropertyRef Name="PlantID" />
+            <PropertyRef Name="TrNo" />
+            <PropertyRef Name="ItemNo" />
+          </Key>
+          <Property Name="PlantID" Type="Int32" Nullable="false" />
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="ItemNo" Type="Int32" Nullable="false" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="4" />
+        </EntityType>
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
 
       </Schema>
     </edmx:ConceptualModels>
@@ -1643,6 +1733,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+<<<<<<< HEAD
           <FunctionImportMapping FunctionImportName="requisitionSlip" FunctionName="LIVEModel.Store.requisitionSlip">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LIVEModel.requisitionSlip_Result">
@@ -1675,6 +1766,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+=======
+
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
           <EntitySetMapping Name="FrdItemIssues">
             <EntityTypeMapping TypeName="LIVEModel.FrdItemIssue">
               <MappingFragment StoreEntitySet="FrdItemIssue">
@@ -1735,10 +1829,43 @@
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
                 <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+<<<<<<< HEAD
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           </EntityContainerMapping>
+=======
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FrdItemTrans">
+            <EntityTypeMapping TypeName="LIVEModel.FrdItemTran">
+              <MappingFragment StoreEntitySet="FrdItemTran">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+                <ScalarProperty Name="TranType" ColumnName="TranType" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="TrDate" ColumnName="TrDate" />
+                <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FrdItemTranInfoes">
+            <EntityTypeMapping TypeName="LIVEModel.FrdItemTranInfo">
+              <MappingFragment StoreEntitySet="FrdItemTranInfo">
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="PlantID" ColumnName="PlantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+
+        </EntityContainerMapping>
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -6,6 +6,7 @@
 //using System.Web;
 //using System.Web.Mvc;
 
+<<<<<<< HEAD
 //namespace OnlineApp.Controllers
 //{
 //    [Authorize]
@@ -58,6 +59,60 @@
 //        {
 //            var pData = databaseManager.spPurchaseData(inWarehouseID, inTrNo, 100);
 //            return new JsonResult { Data = pData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+=======
+namespace OnlineApp.Controllers
+{
+    [Authorize]
+    public class StoreTransactionController : Controller
+    {
+        private LIVEEntities databaseManager = new LIVEEntities();
+        // GET: StoreTransaction
+        public ActionResult ItemReceived()
+        {
+            var w = (from y in databaseManager.sUsers
+                     where y.UserID.ToString() == User.Identity.Name
+                     select new { y.PlantNo }).FirstOrDefault();
+            var wn = databaseManager.sPlants.Where(x => x.PlantNo == w.PlantNo).FirstOrDefault();
+            ViewBag.WarehouseID = wn.PlantNo;
+            ViewBag.WarehouseIDLogin = wn.PlantName;
+            ViewBag.RefInvoice = new SelectList((from s in databaseManager.FrdReceiveMasters
+                                               join cust in databaseManager.FrdSuppliers
+                                                      on s.SupplierID equals cust.SupplierID
+                                               where s.PlantID == cust.BranchCode && s.PlantID == w.PlantNo && s.AppFlag == "A" && s.AppBy != "XXXXX" && s.Status == "APP"
+                                               orderby s.ReqRecID descending
+                                               select new
+                                               {
+                                                   ReqRecID = s.ReqRecID,
+                                                   CustomerID = cust.SupplierName + " (" + s.ReqRecID + ") " + s.ReqRecID
+                                               }),
+           "ReqRecID", "CustomerID", null);
+            var tCode = new SelectList(
+            new[]
+                {
+                       new { ID = 130, Name = "Local" },
+                       new { ID = 120, Name = "Foreign" },
+                },
+                "ID",
+                "Name"
+            );
+            ViewBag.TypeCode = tCode;
+            var tCodes = new SelectList(
+            new[]
+                {
+                       new { ID = 220, Name = "Sphere" },
+                       new { ID = 230, Name = "Non-Sphere" },
+                },
+                "ID",
+                "Name"
+            );
+            ViewBag.TypeCodes = tCodes;
+            return View("ItemReceived");
+        }
+         public JsonResult ShowData(int inWarehouseID, int inTrNo)
+        {
+            var pData = databaseManager.spPurchaseData(inWarehouseID, inTrNo, 100);
+            return new JsonResult { Data = pData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
 
 //        }
 //        public ActionResult MyTransaction(TransactionVM D)
@@ -257,6 +312,7 @@
 //                        status = false;
 //                        transaction.Rollback();
 
+<<<<<<< HEAD
 //                    }
 //                    return new JsonResult { Data = new { status = status, mes = mes, v = v } };
 //                }
@@ -269,3 +325,128 @@
 //        }
 //    }
 //}
+=======
+                    }
+                    return new JsonResult { Data = new { status = status, mes = mes, v = v } };
+                }
+            }
+            catch (Exception ex)
+            {
+                string mess = ex.Message;
+                return Json(new { status = "error", message = "Error Generate" });
+            }
+          }
+        public ActionResult ItemTran()
+        {
+            var w = (from y in databaseManager.sUsers
+                     where y.UserID.ToString() == User.Identity.Name
+                     select new { y.PlantNo }).FirstOrDefault();
+            var wn = databaseManager.sPlants.Where(x => x.PlantNo == w.PlantNo).FirstOrDefault();
+            var cust = databaseManager.sBenificiaries.Where(x => x.PlantID == wn.PlantNo && x.Status == "Y").Select(x => new { Text = x.BenificiaryName + " , " + x.BenificiaryID, Value = x.BenificiaryID }).OrderBy(e => e.Text).ToList();
+            ViewBag.WarehouseID = wn.PlantNo;
+            ViewBag.WarehouseIDLogin = wn.PlantName;
+            //ViewBag.CustomerID = new SelectList(cust, "Value", "Text");
+            //ViewBag.DeptID = databaseManager.sDepts.OrderBy(b => b.DeptName);
+            //ViewBag.DeptID = new SelectList(databaseManager.sDepts.OrderBy(x => x.DeptName), "DeptID", "DeptName");
+            ViewBag.ReturnNo = new SelectList(databaseManager.FrdItemIssues.OrderBy(x => x.TrNo), "TrNo", "TrNo");
+            var tCode = new SelectList(
+                        new[]
+                        {
+                       new { ID = 10, Name = "Write Off" },
+                       new { ID = 20, Name = "Increment Adjust" },
+                       new { ID = 30, Name = "Decrease Adjust" },
+                       new { ID = 40, Name = "Return" },
+                     },
+                    "ID",
+                    "Name"
+                    );
+            ViewBag.TypeCode = tCode;
+            return View("ItemTran");
+        }
+        public ActionResult RAW(TranVM D)
+        {
+            bool status = false;
+            string mes = "";
+            var w = (from y in databaseManager.sUsers
+                     where y.UserID.ToString() == User.Identity.Name
+                     select new { y.PlantNo }).FirstOrDefault();
+            var wn = databaseManager.sPlants.Where(x => x.PlantNo == w.PlantNo).FirstOrDefault();
+            string s1 = w.PlantNo.ToString();
+            string s2 = string.Concat(s1 + "9000000");
+            int reqno = Convert.ToInt32(s2);
+            var maxreqno = (from n in databaseManager.FrdItemIssues where n.PlantID == w.PlantNo select n.TrNo).DefaultIfEmpty(reqno).Max();
+            var maxrNo = maxreqno + 1;
+            int v = maxrNo;
+            try
+            {
+                using (var transaction = databaseManager.Database.BeginTransaction())
+                {
+                    if (ModelState.IsValid)
+                    {
+                        FrdItemTran dbo = new FrdItemTran();
+                        {
+                            dbo.TrNo = maxrNo;
+                            dbo.PlantID = D.PlantID;
+                            //dbo.DeptID = D.DeptID;
+                            dbo.TrDate = DateTime.Today;
+                            dbo.TranType = D.TranType;
+                            dbo.RefNo = D.RefNo;
+                            dbo.Remarks = D.Remarks;
+                            //dbo.ReceivedBy = D.ReceivedBy;
+                            //dbo.ReceiverName = D.ReceiverName;
+                            //dbo.Status = "ISS";
+                            dbo.CreateDate = DateTime.Now;
+                            dbo.CreateBy = User.Identity.Name;
+                        };
+                        databaseManager.FrdItemTrans.Add(dbo);
+                        foreach (var i in D.itemdtl)
+                        {
+                            FrdItemTranInfo obd = new FrdItemTranInfo();
+                            {
+                                obd.PlantID = D.PlantID;
+                                obd.TrNo = maxrNo;
+                                obd.ItemNo = i.ItemNo;
+                                obd.Qty = i.Qty;
+                                //obd.DelQty = i.DelQty;
+                                obd.UnitPrice = 0;
+                                databaseManager.FrdItemTranInfoes.Add(obd);
+                            }
+                            if (i.ItemNo != 0 && D.PlantID != 0 && (D.TranType==30|| D.TranType == 10))
+                            {
+                                databaseManager.spStockProduct(D.PlantID, i.ItemNo, 3, Convert.ToInt32(i.Qty), i.Qty, 0);
+                            }
+                            else if(i.ItemNo != 0 && D.PlantID != 0 && (D.TranType == 40 || D.TranType == 20))
+                            {
+                                databaseManager.spStockProduct(D.PlantID, i.ItemNo, 4, Convert.ToInt32(i.Qty), i.Qty, 0);
+                            }
+                        }
+                        //var result = databaseManager.FrdRequestMasters.SingleOrDefault(b => b.ReqID == D.RefOrderNo);
+                        //if (result != null)
+                        //{
+                        //    result.Status = "D";
+                        //    //databaseManager.SaveChanges();
+                        //}
+                        databaseManager.SaveChanges();
+                        transaction.Commit();
+                        status = true;
+                        databaseManager.Dispose();
+                        ModelState.Clear();
+                    }
+                    else
+                    {
+                        status = false;
+                        transaction.Rollback();
+
+                    }
+                    return new JsonResult { Data = new { status = status, mes = mes, v = v } };
+                }
+            }
+            catch (Exception ex)
+            {
+                string mess = ex.Message;
+                return Json(new { status = "error", message = "Error Generate" });
+            }
+        }
+    }
+}
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780

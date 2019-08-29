@@ -1,0 +1,163 @@
+﻿
+@model OnlineApp.ModelData.ChangeVM
+<h2>Change Password Change</h2>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-9">
+            <div>
+                <label style="color:red">User ID Name</label>
+                @*@Html.TextBox("userID", null, new { @class = "form-control", @Value = ViewBag.userID, @readonly = "readonly" })*@
+                @Html.TextBox("userID", null, new { @class = "form-control", @readonly = "readonly" })              
+                @Html.TextBox("userName", null, new { @class = "form-control", @readonly = "readonly" })
+                <label style="color:red">Current Password</label>
+                @Html.Password("Pass", null, new { @class = "form-control" })
+                <label style="color:red">New Password</label>
+                @Html.Password("NewPass", null, new { @class = "form-control"})
+                <label style="color:red">Confirm Password</label>
+                @Html.Password("ConPass", null, new { @class = "form-control" })
+                @Html.Hidden("hPass", null, new { @class = "form-control" })
+                
+            </div>
+        </div>
+    </div>
+    <!---another div row starts-->
+    <br /><br />
+    <div class="row">
+        <div class="col-md-9">            
+            @*<button type="button" id="btnReset" class="btn btn-info">Reset</button>
+            <button id="btnSave" type="button" class="btn btn-info">Update</button>*@
+            <input type="button" id="clear" value="Reset" class="btn btn-primary btn-sm btn-block" onclick="ReLoad();" />
+            <input type="button" id="create" value="Update" class="btn btn-primary btn-sm btn-block" onclick="ffnUpdate();" />
+            <br />
+        </div>
+    </div>
+    <!---another div row Ends-->
+</div>
+<script>
+    //document.getElementById("create").disabled = true;
+    $("#Pass").change(function () {
+        $.ajax({
+            url: "@Url.Action("GetUserPass", "UserManage")",
+            data: { puserID: $("#userID").val()},
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            $("#hPass").val(data);   
+            var c = $("#hPass").val();
+            var d = $("#Pass").val();            
+            if (c != d) {
+                alert("Password does not match..");
+                $('#Pass').val("");
+                $('#Pass').focus();
+            }
+        },
+        error: function () {
+            alert("Failed to found user password..");
+        }
+    });
+    });
+    function ValidPassword() {
+        password1 = $('#Pass').val();
+        password2 = $('#hPass').val();
+
+        // If password not entered 
+        if (password1 == '')
+            alert("Please enter current password");
+
+            // If confirm password not entered 
+        //else if (password2 == '')
+           // alert("Please enter confirm password");
+
+            // If Not same return False.     
+        else if (password1 != password2) {
+            alert("\nPassword did not match: Please try again...")
+            return false;
+            location.reload();
+        }
+
+            // If same return True. 
+        else {
+            //alert("Password Match: Welcome to GeeksforGeeks!")
+            return true;
+        }
+    }
+    function checkPassword() {
+        password1 = $('#NewPass').val();
+        password2 = $('#ConPass').val();
+
+        // If password not entered 
+        if (password1 == '')
+            alert("Please enter Password");
+
+            // If confirm password not entered 
+        else if (password2 == '')
+            alert("Please enter confirm password");
+
+            // If Not same return False.     
+        else if (password1 != password2) {
+            alert("\nPassword did not match...")
+            return false;
+            location.reload();
+        }
+
+            // If same return True. 
+        else {
+            //alert("Password Match: Welcome to GeeksforGeeks!")
+            document.getElementById("create").disabled = false;
+            return true;
+        }
+
+    }
+    function ReLoad() {
+        alert("Are you sure reset the page ...?")
+        location.reload();
+    }
+    function ffnUpdate() {
+        document.getElementById("create").disabled = true;
+        $(checkPassword);
+        $(ValidPassword);
+        var answer = confirm('Are you sure you want to Update this?');
+        if (answer) {
+            //  return;
+            //return status;
+        }
+        else {
+            return false;
+        }
+        var isAllValid = true;
+        var status = true;
+
+        if (isAllValid) {
+            var data = {
+                NewPass: $('#NewPass').val(),
+                userID: $('#userID').val(),
+                ConPass: $('#ConPass').val(),
+                UserPass: $('#Pass').val(),
+             }
+        }
+
+        $.ajax({
+            url: '/UserManage/SaveUpdate',
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "JSON",
+            contentType: "application/json",
+            success: function (a) {
+                //check is successfully save to database
+                if (a.status == true) {
+                    //will send status from server side
+                    alert('Successfully Done... ');
+                    window.location.reload();
+
+                }
+                else {
+                    alert(' Failed!! Please Contact to IT dept.. ');
+                }
+
+            },
+            error: function () {
+                alert('Error. Please try again.');
+            }
+        });
+    }
+</script>

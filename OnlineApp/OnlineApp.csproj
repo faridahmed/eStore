@@ -287,6 +287,12 @@
     <Compile Include="Models\FrdItemIssue.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FrdItemTran.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FrdItemTranInfo.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FrdMachine.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -613,9 +619,14 @@
     <Content Include="Views\MachineAmount\Index.cshtml" />
     <Content Include="Views\MachineAmount\Amount.cshtml" />
     <Content Include="Views\Barcode\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\RequisitionSlip\RequisitionslipCount.cshtml" />
     <Content Include="Views\RequisitionSlip\Index.cshtml" />
     <Content Include="Views\RequisitionSlip\AssuranceCheck.cshtml" />
+=======
+    <Content Include="Views\UserManage\ChangePass.cshtml" />
+    <Content Include="Views\StoreTransaction\ItemTran.cshtml" />
+>>>>>>> 42335c885198a9fd43d773370cbb58fd26983780
     <None Include="workorderdataset.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>

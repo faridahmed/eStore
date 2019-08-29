@@ -42,6 +42,28 @@ namespace OnlineApp.ModelData
         public string UserPass { get; set; }
 
     }
+    public class ChangeVM
+    {
+        [Required]
+        [Display(Name = "User ID")]
+        public int UserID { get; set; }
+      //  [Required]
+        [DataType(DataType.Password)]
+        
+        [Display(Name = "Password")]
+        public string UserPass { get; set; }
+       // [Required]
+        [DataType(DataType.Password)]
+       // [MinLength(6)]
+        [Display(Name = "Password")]
+        public string NewPass { get; set; }
+        //[Required]
+        [DataType(DataType.Password)]
+       // [MinLength(6)]
+        [Display(Name = "Password")]
+        public string ConPass { get; set; }
+
+    }
     public class MenuSubVM
     {
         public int Id { get; set; }

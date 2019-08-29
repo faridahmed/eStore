@@ -69,7 +69,7 @@
     $("#userID").change(function () {
         $.ajax({
             url: "@Url.Action("GetuserInfo", "userManage")",
-            data: { puserID: $("#userID").val()},
+            data: { puserID: $("#pUserID").val() },
             type: "GET",
             dataType: "json",
             success: function (data) {

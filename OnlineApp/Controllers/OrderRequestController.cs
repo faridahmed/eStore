@@ -457,6 +457,7 @@ namespace OnlineApp.Controllers
                             result.AppDate2 = DateTime.Today;
                             result.AppBy2 = User.Identity.Name;
                             result.AppRemarks2 = D.SecondRemarks;
+                            result.Status = "APP";
                             databaseManager.SaveChanges();
                         }
                         databaseManager.SaveChanges();

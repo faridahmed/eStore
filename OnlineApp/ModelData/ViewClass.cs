@@ -160,4 +160,17 @@ namespace OnlineApp.ModelData
        
 
     }
+    public class TranVM
+    {
+        public int PlantID { get; set; }
+        public Nullable<System.DateTime> TrDate { get; set; }
+        public int TrNo { get; set; }
+        public Nullable<int> TranType { get; set; }
+        public Nullable<int> RefNo { get; set; }
+        public string Remarks { get; set; }
+        //public string CreateBy { get; set; }
+        //public Nullable<System.DateTime> CreateDate { get; set; }
+        public List<FrdItemTranInfo> itemdtl { get; set; }
+
+    }
 }
