@@ -52,6 +52,8 @@ namespace OnlineApp.Models
         public virtual DbSet<FrdStockMaster> FrdStockMasters { get; set; }
         public virtual DbSet<FrdItemIssue> FrdItemIssues { get; set; }
         public virtual DbSet<FrdIssueDetail> FrdIssueDetails { get; set; }
+        public virtual DbSet<FrdItemTran> FrdItemTrans { get; set; }
+        public virtual DbSet<FrdItemTranInfo> FrdItemTranInfoes { get; set; }
     
         public virtual ObjectResult<spUserLoginToApplication_Result> spUserLoginToApplication(Nullable<int> userID, string userPass, string userPin)
         {

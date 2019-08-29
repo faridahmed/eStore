@@ -33,6 +33,8 @@
         <EntityTypeShape EntityType="LIVEModel.FrdStockMaster" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdItemIssue" Width="1.5" PointX="15.375" PointY="8.75" />
         <EntityTypeShape EntityType="LIVEModel.FrdIssueDetail" Width="1.5" PointX="15.375" PointY="4.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdItemTran" Width="1.5" PointX="15.375" PointY="13.75" />
+        <EntityTypeShape EntityType="LIVEModel.FrdItemTranInfo" Width="1.5" PointX="3.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
